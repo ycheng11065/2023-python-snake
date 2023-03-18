@@ -15,10 +15,12 @@ import typing
 
 #Value constants
 FOOD_VALUE = 2
-HEAD_KILL_VALUE = 3;
+HEAD_KILL_VALUE = 3
 MIN_MOVE_VALUE = float('-inf')
-DEFAULT_MOVE_VALUE = 0;
-# HEALTH_TRESHOLD = 40;
+DEFAULT_MOVE_VALUE = 0
+HEALTH_THRESHOLD = 40
+
+# state = None
 
 # info is called when you create your Battlesnake on play.battlesnake.com
 # and controls your Battlesnake's appearance
@@ -42,6 +44,11 @@ def start(game_state: typing.Dict):
 
 # end is called when your Battlesnake finishes a game
 def end(game_state: typing.Dict):
+    # if (game_state != None):
+    #   board_copy = createState(game_state);
+    #   for row in board_copy:
+    #     format_row = " ".join(str(el).rjust(2, ' ') for el in row);
+    #   print(format_row)
     print("GAME OVER\n")
 
 
@@ -49,7 +56,7 @@ def end(game_state: typing.Dict):
 # Valid moves are "up", "down", "left", or "right"
 # See https://docs.battlesnake.com/api/example-move for available data
 def move(game_state: typing.Dict) -> typing.Dict:
-
+    # state = game_state
     is_move_safe = {
       "up": DEFAULT_MOVE_VALUE, 
       "down": DEFAULT_MOVE_VALUE, 
@@ -80,7 +87,11 @@ def move(game_state: typing.Dict) -> typing.Dict:
 
     print(safe_moves);
     if len(safe_moves) == 0:
+        board_copy = createState(game_state);
         print(f"MOVE {game_state['turn']}: No safe moves detected! Moving down")
+        for row in board_copy:
+          format_row = " ".join(str(el).rjust(2, ' ') for el in row);
+          print(format_row)
         return {"move": "down"}
 
     # TODO: Step 4 - Move towards food instead of random, to regain health and survive longer
@@ -198,12 +209,15 @@ def collision(game_state, is_move_safe):
 
 def findFood(game_state, safe_moves):
     foods = game_state["board"]["food"]
+    health = game_state["you"]["health"]
     my_head = game_state["you"]["body"][0]
     head_x = my_head["x"];
     head_y = my_head["y"];
     closest_dist = float('inf')
     closest = {}
 
+    if (health > HEALTH_THRESHOLD): return
+      
     # Find closest food
     for food in foods:
       curr_dist = calculateDist(my_head, food)
@@ -224,6 +238,67 @@ def findFood(game_state, safe_moves):
       #go down  
       safe_moves["down"] += FOOD_VALUE
 
+# Generates a copy of current game board
+def createState(game_state):
+    board_width = game_state["board"]["width"]
+    board_height = game_state["board"]["height"]
+    foods = game_state["board"]["food"]
+    our_snake_id = game_state["you"]["id"]
+    all_snake = game_state["board"]["snakes"]
+    # 0 is empty space
+    # 1 is food
+
+    # 2 is our snake
+    # 3 is our snake head 
+  
+    # 4 is opponent snake 1
+    # 5 is opponent snake 1' head
+  
+    # 6 is opponent snake 2
+    # 7 is opponent snake 2's head
+  
+    # 8 is opponent snake 3
+    # 9 is opponent snake 3's head
+  
+    board_copy = [[0 for _ in range(board_width)] for _ in range(board_height)]
+
+    for food in foods:
+      food_x = food["x"]
+      food_y = abs(board_height - 1 - food["y"])
+      board_copy[food_y][food_x] = 1;
+
+    counter = 8
+    for snake in all_snake:
+      snake_head = snake["head"];
+      board_val = counter
+      if (snake["id"] == our_snake_id): board_val = 2;
+      for body in snake["body"]:
+        body_x = body["x"];
+        body_y = abs(board_height - 1 - body["y"]);
+        if (body == snake_head):
+          board_copy[body_y][body_x] = board_val + 1;
+        else:
+          board_copy[body_y][body_x] = board_val;
+
+      if (board_val != 2):
+        counter -= 2;
+    return board_copy;
+
+# Moves the target snake by move inside the copied gameState
+# def makeMove(new_game_state, snake, move):
+#   board_width = new_game_state
+  
+# def gameOver(state):
+#    # Implement this function to check if the game is over based on the current state
+#    # For example, check if the snake has collided with a wall or another snake
+#    pass
+
+# def miniMax(state, depth, maximizing_player, snake_id):
+#   if (depth == 2 or is_game_over == True) {
+#     pass
+#   }
+  
+      
 # Start server when `python main.py` is run
 if __name__ == "__main__":
     from server import run_server
