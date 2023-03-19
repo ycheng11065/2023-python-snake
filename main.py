@@ -101,6 +101,10 @@ def move(game_state: typing.Dict) -> typing.Dict:
     print(f"MOVE {game_state['turn']}: {next_move}")
     return {"move": next_move}
 
+# ----------------------------------------------------------------------------
+# SNAKE BASIC BEHAVIOR
+#-----------------------------------------------------------------------------
+
 # Calculate the distance between the two entities
 def calculateDist(a, b):
   return abs(a["x"] - b["x"]) + abs(a["y"] - b["y"]);
@@ -233,6 +237,10 @@ def findFood(game_state, safe_moves):
       #go down  
       safe_moves["down"] += FOOD_VALUE
 
+# ----------------------------------------------------------------------------
+# SNAKE STRATEGY BEHAVIOR
+#-----------------------------------------------------------------------------
+
 # Generates a copy of current game board
 def createBoardState(game_state):
     board_width = game_state["board"]["width"]
@@ -247,6 +255,7 @@ def createBoardState(game_state):
       # negative id = snake head
   
     board_copy = [[0 for _ in range(board_width)] for _ in range(board_height)]
+    head_board = [["" for _ in range(board_width)] for _ in range(board_height)]
   
     for food in foods:
       food_x = food["x"]
@@ -261,11 +270,17 @@ def createBoardState(game_state):
         body_x = body["x"];
         body_y = abs(board_height - 1 - body["y"]);
         if (body == snake_head):
-          board_copy[body_y][body_x] = -snake_id;
+          board_copy[body_y][body_x] = snake_id;
+          head_board[body_y][body_x] = snake_id;
         else:
           board_copy[body_y][body_x] = snake_id;
+
+    board_state = {
+      "board": board_copy,
+      "head_board": head_board
+    }
   
-    return board_copy;
+    return board_state;
   
 # Create a dict of all snake info, head, body
 def snakeState(game_state):
@@ -295,49 +310,43 @@ def createGameState(game_state, curr_snake_id):
   game_state_copy["snakes"] = snakeState(game_state)
   game_state_copy["curr_snake_id"] = curr_snake_id;
 
-# Creates a copy of the game state with the new move 
-# def makeMove(new_game_state, curr_snake_id, move):
-#   board_width = len(new_game_state[0])
-#   board_height = len(new_game_state)
+#Creates a copy of the game state with the new move 
+def makeMove(game_state, curr_snake_id, move):
+  board_width = len(game_state["board"][0])
+  board_height = len(game_state["board"])
 
-#   game_state_copy = [row[:] for row in new_game_state]
+  game_state_copy = [row[:] for row in game_state["board"]]
 
-#   head_x, head_y = None, None
+  head_x, head_y = None, None
 
-#   # find current snake's head
-#   for y in range(board_height):
-#     for x in range(board_width):
-#       if (game_state_copy[y][x] == snake + 1):
-#         head_x = x
-#         head_y = y
-#         break;
-#     if (head_x != None):
-#       break
+  # find current snake's head
+  for y in range(board_height):
+    for x in range(board_width):
+      if (game_state_copy[y][x] == snake + 1):
+        head_x = x
+        head_y = y
+        break;
+    if (head_x != None):
+      break
      
-#   if (move == "up"):
-#     head_y = head_y + 1
-#   elif (move == "down"):
-#     head_y = head_y - 1
-#   elif (move == "left"):
-#     head_x = head_x - 1
-#   elif (move == "right"):
-#     head_x = head_x + 1
+  if (move == "up"):
+    head_y = head_y + 1
+  elif (move == "down"):
+    head_y = head_y - 1
+  elif (move == "left"):
+    head_x = head_x - 1
+  elif (move == "right"):
+    head_x = head_x + 1
 
-#   destination_cell = game_state_copy[head_y][head_x]
-#   # Check if snake dies if this move is performed
-#   if (head_x < 0 or head_y < 0 or head_x >= board_width or head_y >= board_height or destination_cell > 1):
-#     # Check if collision is with a snake smaller than current snake
-#     if (destination_cell % 2 != 0):
-#       collided_snake = destination_cell - 1
-#       our_snake_size = 0
-#       collided_snake_size = 0
-#       for y in range(board_height):
-#         for x in range(board_width):
-#           if (game_state_copy(y)(x) == snake):
-#             our_snake_size += 1;
-#           elif (game_state_copy(y)(x) == collided_snake):
-#             collided_snake_size += 1;
-#       if ()
+  destination_cell = game_state_copy[head_y][head_x]
+  
+  # Check if snake dies if this move is performed
+  if (head_x < 0 or head_y < 0 or head_x >= board_width or head_y >= board_height or destination_cell != 0 or destination_cell != 1):
+    # Check if collision is with the head of a snake smaller than current snake
+    if (destination_cell < 0):
+      for snake in game_state["snakes"]:
+        if (snake["id"] * -1 == )
+    
           
         
   
@@ -349,8 +358,8 @@ def createGameState(game_state, curr_snake_id):
 # The snake MiniMax algorithm
 def miniMax(game_state, depth, maximizing_player, curr_snake_id):
     # when given game_state is over, return the current state point
-    if (depth == 0 or gameOver(game_state) == True) {
-      return evaluatePoint(game_state, depth, curr_snake_id)
+    if (depth == 0 or gameOver(game_state) == True) { #todo
+      return evaluatePoint(game_state, depth, curr_snake_id)  #todo
     }
 
     # get the id of the next snake that were gonna minimax
@@ -367,14 +376,14 @@ def miniMax(game_state, depth, maximizing_player, curr_snake_id):
     if (maximizing_player):
       highest_value = float(-inf)
       for move in moves:
-        new_game_state = makeMove(game_state, curr_snake_id, move)
+        new_game_state = makeMove(game_state, curr_snake_id, move) #todo
         curr_val = miniMax(new_game_state, depth - 1, false, next_snake_id)
         highest_value = max(highest_value, curr_val)
       return best_value
     else:
       min_value = float(inf)
       for move in moves:
-        new_game_state = makeMove(game_state, curr_snake_id, move)
+        new_game_state = makeMove(game_state, curr_snake_id, move) #todo
         curr_val = miniMax(new_game_state, depth - 1, false, next_snake_id)
         min_value = min(min_value, curr_val)
       return min_value
