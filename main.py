@@ -44,11 +44,6 @@ def start(game_state: typing.Dict):
 
 # end is called when your Battlesnake finishes a game
 def end(game_state: typing.Dict):
-    # if (game_state != None):
-    #   board_copy = createState(game_state);
-    #   for row in board_copy:
-    #     format_row = " ".join(str(el).rjust(2, ' ') for el in row);
-    #   print(format_row)
     print("GAME OVER\n")
 
 
@@ -89,9 +84,9 @@ def move(game_state: typing.Dict) -> typing.Dict:
     if len(safe_moves) == 0:
         board_copy = createState(game_state);
         print(f"MOVE {game_state['turn']}: No safe moves detected! Moving down")
-        for row in board_copy:
-          format_row = " ".join(str(el).rjust(2, ' ') for el in row);
-          print(format_row)
+        # for row in board_copy:
+        #   format_row = " ".join(str(el).rjust(2, ' ') for el in row);
+        #   print(format_row)
         return {"move": "down"}
 
     # TODO: Step 4 - Move towards food instead of random, to regain health and survive longer
@@ -239,54 +234,112 @@ def findFood(game_state, safe_moves):
       safe_moves["down"] += FOOD_VALUE
 
 # Generates a copy of current game board
-def createState(game_state):
+def createBoardState(game_state):
     board_width = game_state["board"]["width"]
     board_height = game_state["board"]["height"]
     foods = game_state["board"]["food"]
     our_snake_id = game_state["you"]["id"]
     all_snake = game_state["board"]["snakes"]
-    # 0 is empty space
-    # 1 is food
-
-    # 2 is our snake
-    # 3 is our snake head 
+      # 0 is empty space
+      # 1 is food
   
-    # 4 is opponent snake 1
-    # 5 is opponent snake 1' head
-  
-    # 6 is opponent snake 2
-    # 7 is opponent snake 2's head
-  
-    # 8 is opponent snake 3
-    # 9 is opponent snake 3's head
+      # positive id = snake body
+      # negative id = snake head
   
     board_copy = [[0 for _ in range(board_width)] for _ in range(board_height)]
-
+  
     for food in foods:
       food_x = food["x"]
       food_y = abs(board_height - 1 - food["y"])
       board_copy[food_y][food_x] = 1;
-
-    counter = 8
+      
     for snake in all_snake:
+      snake_id = snake["id"]
       snake_head = snake["head"];
-      board_val = counter
-      if (snake["id"] == our_snake_id): board_val = 2;
+      
       for body in snake["body"]:
         body_x = body["x"];
         body_y = abs(board_height - 1 - body["y"]);
         if (body == snake_head):
-          board_copy[body_y][body_x] = board_val + 1;
+          board_copy[body_y][body_x] = -snake_id;
         else:
-          board_copy[body_y][body_x] = board_val;
-
-      if (board_val != 2):
-        counter -= 2;
+          board_copy[body_y][body_x] = snake_id;
+  
     return board_copy;
+  
+# Create a dict of all snake info, head, body
+def snakeState(game_state):
+    snakes = game_state["board"]["snakes"]
+  
+    snake_state = []
+    head = 9
+    for snake in snakes:
+      snake_id = snake["id"]
+      snake_head = snake["head"]
+      snake_body = [dict(coord) for coord in snake["body"]]
+  
+      snake_state.append({
+        "id": snake_id,
+        "head": snake_head,
+        "body": snake_body
+      })
+      
+        
+    return snake_state
 
-# Moves the target snake by move inside the copied gameState
+# Create an entire copy of the current game state, including current board, snakes and curr snake id 
+def createGameState(game_state, curr_snake_id):
+  game_state_copy = {}
+
+  game_state_copy["board"] = createBoardState(game_state)
+  game_state_copy["snakes"] = createSnakeState(game_state)
+  game_state_copy["curr_snake_id"] = curr_snake_id;
+
+# Creates a copy of the game state with the new move 
 # def makeMove(new_game_state, snake, move):
-#   board_width = new_game_state
+#   board_width = len(new_game_state[0])
+#   board_height = len(new_game_state)
+
+#   game_state_copy = [row[:] for row in new_game_state]
+
+#   head_x, head_y = None, None
+
+#   # find current snake's head
+#   for y in range(board_height):
+#     for x in range(board_width):
+#       if (game_state_copy[y][x] == snake + 1):
+#         head_x = x
+#         head_y = y
+#         break;
+#     if (head_x != None):
+#       break
+     
+#   if (move == "up"):
+#     head_y = head_y + 1
+#   elif (move == "down"):
+#     head_y = head_y - 1
+#   elif (move == "left"):
+#     head_x = head_x - 1
+#   elif (move == "right"):
+#     head_x = head_x + 1
+
+#   destination_cell = game_state_copy[head_y][head_x]
+#   # Check if snake dies if this move is performed
+#   if (head_x < 0 or head_y < 0 or head_x >= board_width or head_y >= board_height or destination_cell > 1):
+#     # Check if collision is with a snake smaller than current snake
+#     if (destination_cell % 2 != 0):
+#       collided_snake = destination_cell - 1
+#       our_snake_size = 0
+#       collided_snake_size = 0
+#       for y in range(board_height):
+#         for x in range(board_width):
+#           if (game_state_copy(y)(x) == snake):
+#             our_snake_size += 1;
+#           elif (game_state_copy(y)(x) == collided_snake):
+#             collided_snake_size += 1;
+#       if ()
+          
+        
   
 # def gameOver(state):
 #    # Implement this function to check if the game is over based on the current state
