@@ -382,6 +382,7 @@ def makeMove(game_state, curr_snake_id, move):
           
           if (body == curr_snake_head):
             game_state_copy[head_y][head_x] = 2
+            head_state_copy[head_y][head_x] = curr_snake_id
           else:
             #Move head_y and head_x to previous body position
             if (body_x == head_x):
@@ -394,8 +395,18 @@ def makeMove(game_state, curr_snake_id, move):
                 head_x -= 1  
               elif (body_x > head_x):
                 head += 1
-            
-          game_state_copy[head_y][head_x] = curr_snake_id
+                
+            if (head_state_copy[head_y][head_x] == curr_snake_id):
+              head_state_copy[head_y][head_x] = 0
+            game_state_copy[head_y][head_x] = curr_snake_id
+
+
+        # TODO: makeMove need to create an entire new gameState, updating everything
+        # new_game_state = {
+        #   "state_board": game_state_copy
+        #   "head_board": head_state_copy
+        # }
+        return 
       
       else:
         return None
@@ -403,7 +414,9 @@ def makeMove(game_state, curr_snake_id, move):
     return None
 
   # We eat food
-  elif ():
+  elif (destination_cell == 1):
+    
+    
     pass
 
   # normal moving
