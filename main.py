@@ -353,7 +353,7 @@ def makeMove(game_state, curr_snake_id, move):
       curr_snake_length = len(curr_snake_body)
       curr_snake_head = snake["head"]
   
-  # Check if snake dies if this move is performed
+  # Check if snake dies or the destination is invalid if this move is performed
   if (head_x < 0 or head_y < 0 or head_x >= board_width or head_y >= board_height or destination_cell != 0 or destination_cell != 1):
     # Check if collision is with the head of a snake smaller than current snake
     if (destination_cell == 2):
@@ -365,7 +365,7 @@ def makeMove(game_state, curr_snake_id, move):
           destination_snake_length = len(destination_snake_body)
           break
 
-      # Our size is bigger
+      # Our size is bigger, else we return None signifying that we died
       if (destination_snake_length < curr_snake_length):
 
         # Remove the destination snake
@@ -375,33 +375,42 @@ def makeMove(game_state, curr_snake_id, move):
 
           game_state_copy[body_y][body_x] = 0
 
+        # Move snake forward
         for body in curr_snake_body:
           body_x = body["x"]
           body_y = body["y"]
+          
           if (body == curr_snake_head):
             game_state_copy[head_y][head_x] = 2
           else:
-            game_state_copy[head_y][head_x] = curr_snake_id
+            #Move head_y and head_x to previous body position
+            if (body_x == head_x):
+              if (body_y < head_y):
+                head_y -= 1
+              elif (body_y > head_y):
+                head_y += 1
+            elif (body_y == head_y):
+              if (body_x < head_x):
+                head_x -= 1  
+              elif (body_x > head_x):
+                head += 1
+            
+          game_state_copy[head_y][head_x] = curr_snake_id
+      
+      else:
+        return None
 
-          # same column
-          if (body_x == head_x):
-            # need to move up
-            if (body_y < head_y):
-              head_y -= 1
-            # need to move down
-            elif (body_y > head_y):
-              head_y += 1
-          # same row
-          if (body_y == head_y):
-              
-            # need to move right
-            if (body_x < head_x)
-  
-            # need to move left
-            if (body_x > head_x)
-          
-          
-  
+    return None
+
+  # We eat food
+  elif ():
+    pass
+
+  # normal moving
+  else:
+    pass
+
+
 # def gameOver(state):
 #    # Implement this function to check if the game is over based on the current state
 #    # For example, check if the snake has collided with a wall or another snake
