@@ -292,11 +292,11 @@ def createGameState(game_state, curr_snake_id):
   game_state_copy = {}
 
   game_state_copy["board"] = createBoardState(game_state)
-  game_state_copy["snakes"] = createSnakeState(game_state)
+  game_state_copy["snakes"] = snakeState(game_state)
   game_state_copy["curr_snake_id"] = curr_snake_id;
 
 # Creates a copy of the game state with the new move 
-# def makeMove(new_game_state, snake, move):
+# def makeMove(new_game_state, curr_snake_id, move):
 #   board_width = len(new_game_state[0])
 #   board_height = len(new_game_state)
 
@@ -346,11 +346,38 @@ def createGameState(game_state, curr_snake_id):
 #    # For example, check if the snake has collided with a wall or another snake
 #    pass
 
-# def miniMax(state, depth, maximizing_player, snake_id):
-#   if (depth == 2 or is_game_over == True) {
-#     pass
-#   }
+# The snake MiniMax algorithm
+def miniMax(game_state, depth, maximizing_player, curr_snake_id):
+    # when given game_state is over, return the current state point
+    if (depth == 0 or gameOver(game_state) == True) {
+      return evaluatePoint(game_state, depth, curr_snake_id)
+    }
+
+    # get the id of the next snake that were gonna minimax
+    curr_index = 0
+    for index, snake in enumerate(game_state["snakes"]):
+      if (snake["id"] == curr_snake_id):
+        curr_index = index
+        break
+
+    next_snake_id = game_state["snakes"][(curr_index + 1) % len(game_state["snakes"])]["id"]
+
+    moves = ["up", "down", "right", "left"]
   
+    if (maximizing_player):
+      highest_value = float(-inf)
+      for move in moves:
+        new_game_state = makeMove(game_state, curr_snake_id, move)
+        curr_val = miniMax(new_game_state, depth - 1, false, next_snake_id)
+        highest_value = max(highest_value, curr_val)
+      return best_value
+    else:
+      min_value = float(inf)
+      for move in moves:
+        new_game_state = makeMove(game_state, curr_snake_id, move)
+        curr_val = miniMax(new_game_state, depth - 1, false, next_snake_id)
+        min_value = min(min_value, curr_val)
+      return min_value
       
 # Start server when `python main.py` is run
 if __name__ == "__main__":
