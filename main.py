@@ -241,7 +241,7 @@ def findFood(game_state, safe_moves):
 # SNAKE STRATEGY BEHAVIOR
 #-----------------------------------------------------------------------------
 
-# Generates a copy of current game board
+# Generates a copy of current game board and another board that tracks snake head positions
 def createBoardState(game_state):
     board_width = game_state["board"]["width"]
     board_height = game_state["board"]["height"]
@@ -288,7 +288,6 @@ def snakeState(game_state):
     snakes = game_state["board"]["snakes"]
   
     snake_state = []
-    head = 9
     for snake in snakes:
       snake_id = snake["id"]
       snake_head = snake["head"]
@@ -319,6 +318,7 @@ def makeMove(game_state, curr_snake_id, move):
   game_state_copy = [row[:] for row in game_state["board"]["state_board"]]
   head_state_copy = [row[:] for row in game_state["board"]["head_board"]]
 
+  # Our destination coordinate after performing move
   head_x, head_y = None, None
 
   # find current snake's head 
@@ -340,8 +340,9 @@ def makeMove(game_state, curr_snake_id, move):
   elif (move == "right"):
     head_x = head_x + 1
 
+  
   destination_cell = game_state_copy[head_y][head_x]
-  destination_cell_head = head_state_copy[head_y][head_x]
+  destination_cell_head = game_state["board"]["head_board"][head_y][head_x]
 
   curr_snake_length = 0
   curr_snake_body = None
@@ -382,7 +383,6 @@ def makeMove(game_state, curr_snake_id, move):
           
           if (body == curr_snake_head):
             game_state_copy[head_y][head_x] = 2
-            head_state_copy[head_y][head_x] = curr_snake_id
           else:
             #Move head_y and head_x to previous body position
             if (body_x == head_x):
@@ -396,8 +396,6 @@ def makeMove(game_state, curr_snake_id, move):
               elif (body_x > head_x):
                 head += 1
                 
-            if (head_state_copy[head_y][head_x] == curr_snake_id):
-              head_state_copy[head_y][head_x] = 0
             game_state_copy[head_y][head_x] = curr_snake_id
 
 
@@ -415,8 +413,23 @@ def makeMove(game_state, curr_snake_id, move):
 
   # We eat food
   elif (destination_cell == 1):
-    
-    
+    prev_x = 0
+    prev_y = 0
+    for body in curr_snake_body:
+      curr_body_x = body["x"]
+      curr_body_y = body["y"]
+
+      # Place head to the food location, updated for board state
+      if (body == curr_snake_head):
+        game_state_copy[head_y][head_x] = 2
+      # Place body part to new location moving forward
+      else:
+        game_state_copy[prev_y][prev_x] = curr_snake_id
+      
+      prev_x = curr_body_x
+      prev_y = curr_body_y   
+
+    createGameState()
     pass
 
   # normal moving
