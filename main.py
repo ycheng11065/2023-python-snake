@@ -311,8 +311,13 @@ def createGameState(game_state, curr_snake_id):
   game_state_copy["snakes"] = snakeState(game_state)
   game_state_copy["curr_snake_id"] = curr_snake_id;
 
+# Update the current snakes's head coordinate
+def updateSnakeHead(new_snake_state, x_coord, y_coord):
+    new_snake_state["head"]["x"] = x_coord
+    new_snake_state["head"]["y"] = y_coord
+
 # Update the snake's movement location in the new board and head state
-def moveForward(new_board_state, new_head_state, curr_snake_id, curr_snake_body, head_x, head_y):
+def moveForward(new_board_state, new_head_state, new_snake_state, curr_snake_id, curr_snake_body, head_x, head_y):
   prev_x, prev_y = None, None
   
   for body in current_snake_body:
@@ -322,6 +327,7 @@ def moveForward(new_board_state, new_head_state, curr_snake_id, curr_snake_body,
     if (body == curr_snake_body[0]):
       new_board_state[head_y][head_x] = 2
       new_head_state[head_y][head_x] = curr_snake_id
+      updateSnakeHead(new_snake_state, head_x, head_y)
     else:
       if (new_head_state[prev_y][prev_x] == curr_snake_id):
         new_head_state[prev_y][prev_x] = 0;
@@ -329,9 +335,7 @@ def moveForward(new_board_state, new_head_state, curr_snake_id, curr_snake_body,
       
     prev_x = curr_x
     prev_y = curr_y
-
-# Update the current snake's size in the new snake state
-def updateSnakeStateSize():
+  
 
 # Creates a new version of game state with the move and the correspondent snake
 def makeMove(game_state, curr_snake_id, move):
@@ -407,7 +411,7 @@ def makeMove(game_state, curr_snake_id, move):
           new_board_state[body_y][body_x] = 0
 
         # Move snake forward, updated game state board
-        moveForward(new_board_state, new_head_state, curr_snake_id, curr_snake_body, head_x, head_y)
+        moveForward(new_board_state, new_head_state, new_snake_state, curr_snake_id, curr_snake_body, head_x, head_y)
 
         #update snake_state
 
@@ -421,13 +425,14 @@ def makeMove(game_state, curr_snake_id, move):
 
   # Snake move to a cell with food
   elif (destination_cell == 1):
-    moveForward(new_board_state, new_head_State, curr_snake_id, curr_snake_body, head_x, head_y)
+    moveForward(new_board_state, new_head_State, new_snake_state, curr_snake_id, curr_snake_body, head_x, head_y)
+    # update snake body, head coordinates
     # need to update size of snake
     return new_game_state
 
   # Snake's regular movement to empty spaces
   else:
-    moveForward(new_board_state, new_head_State, curr_snake_id, curr_snake_body, head_x, head_y)
+    moveForward(new_board_state, new_head_State, new_snake_state, curr_snake_id, curr_snake_body, head_x, head_y)
     return new_game_state
 
 
