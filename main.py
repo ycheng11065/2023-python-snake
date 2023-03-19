@@ -356,7 +356,12 @@ def snakeStateFoodGrow(new_snake_state, curr_snake_index):
   last_body = new_snake_state[curr_snake_index]["body"][-1]
   last_x , last_y = last_body["x"], last_body["y"]
   new_snake_state[curr_snake_index]["body"].append({"x": last_x, "y": last_y})
-  
+
+
+# Remove killed snake from the snake state list
+def removeKilledSnake(new_snake_state, killed_snake_index):
+    new_stake_state.pop(killed_snake_index)
+    
 
 # Creates a new version of game state with the move and the correspondent snake
 def makeMove(game_state, curr_snake_id, move):
@@ -413,17 +418,24 @@ def makeMove(game_state, curr_snake_id, move):
   
   # Check if snake dies or the destination is invalid if this move is performed
   if (head_x < 0 or head_y < 0 or head_x >= board_width or head_y >= board_height or destination_cell != 0 or destination_cell != 1):
+    
     # Check if collision is with the head of a snake smaller than current snake
     if (destination_cell == 2 and destination_cell_head != 0):
       destination_snake_length = 0
       destination_snake_body = None
+      destination_snake_id = None
+      destination_snake_index = 0
+      
       # Find the snake the current snake is about to collide with
       for snake in new_snake_state:
         if (snake["id"] == destination_cell_head):
+          destination_snake_id = snake["id"]
           destination_snake_body = snake["body"]
           destination_snake_length = len(destination_snake_body)
           break
 
+        destination_snake_index += 1
+          
       # Our size is bigger, else we return None signifying that we died
       if (destination_snake_length < curr_snake_length):
 
@@ -434,11 +446,11 @@ def makeMove(game_state, curr_snake_id, move):
 
           new_board_state[body_y][body_x] = 0
 
-        # Move snake forward, updated game state
+        # Snake moves forward and updates all coords in new game state
         moveForward(new_board_state, new_head_state, new_snake_state, curr_snake_id, curr_snake_index, curr_snake_body, head_x, head_y)
 
-        #update snake_state, remove the killed snake
-
+        # Remove killed snake from snake state list
+        removeKilledSnake(new_snake_State, destination_snake_index)
 
         return new_game_state 
       
