@@ -12,6 +12,7 @@
 
 import random
 import typing
+import copy
 
 #Value constants
 FOOD_VALUE = 2
@@ -310,27 +311,54 @@ def createGameState(game_state, curr_snake_id):
   game_state_copy["snakes"] = snakeState(game_state)
   game_state_copy["curr_snake_id"] = curr_snake_id;
 
-#Creates a copy of the game state with the new move 
+# Update the snake's movement location in the new board and head state
+def moveForward(new_board_state, new_head_state, curr_snake_id, curr_snake_body, head_x, head_y):
+  prev_x, prev_y = None, None
+  
+  for body in current_snake_body:
+    curr_x = body["x"]
+    curr_y = body["y"]
+
+    if (body == curr_snake_body[0]):
+      new_board_state[head_y][head_x] = 2
+      new_head_state[head_y][head_x] = curr_snake_id
+    else:
+      if (new_head_state[prev_y][prev_x] == curr_snake_id):
+        new_head_state[prev_y][prev_x] = 0;
+      new_board_state[prev_y][prev_x] = curr_snake_id
+      
+    prev_x = curr_x
+    prev_y = curr_y
+
+# Update the current snake's size in the new snake state
+def updateSnakeStateSize():
+
+# Creates a new version of game state with the move and the correspondent snake
 def makeMove(game_state, curr_snake_id, move):
   board_width = len(game_state["board"]["state_board"][0])
   board_height = len(game_state["board"]["state_board"])
 
-  game_state_copy = [row[:] for row in game_state["board"]["state_board"]]
-  head_state_copy = [row[:] for row in game_state["board"]["head_board"]]
-
+  # new game state to update, change the id to current snake
+  new_game_state = copy.deepcopy(game_state)
+  new_board_state = new_game_state["board"]["state_board"]
+  new_head_state = new_game_state["board"]["head_board"]
+  new_snake_state = new_game_state["snakes"]
+  new_game_state["curr_snake_id"] = curr_snake_id
+  
   # Our destination coordinate after performing move
   head_x, head_y = None, None
 
   # find current snake's head 
   for y in range(board_height):
     for x in range(board_width):
-      if (head_state_copy[y][x] == curr_snake_id):
+      if (new_head_state[y][x] == curr_snake_id):
         head_x = x
         head_y = y
         break;
     if (head_x != None):
       break
-     
+
+  #Update head coordinate value to destination after move is applied
   if (move == "up"):
     head_y = head_y + 1
   elif (move == "down"):
@@ -341,14 +369,15 @@ def makeMove(game_state, curr_snake_id, move):
     head_x = head_x + 1
 
   
-  destination_cell = game_state_copy[head_y][head_x]
-  destination_cell_head = game_state["board"]["head_board"][head_y][head_x]
+  destination_cell = new_board_state[head_y][head_x]
+  destination_cell_head = new_head_state[head_y][head_x]
 
   curr_snake_length = 0
   curr_snake_body = None
   curr_snake_head = None
-  
-  for snake in game_state["snakes"]:
+
+  # find our current snake
+  for snake in new_snake_state:
     if (snake["id"] == curr_snake_id):
       curr_snake_body = snake["body"]
       curr_snake_length = len(curr_snake_body)
@@ -357,10 +386,11 @@ def makeMove(game_state, curr_snake_id, move):
   # Check if snake dies or the destination is invalid if this move is performed
   if (head_x < 0 or head_y < 0 or head_x >= board_width or head_y >= board_height or destination_cell != 0 or destination_cell != 1):
     # Check if collision is with the head of a snake smaller than current snake
-    if (destination_cell == 2):
+    if (destination_cell == 2 and destination_cell_head != 0):
       destination_snake_length = 0
       destination_snake_body = None
-      for snake in game_state["snakes"]:
+      # Find the snake the current snake is about to collide with
+      for snake in new_snake_state:
         if (snake["id"] == destination_cell_head):
           destination_snake_body = snake["body"]
           destination_snake_length = len(destination_snake_body)
@@ -374,67 +404,31 @@ def makeMove(game_state, curr_snake_id, move):
           body_x = body["x"]
           body_y = body["y"]
 
-          game_state_copy[body_y][body_x] = 0
+          new_board_state[body_y][body_x] = 0
 
-        # Move snake forward
-        for body in curr_snake_body:
-          body_x = body["x"]
-          body_y = body["y"]
-          
-          if (body == curr_snake_head):
-            game_state_copy[head_y][head_x] = 2
-          else:
-            #Move head_y and head_x to previous body position
-            if (body_x == head_x):
-              if (body_y < head_y):
-                head_y -= 1
-              elif (body_y > head_y):
-                head_y += 1
-            elif (body_y == head_y):
-              if (body_x < head_x):
-                head_x -= 1  
-              elif (body_x > head_x):
-                head += 1
-                
-            game_state_copy[head_y][head_x] = curr_snake_id
+        # Move snake forward, updated game state board
+        moveForward(new_board_state, new_head_state, curr_snake_id, curr_snake_body, head_x, head_y)
+
+        #update snake_state
 
 
-        # TODO: makeMove need to create an entire new gameState, updating everything
-        # new_game_state = {
-        #   "state_board": game_state_copy
-        #   "head_board": head_state_copy
-        # }
-        return 
+        return new_game_state 
       
       else:
         return None
 
     return None
 
-  # We eat food
+  # Snake move to a cell with food
   elif (destination_cell == 1):
-    prev_x = 0
-    prev_y = 0
-    for body in curr_snake_body:
-      curr_body_x = body["x"]
-      curr_body_y = body["y"]
+    moveForward(new_board_state, new_head_State, curr_snake_id, curr_snake_body, head_x, head_y)
+    # need to update size of snake
+    return new_game_state
 
-      # Place head to the food location, updated for board state
-      if (body == curr_snake_head):
-        game_state_copy[head_y][head_x] = 2
-      # Place body part to new location moving forward
-      else:
-        game_state_copy[prev_y][prev_x] = curr_snake_id
-      
-      prev_x = curr_body_x
-      prev_y = curr_body_y   
-
-    createGameState()
-    pass
-
-  # normal moving
+  # Snake's regular movement to empty spaces
   else:
-    pass
+    moveForward(new_board_state, new_head_State, curr_snake_id, curr_snake_body, head_x, head_y)
+    return new_game_state
 
 
 # def gameOver(state):
