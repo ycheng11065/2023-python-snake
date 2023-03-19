@@ -314,11 +314,11 @@ def createGameState(game_state, curr_snake_id):
   
 # Update the current snakes's head coordinates
 def updateSnakeHead(new_snake_state, curr_snake_index, x_coord, y_coord):
-  new_snake_state[curr_snake_index]["head"]["x"] = x_coord
-  new_snake_state[curr_snake_index]["head"]["y"] = y_coord
-  new_snake_state[curr_snake_index]["body"][0]["x"] = x_coord
-  new_snake_state[curr_snake_index]["body"][0]["y"] = y_coord
-
+    new_snake_state[curr_snake_index]["head"]["x"] = x_coord
+    new_snake_state[curr_snake_index]["head"]["y"] = y_coord
+    new_snake_state[curr_snake_index]["body"][0]["x"] = x_coord
+    new_snake_state[curr_snake_index]["body"][0]["y"] = y_coord
+  
   
 # Update the current snake's body part coordinates
 def updateSnakeBody(new_snake_state, curr_snake_index, body_index, x_coord, y_coord):
@@ -331,14 +331,14 @@ def moveForward(new_board_state, new_head_state, new_snake_state, curr_snake_id,
   prev_x, prev_y = None, None
 
   body_index = 0
-  for body in current_snake_body:
+  for body in curr_snake_body:
     curr_x = body["x"]
     curr_y = body["y"]
 
     if (body == curr_snake_body[0]):
       new_board_state[head_y][head_x] = 2
       new_head_state[head_y][head_x] = curr_snake_id
-      updateSnakeHead(new_snake_state, curr_snake_id, curr_snake_index, head_x, head_y)
+      updateSnakeHead(new_snake_state, curr_snake_index, head_x, head_y)
     else:
       if (new_head_state[prev_y][prev_x] == curr_snake_id):
         new_head_state[prev_y][prev_x] = 0;
@@ -417,7 +417,7 @@ def makeMove(game_state, curr_snake_id, move):
       curr_snake_head = curr_snake["head"]
   
   # Check if snake dies or the destination is invalid if this move is performed
-  if (head_x < 0 or head_y < 0 or head_x >= board_width or head_y >= board_height or destination_cell != 0 or destination_cell != 1):
+  if (head_x < 0 or head_y < 0 or head_x >= board_width or head_y >= board_height or destination_cell not in [0,1]):
     
     # Check if collision is with the head of a snake smaller than current snake
     if (destination_cell == 2 and destination_cell_head != 0):
