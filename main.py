@@ -250,9 +250,10 @@ def createBoardState(game_state):
     all_snake = game_state["board"]["snakes"]
       # 0 is empty space
       # 1 is food
+      # 2 is snake head
   
-      # positive id = snake body
-      # negative id = snake head
+      # id = corresponding snake body
+      # snake head is represented in head_board as the corresponding snake id
   
     board_copy = [[0 for _ in range(board_width)] for _ in range(board_height)]
     head_board = [["" for _ in range(board_width)] for _ in range(board_height)]
@@ -268,21 +269,21 @@ def createBoardState(game_state):
       
       for body in snake["body"]:
         body_x = body["x"];
-        body_y = abs(board_height - 1 - body["y"]);
+        body_y = abs(board_height - 1 - body["y"])
         if (body == snake_head):
-          board_copy[body_y][body_x] = snake_id;
-          head_board[body_y][body_x] = snake_id;
+          board_copy[body_y][body_x] = 2
+          head_board[body_y][body_x] = snake_id
         else:
-          board_copy[body_y][body_x] = snake_id;
+          board_copy[body_y][body_x] = snake_id
 
     board_state = {
-      "board": board_copy,
+      "state_board": board_copy,
       "head_board": head_board
     }
   
-    return board_state;
+    return board_state
   
-# Create a dict of all snake info, head, body
+# Create a dict of all snake info, head, body and id
 def snakeState(game_state):
     snakes = game_state["board"]["snakes"]
   
@@ -312,17 +313,18 @@ def createGameState(game_state, curr_snake_id):
 
 #Creates a copy of the game state with the new move 
 def makeMove(game_state, curr_snake_id, move):
-  board_width = len(game_state["board"][0])
-  board_height = len(game_state["board"])
+  board_width = len(game_state["board"]["state_board"][0])
+  board_height = len(game_state["board"]["state_board"])
 
-  game_state_copy = [row[:] for row in game_state["board"]]
+  game_state_copy = [row[:] for row in game_state["board"]["state_board"]]
+  head_state_copy = [row[:] for row in game_state["board"]["head_board"]]
 
   head_x, head_y = None, None
 
-  # find current snake's head
+  # find current snake's head 
   for y in range(board_height):
     for x in range(board_width):
-      if (game_state_copy[y][x] == snake + 1):
+      if (head_state_copy[y][x] == curr_snake_id):
         head_x = x
         head_y = y
         break;
@@ -339,16 +341,66 @@ def makeMove(game_state, curr_snake_id, move):
     head_x = head_x + 1
 
   destination_cell = game_state_copy[head_y][head_x]
+  destination_cell_head = head_state_copy[head_y][head_x]
+
+  curr_snake_length = 0
+  curr_snake_body = None
+  curr_snake_head = None
+  
+  for snake in game_state["snakes"]:
+    if (snake["id"] == curr_snake_id):
+      curr_snake_body = snake["body"]
+      curr_snake_length = len(curr_snake_body)
+      curr_snake_head = snake["head"]
   
   # Check if snake dies if this move is performed
   if (head_x < 0 or head_y < 0 or head_x >= board_width or head_y >= board_height or destination_cell != 0 or destination_cell != 1):
     # Check if collision is with the head of a snake smaller than current snake
-    if (destination_cell < 0):
+    if (destination_cell == 2):
+      destination_snake_length = 0
+      destination_snake_body = None
       for snake in game_state["snakes"]:
-        if (snake["id"] * -1 == )
-    
+        if (snake["id"] == destination_cell_head):
+          destination_snake_body = snake["body"]
+          destination_snake_length = len(destination_snake_body)
+          break
+
+      # Our size is bigger
+      if (destination_snake_length < curr_snake_length):
+
+        # Remove the destination snake
+        for body in destination_snake_body:
+          body_x = body["x"]
+          body_y = body["y"]
+
+          game_state_copy[body_y][body_x] = 0
+
+        for body in curr_snake_body:
+          body_x = body["x"]
+          body_y = body["y"]
+          if (body == curr_snake_head):
+            game_state_copy[head_y][head_x] = 2
+          else:
+            game_state_copy[head_y][head_x] = curr_snake_id
+
+          # same column
+          if (body_x == head_x):
+            # need to move up
+            if (body_y < head_y):
+              head_y -= 1
+            # need to move down
+            elif (body_y > head_y):
+              head_y += 1
+          # same row
+          if (body_y == head_y):
+              
+            # need to move right
+            if (body_x < head_x)
+  
+            # need to move left
+            if (body_x > head_x)
           
-        
+          
   
 # def gameOver(state):
 #    # Implement this function to check if the game is over based on the current state
