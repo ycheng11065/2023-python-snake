@@ -481,11 +481,32 @@ def makeMove(game_state, curr_snake_id, move):
       return new_game_state
 
 
+# Calculate the value of the current game state based on the length of all the snakes
+def evaluatePoint(game_state, depth, curr_snake_id):
+    # Default score
+    defaul_score = 1000
+
+    # Calculate current snake score based on its length
+    curr_snake_score = 0
+    other_snake_score = 0
+  
+    for snake in game_state["snakes"]:
+      if (snake["id"] == curr_snake_id):
+        curr_snake_score = default_score + len(snake["body"]) * 10
+        break
+      else:
+        other_snake_score += default_score + len(snake["body"]) * 10
+
+    return curr_snake_score - other_snake_score
+
+
 # The snake MiniMax algorithm
 def miniMax(game_state, depth, maximizing_player, curr_snake_id):
     # when given game_state is over, return the current state point
     if (depth == 0 or game_state is None):
-      return evaluatePoint(game_state, depth, curr_snake_id)  #todo
+      if (game_state is None): return float("-inf")
+      
+      return evaluatePoint(game_state, depth, curr_snake_id)  
 
     # get the id of the next snake that we're gonna minimax
     curr_index = 0
