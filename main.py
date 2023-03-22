@@ -100,7 +100,7 @@ def move(game_state: typing.Dict) -> typing.Dict:
 
     # Choose a random move from the best ones
     next_move = random.choice(best_move)
-
+    print(game_state["you"]["health"])
     print(f"MOVE {game_state['turn']}: {next_move}")
     return {"move": next_move}
 
@@ -297,6 +297,7 @@ def snakeState(game_state):
     snake_state = []
     for snake in snakes:
         snake_id = snake["id"]
+        health = snake["health"]
         snake_head = {"x": snake["head"]["x"], "y": board_height - 1 - snake["head"]["y"]}
         snake_body = []
         for body in snake["body"]:
@@ -308,7 +309,8 @@ def snakeState(game_state):
         snake_state.append({
             "id": snake_id,
             "head": snake_head,
-            "body": snake_body
+            "body": snake_body,
+            "health": health
         })
 
     return snake_state
@@ -338,6 +340,18 @@ def updateSnakeHead(new_snake_state, curr_snake_index, x_coord, y_coord):
 def updateSnakeBody(new_snake_state, curr_snake_index, body_index, x_coord, y_coord):
     new_snake_state[curr_snake_index]["body"][body_index]["x"] = x_coord
     new_snake_state[curr_snake_index]["body"][body_index]["y"] = y_coord
+
+
+# Update snake's health, -1 health for every turn or 0 if snake dies
+def updateSnakeHealth(new_snake_state, curr_snake_index, isAlive, hasAte):
+    if (hasAte): 
+        new_snake_state[curr_snake_index]["health"] = 100
+    elif (isAlive):
+        new_snake_state[curr_snake_index]["health"] -= 1
+    else:
+        new_snake_state[curr_snake_index]["health"] = 0
+
+    return new_snake_state[curr_snake_index]["health"]
 
 
 # Update the snake's movement location in the new board and head state, also updates snake state's coords
@@ -381,6 +395,25 @@ def removeKilledSnake(new_snake_state, killed_snake_index):
     new_snake_state.pop(killed_snake_index)
 
 
+# Find snake corresponding to the given current ID and return its info
+def findCurrentSnake(new_snake_state, curr_snake_id):
+    curr_snake_index = 0
+    curr_snake_length = 0
+    curr_snake_body = None
+    curr_snake_health = 0
+
+    for i in range(len(new_snake_state)):
+        curr_snake = new_snake_state[i]
+        if (curr_snake["id"] == curr_snake_id):
+            curr_snake_index = i
+            curr_snake_body = curr_snake["body"]
+            curr_snake_length = len(curr_snake_body)
+            curr_snake_health = curr_snake["health"]
+    
+    return curr_snake_index, curr_snake_length, curr_snake_body, curr_snake_health
+
+
+
 # Creates a new version of game state with the move and the correspondent snake
 def makeMove(game_state, curr_snake_id, move):
     board_width = len(game_state["board"]["state_board"][0])
@@ -393,10 +426,8 @@ def makeMove(game_state, curr_snake_id, move):
     new_snake_state = new_game_state["snakes"]
     new_game_state["curr_snake_id"] = curr_snake_id
 
-    curr_snake = None
     # Our destination coordinate after performing move
     head_x, head_y = None, None
-
 
     for y in range(board_height):
       for x in range(board_width):
@@ -406,64 +437,45 @@ def makeMove(game_state, curr_snake_id, move):
           break
       if (head_x != None):
         break 
-
-    # print(f"before headx: {head_x}")
-    # print(f"before heady: {head_y}")
-    new_head_x = head_x
-    new_head_y = head_y
-
+      
     # Update head coordinate value to destination after move is applied
     if (move == "up"):
-        new_head_y = head_y - 1
+        head_y = head_y - 1
     elif (move == "down"):
-        new_head_y = head_y + 1
+        head_y = head_y + 1
     elif (move == "left"):
-        new_head_x = head_x - 1
+        head_x = head_x - 1
     elif (move == "right"):
-        new_head_x = head_x + 1
+        head_x = head_x + 1
 
-    if (new_head_x < 0 or new_head_y < 0 or new_head_x >= board_width or new_head_y >= board_height):
+
+    # Acquire current snake info
+    curr_snake_index, curr_snake_length, curr_snake_body, curr_snake_health = findCurrentSnake(new_snake_state, curr_snake_id)
+
+    # Check if snake destination hits border 
+    if not (0 <= head_x < board_width and 0 <= head_y < board_height):
+        updateSnakeHealth(new_snake_state, curr_snake_index, False)
         print("Snake hit border")
         return None
-    
-    # print(f"headx: {head_x}")
-    # print(f"heady: {head_y}")
 
-    destination_cell = new_board_state[new_head_y][new_head_x]
-    destination_cell_head = new_head_state[new_head_y][new_head_x][-2:]
+    destination_cell = new_board_state[head_y][head_x]
+    destination_cell_head = new_head_state[head_y][head_x][-2:]
 
-    curr_snake_index = 0
-    curr_snake_length = 0
-    curr_snake_body = None
-    # curr_snake_head = None
 
-    # find our current snake
-    for i in range(len(new_snake_state)):
-        curr_snake = new_snake_state[i]
-        if (curr_snake["id"] == curr_snake_id):
-            curr_snake_index = i
-            curr_snake_body = curr_snake["body"]
-            curr_snake_length = len(curr_snake_body)
-            # curr_snake_head = curr_snake["head"]
-
-    # Check if snake dies or the destination is invalid if this move is performed
-    if (new_head_x < 0 or new_head_y < 0 or new_head_x >= board_width or new_head_y >= board_height or destination_cell not in [0, 1]):
+    # Check if snake runs into another snake
+    if (destination_cell not in [0, 1]):
 
         # Check if collision is with the head of a snake smaller than current snake
         if (destination_cell == 2 and destination_cell_head != 0):
             destination_snake_length = 0
             destination_snake_body = None
-            destination_snake_id = None
             destination_snake_index = 0
 
             # Find the snake the current snake is about to collide with
             for snake in new_snake_state:
                 if (snake["id"][-2:] == destination_cell_head):
-                    destination_snake_id = snake["id"]
                     destination_snake_body = snake["body"]
                     destination_snake_length = len(destination_snake_body)
-                    # print("pass2")
-                    # print(snake)
                     break
 
                 destination_snake_index += 1
@@ -480,7 +492,11 @@ def makeMove(game_state, curr_snake_id, move):
 
                 # Snake moves forward and updates all coords in new game state
                 moveForward(new_board_state, new_head_state, new_snake_state,
-                            curr_snake_id, curr_snake_index, curr_snake_body, new_head_x, new_head_y)
+                            curr_snake_id, curr_snake_index, curr_snake_body, head_x, head_y)
+                
+                curr_health = updateSnakeHealth(new_snake_state, curr_snake_index, True, False)
+                
+                if (curr_health <= 0): return None
 
                 # Remove killed snake from snake state list
                 removeKilledSnake(new_snake_state, destination_snake_index)
@@ -488,8 +504,10 @@ def makeMove(game_state, curr_snake_id, move):
                 return new_game_state
 
             else:
+                updateSnakeHealth(new_snake_state, curr_snake_index, False, False)
                 return None
 
+        updateSnakeHealth(new_snake_state, curr_snake_index, False)
         return None
 
     # Snake move to a cell with food
@@ -497,7 +515,9 @@ def makeMove(game_state, curr_snake_id, move):
 
         # Snake moves forward and updates all coords in new game state
         moveForward(new_board_state, new_head_state, new_snake_state,
-                    curr_snake_id, curr_snake_index, curr_snake_body, new_head_x, new_head_y)
+                    curr_snake_id, curr_snake_index, curr_snake_body, head_x, head_y)
+        
+        updateSnakeHealth(new_snake_state, curr_snake_index, True, True)
 
         # add a new body part
         snakeStateFoodGrow(new_snake_state, curr_snake_index)
@@ -509,7 +529,12 @@ def makeMove(game_state, curr_snake_id, move):
 
         # Snake moves forward and updates all coords in new game state
         moveForward(new_board_state, new_head_state, new_snake_state,
-                    curr_snake_id, curr_snake_index, curr_snake_body, new_head_x, new_head_y)
+                    curr_snake_id, curr_snake_index, curr_snake_body, head_x, head_y)
+        
+        curr_health = updateSnakeHealth(new_snake_state, curr_snake_index, True, False)
+
+        if (curr_health <= 0): 
+            return None
 
         return new_game_state
 
@@ -518,21 +543,40 @@ def makeMove(game_state, curr_snake_id, move):
 def evaluatePoint(game_state, depth, curr_snake_id):
     # Default score
     default_score = 1000
+    board_state = game_state["board"]["state_board"]
+    board_width = len(board_state[0])
+    board_height = len(board_state)
 
-    # Calculate current snake score based on its length
-    curr_snake_score = 0
-    other_snake_score = 0
-
+     # Calculate current snake score based on its length
+    curr_snake_head = None
+    curr_snake_size = 0
+    other_snake_sizes = []
+    size_difference = 0
     for snake in game_state["snakes"]:
         if (snake["id"] == curr_snake_id):
-            curr_snake_score = default_score + len(snake["body"]) * 10
+            curr_snake_head = snake["head"]
+            curr_snake_size = len(snake["body"])
         else:
-            other_snake_score += default_score + len(snake["body"]) * 10
+            other_snake_sizes.append(len(snake["body"]))
+
+    for size in other_snake_sizes:
+        size_difference += size - curr_snake_size
+
+    closest_food = float("inf")
+    for y in range(board_height):
+        for x in range(board_width):
+            if (board_state[y][x] == 1):
+                food_distance = abs(curr_snake_head["x"] - x) + abs(curr_snake_head["y"] - y)
+                closest_food = min(food_distance, closest_food)
+
+    # Weights
+    food_weight = 1
+    size_difference_weight = 10
 
     # print(curr_snake_score)
     # print(other_snake_score)
 
-    return curr_snake_score - other_snake_score
+    return default_score + (food_weight * closest_food) + (size_difference * size_difference_weight)
 
 
 # The snake MiniMax algorithm
@@ -584,10 +628,11 @@ def miniMax(game_state, depth, maximizing_player, curr_snake_id, main_snake_id, 
         return (min_value, best_move) if return_move else min_value
 
 
+
 def miniMax_value(game_state, safe_moves):
     current_game_state = createGameState(game_state, game_state["you"]["id"])
 
-    depth = 4
+    depth = 2
 
     result_value, best_move = miniMax(current_game_state, depth, True, game_state["you"]["id"], game_state["you"]["id"], True)
     print(f"Minimax value: {result_value}, Best move: {best_move}")
