@@ -100,7 +100,7 @@ def move(game_state: typing.Dict) -> typing.Dict:
 
     # Choose a random move from the best ones
     next_move = random.choice(best_move)
-    print(f"MOVE {game_state['turn']}: {next_move}")
+    print(f"MOVE {game_state['turn']}: {next_move}, SNAKE HEALTH: {game_state['you']['health']}")
     return {"move": next_move}
 
 # ----------------------------------------------------------------------------
@@ -613,14 +613,15 @@ def evaluatePoint(game_state, depth, curr_snake_id):
 
     # Weights
     food_weight = 100 * (1 - (curr_snake_health/100))
+    # food_weight = 100
     size_difference_weight = 10
-    available_space_weight = 3
+    available_space_weight = 0.3
 
     # print(curr_snake_score)
     # print(other_snake_score)
 
     # return default_score + (food_weight * 1/closest_food) + (available_space * available_space_weight)
-    return default_score + (food_weight * 1/closest_food)
+    return default_score + curr_snake_health/5 + (available_space * available_space_weight)
 
 
 # The snake MiniMax algorithm
@@ -659,7 +660,7 @@ def miniMax(game_state, depth, maximizing_player, curr_snake_id, main_snake_id, 
             else:
               curr_val = miniMax(new_game_state, depth - 1,
                                  False, next_snake_id, main_snake_id, False, alpha, beta)
-            print(f"{curr_snake_id} {move}: {curr_val}")
+            # print(f"{curr_snake_id} {move}: {curr_val}")
             if (curr_val > highest_value):
                 best_move = move
                 highest_value = curr_val
@@ -696,7 +697,7 @@ def miniMax(game_state, depth, maximizing_player, curr_snake_id, main_snake_id, 
 def miniMax_value(game_state, safe_moves):
     current_game_state = createGameState(game_state, game_state["you"]["id"])
 
-    depth = 3
+    depth = 4
 
     result_value, best_move = miniMax(current_game_state, depth, True, game_state["you"]["id"], game_state["you"]["id"], True, float("-inf"), float("inf"))
     # print(f"Minimax value: {result_value}, Best move: {best_move}")
@@ -715,3 +716,10 @@ if __name__ == "__main__":
         "move": move, 
         "end": end
     })
+
+
+#TODO: AFTER minimax has been debugged
+# In tight situation follow snake's own tail
+
+#Notes: Higher health score, snake tries to eath more
+#       Higher space score, snake tries to grow less hence increasing space
