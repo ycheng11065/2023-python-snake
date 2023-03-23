@@ -538,6 +538,43 @@ def makeMove(game_state, curr_snake_id, move):
         return new_game_state
 
 
+# Calculate available space current game state snake has
+def floodFill(game_state, curr_snake_head):
+    curr_snake_x = curr_snake_head["x"]
+    curr_snake_y = curr_snake_head["y"]
+    board_state = game_state["board"]["state_board"]
+    board_width = len(board_state[0])
+    board_height = len(board_state)
+    visited = copy.deepcopy(board_state)
+
+    for y in range(board_height):
+        for x in range(board_width):
+            if (board_state[y][x] in [0,1]):
+                visited[y][x] = "no"
+            else:
+                visited[y][x] = "yes"
+    
+    visited[curr_snake_y][curr_snake_x] = "no"
+    space = recurseFill(visited, board_width, board_height, curr_snake_x, curr_snake_y)
+
+    return space - 1
+
+
+# Recursive function of floodfill
+def recurseFill(visited, width, height, x, y):
+    if (x < 0 or y < 0 or x >= width or y >= height or visited[y][x] == "yes"):
+        return 0
+    
+    counter = 1
+    visited[y][x] = "yes"
+    counter += recurseFill(visited, width, height, x + 1, y)
+    counter += recurseFill(visited, width, height, x - 1, y)
+    counter += recurseFill(visited, width, height, x, y + 1)
+    counter += recurseFill(visited, width, height, x, y - 1)
+
+    return counter
+
+
 # Calculate the value of the current game state based on the length of all the snakes
 def evaluatePoint(game_state, depth, curr_snake_id):
     # Default score
@@ -549,10 +586,14 @@ def evaluatePoint(game_state, depth, curr_snake_id):
      # Calculate current snake score based on its length
     curr_snake_head = None
     curr_snake_size = 0
+    curr_snake_health = 0
+  
     other_snake_sizes = []
     size_difference = 0
+  
     for snake in game_state["snakes"]:
         if (snake["id"] == curr_snake_id):
+            curr_snake_health = snake["health"]
             curr_snake_head = snake["head"]
             curr_snake_size = len(snake["body"])
         else:
@@ -568,14 +609,18 @@ def evaluatePoint(game_state, depth, curr_snake_id):
                 food_distance = abs(curr_snake_head["x"] - x) + abs(curr_snake_head["y"] - y)
                 closest_food = min(food_distance, closest_food)
 
+    available_space = floodFill(game_state, curr_snake_head)
+
     # Weights
-    food_weight = 1
+    food_weight = 100 * (1 - (curr_snake_health/100))
     size_difference_weight = 10
+    available_space_weight = 3
 
     # print(curr_snake_score)
     # print(other_snake_score)
 
-    return default_score + (food_weight * 1/closest_food) + (size_difference * size_difference_weight)
+    # return default_score + (food_weight * 1/closest_food) + (available_space * available_space_weight)
+    return default_score + (food_weight * 1/closest_food)
 
 
 # The snake MiniMax algorithm
@@ -651,7 +696,7 @@ def miniMax(game_state, depth, maximizing_player, curr_snake_id, main_snake_id, 
 def miniMax_value(game_state, safe_moves):
     current_game_state = createGameState(game_state, game_state["you"]["id"])
 
-    depth = 4
+    depth = 3
 
     result_value, best_move = miniMax(current_game_state, depth, True, game_state["you"]["id"], game_state["you"]["id"], True, float("-inf"), float("inf"))
     # print(f"Minimax value: {result_value}, Best move: {best_move}")
