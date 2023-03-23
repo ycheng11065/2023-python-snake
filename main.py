@@ -100,7 +100,6 @@ def move(game_state: typing.Dict) -> typing.Dict:
 
     # Choose a random move from the best ones
     next_move = random.choice(best_move)
-    print(game_state["you"]["health"])
     print(f"MOVE {game_state['turn']}: {next_move}")
     return {"move": next_move}
 
@@ -454,7 +453,7 @@ def makeMove(game_state, curr_snake_id, move):
 
     # Check if snake destination hits border 
     if not (0 <= head_x < board_width and 0 <= head_y < board_height):
-        updateSnakeHealth(new_snake_state, curr_snake_index, False)
+        updateSnakeHealth(new_snake_state, curr_snake_index, False, False)
         print("Snake hit border")
         return None
 
@@ -507,7 +506,7 @@ def makeMove(game_state, curr_snake_id, move):
                 updateSnakeHealth(new_snake_state, curr_snake_index, False, False)
                 return None
 
-        updateSnakeHealth(new_snake_state, curr_snake_index, False)
+        updateSnakeHealth(new_snake_state, curr_snake_index, False, False)
         return None
 
     # Snake move to a cell with food
@@ -576,11 +575,11 @@ def evaluatePoint(game_state, depth, curr_snake_id):
     # print(curr_snake_score)
     # print(other_snake_score)
 
-    return default_score + (food_weight * closest_food) + (size_difference * size_difference_weight)
+    return default_score + (food_weight * 1/closest_food) + (size_difference * size_difference_weight)
 
 
 # The snake MiniMax algorithm
-def miniMax(game_state, depth, maximizing_player, curr_snake_id, main_snake_id, return_move):
+def miniMax(game_state, depth, maximizing_player, curr_snake_id, main_snake_id, return_move, alpha, beta):
     # when given game_state is over, return the current state point
     if (depth == 0 or game_state is None):
         # print(f"{curr_snake_id}")
@@ -607,34 +606,47 @@ def miniMax(game_state, depth, maximizing_player, curr_snake_id, main_snake_id, 
         for move in moves:
             new_game_state = makeMove(game_state, curr_snake_id, move)
             curr_val = miniMax(new_game_state, depth - 1,
-                               False, next_snake_id, main_snake_id, False)
-            print(f"{curr_snake_id} {move}: {curr_val}")
+                               False, next_snake_id, main_snake_id, False, alpha, beta)
+            # print(f"{curr_snake_id} {move}: {curr_val}")
             if (curr_val > highest_value):
                 best_move = move
                 highest_value = curr_val
+
+            alpha = max(alpha, curr_val)
+
+            if (alpha >= beta):
+                break
+
+        print(f"{curr_snake_id} {best_move}: {highest_value}")
+        
         return (highest_value, best_move) if return_move else highest_value
+    
     else:
         min_value = float("inf")
         best_move = None
         for move in moves:
             new_game_state = makeMove(game_state, curr_snake_id, move)
             curr_val = miniMax(new_game_state, depth - 1,
-                               True, next_snake_id, main_snake_id, False)
-            print(f"{curr_snake_id} {move}: {curr_val}")
-            
+                               True, next_snake_id, main_snake_id, False, alpha, beta)
+            # print(f"{curr_snake_id} {move}: {curr_val}")
             if (min_value > curr_val):
                 best_move = move
                 min_value = curr_val
-        return (min_value, best_move) if return_move else min_value
 
+            beta = min(curr_val, beta)
+
+            if (beta <= alpha):
+                break
+
+        return (min_value, best_move) if return_move else min_value
 
 
 def miniMax_value(game_state, safe_moves):
     current_game_state = createGameState(game_state, game_state["you"]["id"])
 
-    depth = 2
+    depth = 4
 
-    result_value, best_move = miniMax(current_game_state, depth, True, game_state["you"]["id"], game_state["you"]["id"], True)
+    result_value, best_move = miniMax(current_game_state, depth, True, game_state["you"]["id"], game_state["you"]["id"], True, float("-inf"), float("inf"))
     print(f"Minimax value: {result_value}, Best move: {best_move}")
 
     if (best_move is not None):
