@@ -13,6 +13,7 @@
 import random
 import typing
 import copy
+from collections import deque
 
 #Value constants
 FOOD_VALUE = 2
@@ -436,6 +437,8 @@ def makeMove(game_state, curr_snake_id, move):
           break
       if (head_x != None):
         break 
+
+    if (head_x is None or head_y is None): return None
       
     # Update head coordinate value to destination after move is applied
     if (move == "up"):
@@ -454,7 +457,7 @@ def makeMove(game_state, curr_snake_id, move):
     # Check if snake destination hits border 
     if not (0 <= head_x < board_width and 0 <= head_y < board_height):
         updateSnakeHealth(new_snake_state, curr_snake_index, False, False)
-        print("Snake hit border")
+        # print("Snake hit border")
         return None
 
     destination_cell = new_board_state[head_y][head_x]
@@ -550,27 +553,28 @@ def floodFill(game_state, curr_snake_head):
     for y in range(board_height):
         for x in range(board_width):
             if (board_state[y][x] in [0,1]):
-                visited[y][x] = "no"
+                visited[y][x] = False
             else:
-                visited[y][x] = "yes"
+                visited[y][x] = True
     
-    visited[curr_snake_y][curr_snake_x] = "no"
-    space = recurseFill(visited, board_width, board_height, curr_snake_x, curr_snake_y)
+    visited[curr_snake_y][curr_snake_x] = False
+    space = fill(visited, board_width, board_height, curr_snake_x, curr_snake_y)
 
     return space - 1
 
 
 # Recursive function of floodfill
-def recurseFill(visited, width, height, x, y):
-    if (x < 0 or y < 0 or x >= width or y >= height or visited[y][x] == "yes"):
-        return 0
-    
-    counter = 1
-    visited[y][x] = "yes"
-    counter += recurseFill(visited, width, height, x + 1, y)
-    counter += recurseFill(visited, width, height, x - 1, y)
-    counter += recurseFill(visited, width, height, x, y + 1)
-    counter += recurseFill(visited, width, height, x, y - 1)
+def fill(visited, width, height, x, y):
+
+    queue = deque([(x, y)])
+    counter = 0
+
+    while queue:
+      x, y = queue.popleft()
+      if (0 <= x < width and 0 <= y < height and not visited[y][x]):
+        visited[y][x] = True
+        counter += 1
+        queue.extend([(x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)])
 
     return counter
 
@@ -600,28 +604,30 @@ def evaluatePoint(game_state, depth, curr_snake_id):
             other_snake_sizes.append(len(snake["body"]))
 
     for size in other_snake_sizes:
-        size_difference += size - curr_snake_size
+        size_difference += curr_snake_size - 1
 
-    closest_food = float("inf")
-    for y in range(board_height):
-        for x in range(board_width):
-            if (board_state[y][x] == 1):
-                food_distance = abs(curr_snake_head["x"] - x) + abs(curr_snake_head["y"] - y)
-                closest_food = min(food_distance, closest_food)
+    # closest_food = float("inf")
+    # for y in range(board_height):
+    #     for x in range(board_width):
+    #         if (board_state[y][x] == 1):
+    #             food_distance = abs(curr_snake_head["x"] - x) + abs(curr_snake_head["y"] - y)
+    #             closest_food = min(food_distance, closest_food)
 
+    if (curr_snake_head is None): return float("-inf")
+      
     available_space = floodFill(game_state, curr_snake_head)
 
     # Weights
     food_weight = 100 * (1 - (curr_snake_health/100))
     # food_weight = 100
-    size_difference_weight = 10
-    available_space_weight = 0.3
+    size_difference_weight = 5
+    available_space_weight = 0.2
 
     # print(curr_snake_score)
     # print(other_snake_score)
 
     # return default_score + (food_weight * 1/closest_food) + (available_space * available_space_weight)
-    return default_score + curr_snake_health/5 + (available_space * available_space_weight)
+    return default_score + curr_snake_health/5 + (available_space * available_space_weight) + (size_difference * size_difference_weight)
 
 
 # The snake MiniMax algorithm
@@ -629,11 +635,11 @@ def miniMax(game_state, depth, maximizing_player, curr_snake_id, main_snake_id, 
     # when given game_state is over, return the current state point
     if (depth == 0 or game_state is None):
         # print(f"{curr_snake_id}")
-        if (game_state is None):
-          return float("-inf")
-          
         # if (game_state is None):
-        #     return float("-inf") if not maximizing_player else float("inf")
+        #   return float("-inf")
+          
+        if (game_state is None):
+            return float("-inf") if not maximizing_player else float("inf")
 
         return evaluatePoint(game_state, depth, curr_snake_id) if maximizing_player else evaluatePoint(game_state, depth, main_snake_id)
 
@@ -723,3 +729,5 @@ if __name__ == "__main__":
 
 #Notes: Higher health score, snake tries to eath more
 #       Higher space score, snake tries to grow less hence increasing space
+#       Current snake is always trying to healkill and ends up in draw with other snake
+
