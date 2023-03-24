@@ -593,41 +593,65 @@ def evaluatePoint(game_state, depth, curr_snake_id):
     curr_snake_health = 0
   
     other_snake_sizes = []
+    other_edge_snakes = []
     size_difference = 0
   
     for snake in game_state["snakes"]:
+        head_x = snake["head"]["x"]
+        head_y = snake["head"]["y"]
+
         if (snake["id"] == curr_snake_id):
             curr_snake_health = snake["health"]
             curr_snake_head = snake["head"]
             curr_snake_size = len(snake["body"])
         else:
             other_snake_sizes.append(len(snake["body"]))
+            if (head_x == 0 or head_y == 0 or head_x == board_width - 1 or head_y == board_height - 1):
+              other_edge_snakes.append(snake)
 
     for size in other_snake_sizes:
         size_difference += curr_snake_size - 1
 
-    # closest_food = float("inf")
-    # for y in range(board_height):
-    #     for x in range(board_width):
-    #         if (board_state[y][x] == 1):
-    #             food_distance = abs(curr_snake_head["x"] - x) + abs(curr_snake_head["y"] - y)
-    #             closest_food = min(food_distance, closest_food)
-
     if (curr_snake_head is None): return float("-inf")
+
+     # Weights
+    food_weight = 100 * (1 - (curr_snake_health/100))
+    size_difference_weight = 5
+    available_space_weight = 0.2
+    outer_bound_weight = 0
+    edge_kill_weight = 0
       
     available_space = floodFill(game_state, curr_snake_head)
 
-    # Weights
-    food_weight = 100 * (1 - (curr_snake_health/100))
-    # food_weight = 100
-    size_difference_weight = 5
-    available_space_weight = 0.2
+    head_x = curr_snake_head["x"]
+    head_y = curr_snake_head["y"]
+  
+    if (head_x == 0 or head_y == 0 or head_x == board_width - 1 or head_y == board_height - 1):
+      outer_bound_weight = 4
 
-    # print(curr_snake_score)
-    # print(other_snake_score)
+    if (head_x == 1 or head_y == 1 or head_x == board_width - 2 or head_y == board_height - 2):
+      for snake in other_edge_snakes:
+        edge_head_x = snake["head"]["x"]
+        edge_head_y = snake["head"]["y"]
 
-    # return default_score + (food_weight * 1/closest_food) + (available_space * available_space_weight)
-    return default_score + curr_snake_health/5 + (available_space * available_space_weight) + (size_difference * size_difference_weight)
+        if ((head_x == 1 and edge_head_x == 0) or (head_x == board_width - 2 and edge_head_x == board_width - 1)):
+          if(snake["body"][1]["y"] < edge_head_y):
+            if (head_y > edge_head_y):
+              edge_kill_weight += 6
+          elif (snake["body"][1]["y"] > edge_head_y):
+            if (head_y < edge_head_y):
+              edge_kill_weight += 6
+
+        elif ((head_y == 1 and edge_head_y == 0) or (head_y == board_height - 2 and edge_head_y == board_height - 1)):
+          if(snake["body"][1]["x"] < edge_head_x):
+            if (head_x > edge_head_x):
+              edge_kill_weight += 6
+          elif (snake["body"][1]["x"] > edge_head_x):
+            if (head_x < edge_head_x):
+              edge_kill_weight += 6
+        
+        
+    return default_score + curr_snake_health/5 + (available_space * available_space_weight) + (size_difference * size_difference_weight) - outer_bound_weight + edge_kill_weight
 
 
 # The snake MiniMax algorithm
@@ -660,12 +684,12 @@ def miniMax(game_state, depth, maximizing_player, curr_snake_id, main_snake_id, 
         best_move = None
         for move in moves:
             new_game_state = makeMove(game_state, curr_snake_id, move)
-            if (len(game_state["snakes"]) == 1):
-              curr_val = miniMax(new_game_state, depth - 1,
-                                 True, next_snake_id, main_snake_id, False, alpha, beta)
-            else:
-              curr_val = miniMax(new_game_state, depth - 1,
-                                 False, next_snake_id, main_snake_id, False, alpha, beta)
+            # if (len(game_state["snakes"]) == 1):
+            #   curr_val = miniMax(new_game_state, depth - 1,
+            #                      True, next_snake_id, main_snake_id, False, alpha, beta)
+            # else:
+            curr_val = miniMax(new_game_state, depth - 1,
+                              False, next_snake_id, main_snake_id, False, alpha, beta)
             # print(f"{curr_snake_id} {move}: {curr_val}")
             if (curr_val > highest_value):
                 best_move = move
@@ -729,5 +753,5 @@ if __name__ == "__main__":
 
 #Notes: Higher health score, snake tries to eath more
 #       Higher space score, snake tries to grow less hence increasing space
-#       Current snake is always trying to healkill and ends up in draw with other snake
+#       Current snake is always trying to healkill and ends up dying
 
