@@ -453,6 +453,7 @@ def makeMove(game_state, curr_snake_id, move):
         if (head_x != None):
             break
 
+    # Current snake does not exist
     if (head_x is None or head_y is None):
         return None
 
@@ -472,9 +473,9 @@ def makeMove(game_state, curr_snake_id, move):
 
     # Check if snake destination hits border
     if not (0 <= head_x < board_width and 0 <= head_y < board_height):
+        removeKilledSnake(new_snake_state, curr_snake_index)
         updateSnakeHealth(new_snake_state, curr_snake_index, False, False)
-        # print("Snake hit border")
-        return None
+        return new_game_state
 
     destination_cell = new_board_state[head_y][head_x]
     destination_cell_head = new_head_state[head_y][head_x][-2:]
@@ -514,6 +515,7 @@ def makeMove(game_state, curr_snake_id, move):
                 curr_health = updateSnakeHealth(
                     new_snake_state, curr_snake_index, True, False)
 
+                # check if snake ran out of health
                 if (curr_health <= 0):
                     removeKilledSnake(new_snake_state, curr_snake_index)
 
@@ -561,6 +563,7 @@ def makeMove(game_state, curr_snake_id, move):
         curr_health = updateSnakeHealth(
             new_snake_state, curr_snake_index, True, False)
 
+        # Check if snake ran out of health
         if (curr_health <= 0):
             removeKilledSnake(new_snake_state, curr_snake_index)
 
