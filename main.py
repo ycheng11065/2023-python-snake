@@ -443,12 +443,8 @@ def findCurrentSnake(new_snake_state, curr_snake_id):
     return curr_snake_index, curr_snake_length, curr_snake_body, curr_snake_health
 
 
-# Creates a new version of game state with the move and the correspondent snake
-def makeMove(game_state, curr_snake_id, move):
-    board_width = len(game_state["board"]["state_board"][0])
-    board_height = len(game_state["board"]["state_board"])
-
-    # new game state to update, change the id to current snake
+# Creates a deep copy of current game state to create a new game state
+def createNewGameState(game_state, curr_snake_id):
     new_game_state = copy.deepcopy(game_state)
     new_board_state = new_game_state["board"]["state_board"]
     new_head_state = new_game_state["board"]["head_board"]
@@ -456,17 +452,36 @@ def makeMove(game_state, curr_snake_id, move):
     new_game_state["turn"] = game_state["turn"] + 1
     new_game_state["curr_snake_id"] = curr_snake_id
 
-    # Our destination coordinate after performing move
-    head_x, head_y = None, None
+    return new_game_state, new_board_state, new_head_state, new_snake_state
 
-    for y in range(board_height):
-        for x in range(board_width):
+
+# Find current snake's head coordinates
+def findHeadCoord(width, height, new_head_state, curr_snake_id):
+    head_x, head_y = None, None
+    
+    for y in range(height):
+        for x in range(width):
             if (new_head_state[y][x] == curr_snake_id[-2:]):
                 head_x = x
                 head_y = y
                 break
         if (head_x != None):
             break
+        
+    return head_x, head_y
+
+
+# Creates a new version of game state with the move and the correspondent snake
+def makeMove(game_state, curr_snake_id, move):
+    board_width = len(game_state["board"]["state_board"][0])
+    board_height = len(game_state["board"]["state_board"])
+
+    # new game state to update, change the id to current snake
+    new_game_state, new_board_state, new_head_state, new_snake_state = createNewGameState(game_state, curr_snake_id)
+
+
+    # Our snake's head coordinates
+    head_x, head_y = findHeadCoord(board_width, board_height, new_head_state, curr_snake_id)
 
     # Current snake does not exist
     if (head_x is None or head_y is None):
@@ -617,7 +632,7 @@ def fill(visited, width, height, x, y):
     return counter
 
 
-# Calculate the value of the current game state based on the length of all the snakes
+# Calculate the value of the current game state based on the length of all the snakes, needs to be changed
 def evaluatePoint(game_state, depth, curr_snake_id, previous_snake_id):
     board_state = game_state["board"]["state_board"]
     board_width = len(board_state[0])
@@ -738,6 +753,8 @@ def evaluatePoint(game_state, depth, curr_snake_id, previous_snake_id):
 # Returns boolean depending on if snake state does not contain given id, snake is deleted when it is dead
 def isGameOver(game_state, previous_snake_id):
     if (previous_snake_id is None): return False
+
+    if (game_state is None): return True
 
     snake_state = game_state["snakes"]
 
