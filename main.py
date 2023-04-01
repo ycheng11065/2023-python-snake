@@ -755,14 +755,53 @@ def edgeKillValue(board_width, board_height, head_x, head_y, other_edge_snakes, 
     return 0
 
 
-# Calculate the value of the current game state
+# Finds the closest smallest snake distance as well as returning head collision values
+def headCollisionInfo(game_state, head_x, head_y, curr_snake_size, curr_snake_id, main_snake_id):
+    smallest_snake_distance = float("inf")
+    other_head_losing_weight = -1200
+    main_head_losing_weight = 3000
+
+    other_head_equal_weight = -600
+
+    for snake in game_state["snakes"]:
+        curr_head_losing_weight = 0
+        curr_head_x = snake["head"]["x"]
+        curr_head_y = snake["head"]["y"]
+
+        if (snake["id"] == curr_snake_id):
+            continue
+
+        if (len(snake["body"]) < curr_snake_size):
+            curr_snake_distance = abs(
+                head_x - curr_head_x) + abs(head_y - curr_head_y)
+            smallest_snake_distance = min(
+                smallest_snake_distance, curr_snake_distance)
+
+        # If current snake size is smaller or equal
+        if ((abs(head_x - curr_head_x) + abs(head_y - curr_head_y) < 2)):
+            # If current snake size is smaller
+            if (len(snake["body"]) > curr_snake_size):
+                curr_head_losing_weight = other_head_losing_weight
+
+                # If current snake is going up against our main snake
+                if (curr_snake_id != main_snake_id and snake["id"] == main_snake_id):
+                    curr_head_losing_weight = main_head_losing_weight
+
+            # If current snake size is equal
+            elif (len(snake["body"]) == curr_snake_size):
+                curr_head_losing_weight = other_head_equal_weight
+
+    return smallest_snake_distance
+
+
+# Calculate the value of the current game state for our main snake
 def evaluatePoint(game_state, depth, main_snake_id, curr_snake_id):
     curr_weight = 0
     opponent_death_weight = 500
     food_weight = 75
     size_difference_weight = 1000
     available_space_weight = 100
-    outer_bound_weight = 6
+    outer_bound_weight = -6
     edge_kill_weight = 60
     head_losing_weight = -10
     center_control_weight = 6
@@ -806,7 +845,7 @@ def evaluatePoint(game_state, depth, main_snake_id, curr_snake_id):
 
     # Check if curren snake head is on edge
     if (isOnEdge(head_x, head_y)):
-        curr_weight -= 6
+        curr_weight += 6
 
     # Check if current snake is in the center of board
     if (head_x in [4, 5, 6]):
