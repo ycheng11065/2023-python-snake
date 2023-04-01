@@ -700,6 +700,20 @@ def snakeInfoLoop(game_state, curr_snake_id):
     return curr_snake_head, curr_snake_size, curr_snake_health, average_snake_size, other_edge_snakes
 
 
+# Return the Manhattan distance of the closest food
+def closestFoodDistance(board_state, width, height, head_x, head_y):
+    closest_food = float("inf")
+
+    for y in range(height):
+        for x in range(width):
+            if (board_state[y][x] == 1):
+                food_distance = abs(
+                    head_x - x) + abs(head_y - y)
+                closest_food = min(food_distance, closest_food)
+    
+    return closest_food
+
+
 # Calculate the value of the current game state
 def evaluatePoint(game_state, depth, main_snake_id, curr_snake_id):
     curr_weight = 0
@@ -734,24 +748,19 @@ def evaluatePoint(game_state, depth, main_snake_id, curr_snake_id):
     board_height = len(board_state)
     turns = game_state["turn"]
 
-    # Calculate current snake score based on its length
+    # Find current snake as well as average snake size and snakes that are on the edge
     curr_snake_head, curr_snake_size, curr_snake_health, average_snake_size, other_edge_snakes = snakeInfoLoop(
         game_state, curr_snake_id)
 
 
+    # FloodFill determines available space for current snake to move
     available_space = floodFill(game_state, curr_snake_head)
 
     head_x = curr_snake_head["x"]
     head_y = curr_snake_head["y"]
 
-    # Encourage snake to prefer states closer to food
-    closest_food = float("inf")
-    for y in range(board_height):
-        for x in range(board_width):
-            if (board_state[y][x] == 1):
-                food_distance = abs(
-                    curr_snake_head["x"] - x) + abs(curr_snake_head["y"] - y)
-                closest_food = min(food_distance, closest_food)
+    # Closest distance to food
+    closest_food_distance = closestFoodDistance(board_state, board_width, board_height, head_x, head_y)
 
     # Discourage our snake to go to the outer bounds of the board
     if (head_x == 0 or head_y == 0 or head_x == board_width - 1 or head_y == board_height - 1):
