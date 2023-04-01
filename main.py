@@ -471,6 +471,20 @@ def findHeadCoord(width, height, new_head_state, curr_snake_id):
     return head_x, head_y
 
 
+# Update head coordinate to its future head coordinate after move
+def updateHeadCoord(x, y, move):
+    if (move == "up"):
+        y = y - 1
+    elif (move == "down"):
+        y = y + 1
+    elif (move == "left"):
+        x = x - 1
+    elif (move == "right"):
+        x = x + 1
+    
+    return x, y
+    
+
 # Creates a new version of game state with the move and the correspondent snake
 def makeMove(game_state, curr_snake_id, move):
     board_width = len(game_state["board"]["state_board"][0])
@@ -488,14 +502,7 @@ def makeMove(game_state, curr_snake_id, move):
         return None
 
     # Update head coordinate value to destination after move is applied
-    if (move == "up"):
-        head_y = head_y - 1
-    elif (move == "down"):
-        head_y = head_y + 1
-    elif (move == "left"):
-        head_x = head_x - 1
-    elif (move == "right"):
-        head_x = head_x + 1
+    head_x, head_y = updateHeadCoord(head_x, head_y, move)
 
     # Acquire current snake info
     curr_snake_index, curr_snake_length, curr_snake_body, curr_snake_health = findCurrentSnake(
