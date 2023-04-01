@@ -762,10 +762,10 @@ def evaluatePoint(game_state, depth, main_snake_id, curr_snake_id):
     food_weight = 75
     size_difference_weight = 1000
     available_space_weight = 100
-    outer_bound_weight = 0
+    outer_bound_weight = 6
     edge_kill_weight = 60
     head_losing_weight = -10
-    center_control_weight = 10
+    center_control_weight = 6
     head_kill_weight = 50
     turn_weight = 100
 
@@ -806,33 +806,15 @@ def evaluatePoint(game_state, depth, main_snake_id, curr_snake_id):
 
     # Check if curren snake head is on edge
     if (isOnEdge(head_x, head_y)):
-        outer_bound_weight -= 6
+        curr_weight -= 6
 
     # Check if current snake is in the center of board
     if (head_x in [4, 5, 6]):
-        center_control_weight += 6
+        curr_weight += 6
 
-    # Edge kill
-    if (head_x == 1 or head_y == 1 or head_x == board_width - 2 or head_y == board_height - 2):
-        for snake in other_edge_snakes:
-            edge_head_x = snake["head"]["x"]
-            edge_head_y = snake["head"]["y"]
-
-            if ((head_x == 1 and edge_head_x == 0) or (head_x == board_width - 2 and edge_head_x == board_width - 1)):
-                if (snake["body"][1]["y"] < edge_head_y):
-                    if (head_y > edge_head_y):
-                        edge_kill_weight += 16
-                elif (snake["body"][1]["y"] > edge_head_y):
-                    if (head_y < edge_head_y):
-                        edge_kill_weight += 16
-
-            elif ((head_y == 1 and edge_head_y == 0) or (head_y == board_height - 2 and edge_head_y == board_height - 1)):
-                if (snake["body"][1]["x"] < edge_head_x):
-                    if (head_x > edge_head_x):
-                        edge_kill_weight += 16
-                elif (snake["body"][1]["x"] > edge_head_x):
-                    if (head_x < edge_head_x):
-                        edge_kill_weight += 16
+    # Add the edge kill values
+    curr_weight += edgeKillValue(board_width, board_height,
+                                 head_x, head_y, other_edge_snakes, main_snake_id)
 
     closest_smallest_snake = float("inf")
 
