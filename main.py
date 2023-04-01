@@ -616,15 +616,15 @@ def evaluatePoint(game_state, depth, curr_snake_id, previous_snake_id):
     if (curr_snake_head is None): return float("-inf")
 
      # Weights
-    food_weight = 1000
-    size_difference_weight = 10
-    available_space_weight = 0.2
+    food_weight = 75
+    size_difference_weight = 1000
+    available_space_weight = 100
     outer_bound_weight = 0
-    edge_kill_weight = 0
-    head_losing_weight = 0
-    center_control_weight = 0
-    head_kill_weight = 0
-    turn_weight = 0.08
+    edge_kill_weight = 60
+    head_losing_weight = -10
+    center_control_weight = 10
+    head_kill_weight = 50
+    turn_weight = 100
       
     available_space = floodFill(game_state, curr_snake_head)
 
@@ -687,43 +687,32 @@ def evaluatePoint(game_state, depth, curr_snake_id, previous_snake_id):
         curr_snake_distance = abs(head_x - curr_head_x) + abs(head_y - curr_head_y)
         closest_smallest_snake = min(closest_smallest_snake, curr_snake_distance)
 
-      if ((abs(head_x - curr_head_x) + abs(head_y - curr_head_y) < 2)):
+      if ((abs(head_x - curr_head_x) + abs(head_y - curr_head_y) < 3)):
         if (len(snake["body"]) > size):
-          head_losing_weight -= 12
+          head_losing_weight -= float("-inf")
         elif (len(snake["body"]) == size):
-          head_losing_weight -= 10
+          head_losing_weight -= 100
+          
         
-        
-    # return curr_snake_health/2 + (available_space * available_space_weight) + (size_difference * size_difference_weight) + outer_bound_weight + edge_kill_weight + head_losing_weight + center_control_weight + food_weight / (closest_food + 1) + head_kill_weight /(closest_smallest_snake + 1)
+    return (curr_snake_health/2 + (available_space * available_space_weight) + (size_difference * size_difference_weight) 
+    + outer_bound_weight + edge_kill_weight + head_losing_weight + center_control_weight + food_weight / (closest_food + 1)
+    + head_kill_weight /(closest_smallest_snake + 1) + curr_snake_size * 7)
 
-    # return default_score  + center_control_weight + (available_space * available_space_weight) + food_weight / (closest_food + 1) + curr_snake_health + turn_weight * turns
-
-    # return + center_control_weight
-
-    # return turn_weight * turns
-
-    return 0
 
 # The snake MiniMax algorithm
 def miniMax(game_state, depth, curr_snake_id, main_snake_id, previous_snake_id, return_move, alpha, beta):
     # when given game_state is over, return the current state point
     if (game_state == None):
-      # Return -inf if our main snake dies, return inf if an opponent snake dies
-      if (previous_snake_id and previous_snake_id == main_snake_id):
-        # our snake killed itself last move
-          return float('-inf')
-      elif (previous_snake_id and previous_snake_id != main_snake_id):
-        # some other snake killed itself
-          return float('inf')
-  
-    if (depth == 0):
-      if (previous_snake_id and previous_snake_id == main_snake_id):
-        return evaluatePoint(game_state, depth, curr_snake_id, previous_snake_id)     
-      elif (previous_snake_id and previous_snake_id != main_snake_id):
-        return -1 * evaluatePoint(game_state, depth, curr_snake_id, previous_snake_id) 
-      # return evaluatePoint(game_state, depth, curr_snake_id, previous_snake_id) 
-      
+        # Return -inf if our main snake dies, return inf if an opponent snake dies
+        if (previous_snake_id and previous_snake_id == main_snake_id):
+            # our snake killed itself last move
+            return float('-inf')
+        elif (previous_snake_id and previous_snake_id != main_snake_id):
+            # some other snake killed itself
+            return float('inf')
 
+    if (depth == 0):
+        return evaluatePoint(game_state, depth, main_snake_id, previous_snake_id)
 
     # get the id of the next snake that we're gonna minimax
     curr_index = 0
@@ -733,8 +722,8 @@ def miniMax(game_state, depth, curr_snake_id, main_snake_id, previous_snake_id, 
             break
 
     # Select the next snake id inside the snake array
-    next_snake_id = game_state["snakes"][(curr_index + 1) % len(game_state["snakes"])]["id"]
-    previous_snake_id = curr_snake_id
+    next_snake_id = game_state["snakes"][(
+        curr_index + 1) % len(game_state["snakes"])]["id"]
 
     moves = ["up", "down", "right", "left"]
 
@@ -744,27 +733,29 @@ def miniMax(game_state, depth, curr_snake_id, main_snake_id, previous_snake_id, 
         for move in moves:
             # Makes a copy of the current game state with the current snake taking a possible move
             new_game_state = makeMove(game_state, curr_snake_id, move)
-            curr_val = miniMax(new_game_state, depth - 1, next_snake_id, main_snake_id, previous_snake_id, False, alpha, beta)
-            print(f"{curr_snake_id} {move}: {curr_val}")
+            curr_val = miniMax(new_game_state, depth - 1, next_snake_id,
+                               main_snake_id, curr_snake_id, False, alpha, beta)
+            # print(f"{curr_snake_id} {move}: {curr_val}")
             if (curr_val > highest_value):
                 best_move = move
                 highest_value = curr_val
-            
+
             alpha = max(alpha, curr_val)
 
             if (alpha >= beta):
                 break
 
-        print(f"highest :   {curr_snake_id} {best_move}: {highest_value}")
-        
+        # print(f"highest :   {curr_snake_id} {best_move}: {highest_value}")
+
         return (highest_value, best_move) if return_move else highest_value
-    
+
     else:
         min_value = float("inf")
         best_move = None
         for move in moves:
             new_game_state = makeMove(game_state, curr_snake_id, move)
-            curr_val = miniMax(new_game_state, depth - 1, next_snake_id, main_snake_id, previous_snake_id, False, alpha, beta)
+            curr_val = miniMax(new_game_state, depth - 1, next_snake_id,
+                               main_snake_id, curr_snake_id, False, alpha, beta)
             # print(f"{curr_snake_id} {move}: {curr_val}")
             if (min_value > curr_val):
                 best_move = move

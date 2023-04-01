@@ -11,6 +11,7 @@ class Node:
     def __init__(self, grid):
         self.grid = grid
         self.curr_snake = None
+        self.curr_move = None
         self.turn = None
         self.value = None
         self.up = None
@@ -38,7 +39,7 @@ def miniMaxTree(game_state, depth, curr_snake_id, main_snake_id, previous_snake_
             curr_root = Node(None)
             curr_root.turn = "end"
             curr_root.curr_snake = curr_snake_id[-1]
-            curr_root.value = float('inf')
+            curr_root.value = 200
             # print(curr_root.value)
 
             return curr_root, curr_root.value
@@ -80,13 +81,13 @@ def miniMaxTree(game_state, depth, curr_snake_id, main_snake_id, previous_snake_
                 best_move = move
                 highest_value = curr_val
 
-            if (depth == 1):
-                print(f"Move: {move}, Current value: {curr_val}, Max value (before update): {highest_value}")
+            alpha = max(alpha, curr_val)
 
-            # alpha = max(alpha, curr_val)
+            if (alpha >= beta):
+                break
 
-            # if (alpha >= beta):
-            #     break
+            print(best_move)
+
                 
             if (move == "up"):
                 curr_root.up = curr_node
@@ -99,11 +100,7 @@ def miniMaxTree(game_state, depth, curr_snake_id, main_snake_id, previous_snake_
 
         curr_root.turn = game_state["turn"]
         curr_root.curr_snake = curr_snake_id[-1]
-        # if (previous_snake_id is None):
-        #     curr_root.curr_snake = curr_snake_id[-2:]
-        # else:
-        #     curr_root.curr_snake = previous_snake_id[-2:]
-        # print(highest_value)
+        curr_root.curr_move = best_move
         curr_root.value = highest_value
         return curr_root, highest_value
 
@@ -126,12 +123,15 @@ def miniMaxTree(game_state, depth, curr_snake_id, main_snake_id, previous_snake_
                 best_move = move
                 min_value = curr_val
 
+            # print(best_move)
+            
+
             print(f"Min value (after update): {min_value}")
 
-            # beta = min(curr_val, beta)
+            beta = min(curr_val, beta)
 
-            # if (beta <= alpha):
-            #     break
+            if (beta <= alpha):
+                break
 
             if (move == "up"):
                 curr_root.up = curr_node
@@ -144,23 +144,19 @@ def miniMaxTree(game_state, depth, curr_snake_id, main_snake_id, previous_snake_
 
         curr_root.turn = game_state["turn"]
         curr_root.curr_snake = curr_snake_id[-1]
-        # if (previous_snake_id is None):
-        #     curr_root.curr_snake = curr_snake_id[-2:]
-        # else:
-        #     curr_root.curr_snake = previous_snake_id[-2:]
+        curr_root.curr_move = best_move
         curr_root.value = min_value
-        print(min_value)
         return curr_root, min_value
 
 
 # Main function
-def createMinimaxTree(game_state):
-    current_game_state = createGameState(game_state, game_state["you"]["id"])
+def createMinimaxTree(game_state, curr_snake_id):
+    current_game_state = createGameState(game_state, curr_snake_id)
 
     depth = 4
 
     root, highest_value = miniMaxTree(
-        current_game_state, depth, game_state["you"]["id"], game_state["you"]["id"], None, float("-inf"), float("inf"))
+        current_game_state, depth, curr_snake_id, curr_snake_id, None, float("-inf"), float("inf"))
     # print(f"Minimax value: {result_value}, Best move: {best_move}")
 
     return root
@@ -182,7 +178,7 @@ def draw_decision_tree(tree_root):
             return x_offset
 
         graph.add_node(node, pos=(x_offset, -depth * sibling_spacing * (spacing_factor ** depth)),
-                       grid=node.grid, value=node.value, turn=node.turn, curr_snake=node.curr_snake)
+                       grid=node.grid, value=node.value, turn=node.turn, curr_snake=node.curr_snake, curr_move=node.curr_move)
         max_x = max(max_x, x_offset)
         max_depth = max(max_depth, depth)
 
@@ -213,19 +209,21 @@ def draw_decision_tree(tree_root):
     value_labels = nx.get_node_attributes(graph, 'value')
     turn_labels = nx.get_node_attributes(graph, 'turn')
     snake_labels = nx.get_node_attributes(graph, 'curr_snake')
+    move_labels = nx.get_node_attributes(graph, 'curr_move')
+
 
     labels = {}
     for node in graph.nodes:
         if grid_labels[node] is not None:
             grid_str = format_grid(grid_labels[node])
-            labels[node] = f"Snake: {snake_labels[node]}\n{grid_str}\nValue: {value_labels[node]}\nTurn: {turn_labels[node]}"
+            labels[node] = f"Snake: {snake_labels[node]}\n{grid_str}\nValue: {value_labels[node]}\nTurn: {turn_labels[node]}\nMove: {move_labels[node]}"
         else:
-            labels[node] = f"Snake: {snake_labels[node]}\nValue: {value_labels[node]}\nTurn: {turn_labels[node]}"
+            labels[node] = f"Snake: {snake_labels[node]}\nValue: {value_labels[node]}\nTurn: {turn_labels[node]}\nMove: {move_labels[node]}"
 
 
     plt.rcParams["font.size"] = 1
     plt.figure(figsize=(max_x, int(max_depth * max_depth *
-               sibling_spacing * (1.5 ** max_depth) / 12)))
+               sibling_spacing * (1.5 ** max_depth) / 20)))
     plt.rcParams['font.family'] = 'monospace'
     nx.draw(graph, pos, with_labels=False,
             node_size=5000, node_color='lightblue')
@@ -248,11 +246,11 @@ def foodSpawm(state, x, y):
 
 def main():
     game_state = createGameState(
-        current_game_state, 'gs_Xkqb4BwwxrJcrPQBQtd6cq8X')
+        current_game_state, 'gs_MDVyP6JTktJdwVbXjwSHTvrX')
     board_state = game_state["board"]["state_board"]
     head_state = game_state["board"]["head_board"]
 
-    root = createMinimaxTree(current_game_state)
+    root = createMinimaxTree(current_game_state, 'gs_fWdBSd47dkQJMCSmmSBK8SRb')
     draw_decision_tree(root)
 
 
