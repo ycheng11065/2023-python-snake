@@ -665,12 +665,12 @@ def isGameOver(game_state, snake_id):
 
 
 # Determines if given head coordinate is on edge
-def isOnEdge(head_x, head_y):
+def isOnEdge(head_x, head_y, board_width, board_height):
     return (head_x == 0 or head_y == 0 or head_x == board_width - 1 or head_y == board_height - 1)
 
 
 # Search through snake state and find curr snake, snakes on edge and average length
-def snakeInfoLoop(game_state, curr_snake_id):
+def snakeInfoLoop(game_state, curr_snake_id, board_width, board_height):
     curr_snake_head = None
     curr_snake_size = 0
     curr_snake_health = 0
@@ -692,7 +692,7 @@ def snakeInfoLoop(game_state, curr_snake_id):
             total_snake_amount += 1
             curr_length_total += len(snake["body"])
 
-            if isOnEdge(head_x, head_y):
+            if isOnEdge(head_x, head_y, board_width, board_height):
                 other_edge_snakes.append(snake)
 
     average_snake_size = total_snake_amount // curr_length_total
@@ -750,7 +750,7 @@ def evaluatePoint(game_state, depth, main_snake_id, curr_snake_id):
 
     # Find current snake as well as average snake size and snakes that are on the edge
     curr_snake_head, curr_snake_size, curr_snake_health, average_snake_size, other_edge_snakes = snakeInfoLoop(
-        game_state, curr_snake_id)
+        game_state, curr_snake_id, board_width, board_height)
 
 
     # FloodFill determines available space for current snake to move
