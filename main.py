@@ -710,8 +710,49 @@ def closestFoodDistance(board_state, width, height, head_x, head_y):
                 food_distance = abs(
                     head_x - x) + abs(head_y - y)
                 closest_food = min(food_distance, closest_food)
-    
+
     return closest_food
+
+
+# Determines if current head coordinates are on cells one before edge
+def isOnEdgeBorder(head_x, head_y, board_height, board_width):
+    return (head_x == 1 or head_y == 1 or head_x == board_width - 2 or head_y == board_height - 2)
+
+
+# Return edge kill value of current snake
+def edgeKillValue(board_width, board_height, head_x, head_y, other_edge_snakes, main_snake_id):
+    main_snake_edge_kill_weight = -2000
+    other_snake_edge_kill_weight = 16
+
+    if (isOnEdgeBorder):
+        for snake in other_edge_snakes:
+            curr_edge_kill_weight = other_snake_edge_kill_weight
+            edge_head_x = snake["head"]["x"]
+            edge_head_y = snake["head"]["y"]
+
+            # If the snake on the edge is our main snake
+            if (snake["id"] == main_snake_id):
+                curr_edge_kill_weight = main_snake_edge_kill_weight
+
+            if ((head_x == 1 and edge_head_x == 0) or (head_x == board_width - 2 and edge_head_x == board_width - 1)):
+                if (snake["body"][1]["y"] < edge_head_y):
+                    if (head_y > edge_head_y):
+                        return curr_edge_kill_weight
+
+                elif (snake["body"][1]["y"] > edge_head_y):
+                    if (head_y < edge_head_y):
+                        return curr_edge_kill_weight
+
+            elif ((head_y == 1 and edge_head_y == 0) or (head_y == board_height - 2 and edge_head_y == board_height - 1)):
+                if (snake["body"][1]["x"] < edge_head_x):
+                    if (head_x > edge_head_x):
+                        return curr_edge_kill_weight
+
+                elif (snake["body"][1]["x"] > edge_head_x):
+                    if (head_x < edge_head_x):
+                        return curr_edge_kill_weight
+
+    return 0
 
 
 # Calculate the value of the current game state
@@ -752,7 +793,6 @@ def evaluatePoint(game_state, depth, main_snake_id, curr_snake_id):
     curr_snake_head, curr_snake_size, curr_snake_health, average_snake_size, other_edge_snakes = snakeInfoLoop(
         game_state, curr_snake_id, board_width, board_height)
 
-
     # FloodFill determines available space for current snake to move
     available_space = floodFill(game_state, curr_snake_head)
 
@@ -761,7 +801,8 @@ def evaluatePoint(game_state, depth, main_snake_id, curr_snake_id):
     head_y = curr_snake_head["y"]
 
     # Closest distance to food
-    closest_food_distance = closestFoodDistance(board_state, board_width, board_height, head_x, head_y)
+    closest_food_distance = closestFoodDistance(
+        board_state, board_width, board_height, head_x, head_y)
 
     # Check if curren snake head is on edge
     if (isOnEdge(head_x, head_y)):
