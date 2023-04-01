@@ -756,17 +756,18 @@ def evaluatePoint(game_state, depth, main_snake_id, curr_snake_id):
     # FloodFill determines available space for current snake to move
     available_space = floodFill(game_state, curr_snake_head)
 
+    # Current snake head coordinates
     head_x = curr_snake_head["x"]
     head_y = curr_snake_head["y"]
 
     # Closest distance to food
     closest_food_distance = closestFoodDistance(board_state, board_width, board_height, head_x, head_y)
 
-    # Discourage our snake to go to the outer bounds of the board
-    if (head_x == 0 or head_y == 0 or head_x == board_width - 1 or head_y == board_height - 1):
+    # Check if curren snake head is on edge
+    if (isOnEdge(head_x, head_y)):
         outer_bound_weight -= 6
 
-    # Encourage middle control
+    # Check if current snake is in the center of board
     if (head_x in [4, 5, 6]):
         center_control_weight += 6
 
