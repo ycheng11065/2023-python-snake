@@ -1,15 +1,3 @@
-# Welcome to
-# __________         __    __  .__                               __
-# \______   \_____ _/  |__/  |_|  |   ____   ______ ____ _____  |  | __ ____
-#  |    |  _/\__  \\   __\   __\  | _/ __ \ /  ___//    \\__  \ |  |/ // __ \
-#  |    |   \ / __ \|  |  |  | |  |_\  ___/ \___ \|   |  \/ __ \|    <\  ___/
-#  |________/(______/__|  |__| |____/\_____>______>___|__(______/__|__\\_____>
-#
-# This file can be a nice home for your Battlesnake logic and helper functions.
-#
-# To get you started we"ve included code to prevent your Battlesnake from moving backwards.
-# For more info see docs.battlesnake.com
-
 import random
 import typing
 import copy
@@ -21,12 +9,6 @@ HEAD_KILL_VALUE = 3
 MIN_MOVE_VALUE = float("-inf")
 DEFAULT_MOVE_VALUE = 0
 HEALTH_THRESHOLD = 40
-
-# state = None
-
-# info is called when you create your Battlesnake on play.battlesnake.com
-# and controls your Battlesnake's appearance
-# TIP: If you open your Battlesnake URL in a browser you should see this data
 
 
 def info() -> typing.Dict:
@@ -114,14 +96,10 @@ def move(game_state: typing.Dict) -> typing.Dict:
 # -----------------------------------------------------------------------------
 
 # Calculate the distance between the two entities
-
-
 def calculateDist(a, b):
     return abs(a["x"] - b["x"]) + abs(a["y"] - b["y"])
 
 # Prevents snake going backwards
-
-
 def preventBack(game_state, is_move_safe):
     my_head = game_state["you"]["body"][0]  # Coordinates of your head
     my_neck = game_state["you"]["body"][1]  # Coordinates of your "neck"
@@ -257,9 +235,8 @@ def findFood(game_state, safe_moves):
 # SNAKE STRATEGY BEHAVIOR
 # -----------------------------------------------------------------------------
 
+
 # Generates a copy of current game board and another board that tracks snake head positions
-
-
 def createBoardState(game_state):
     board_width = game_state["board"]["width"]
     board_height = game_state["board"]["height"]
@@ -301,9 +278,8 @@ def createBoardState(game_state):
 
     return board_state
 
+
 # Create an array of snakes, each snake is a dict containing id, head and body coord
-
-
 def snakeState(game_state):
     snakes = game_state["board"]["snakes"]
     board_height = game_state["board"]["height"]
