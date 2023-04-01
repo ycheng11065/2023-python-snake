@@ -735,32 +735,23 @@ def evaluatePoint(game_state, depth, curr_snake_id, previous_snake_id):
             + head_kill_weight / (closest_smallest_snake + 1) + curr_snake_size * 7)
 
 
-# Returns boolean depending on if given game_state is an end state
-def isGameOver(game_state):
-    
+# Returns boolean depending on if snake state does not contain given id, snake is deleted when it is dead
+def isGameOver(game_state, previous_snake_id):
+    if (previous_snake_id is None): return False
 
-    return False
+    snake_state = game_state["snakes"]
+
+    for snake in snake_state:
+        if (snake["id"] == previous_snake_id):
+            return False
+    return True
 
 
 # The snake MiniMax algorithm
 def miniMax(game_state, depth, curr_snake_id, main_snake_id, previous_snake_id, return_move, alpha, beta):
     # If given game_state reached an end or depth has reached zero, return game_state score
-    if (depth == 0 or isGameOver(game_state)):
+    if (depth == 0 or isGameOver(game_state, previous_snake_id)):
         return evaluatePoint(game_state, depth, main_snake_id, previous_snake_id)
-    
-
-    # # when given game_state is over, return the current state point
-    # if (game_state == None):
-    #     # Return -inf if our main snake dies, return inf if an opponent snake dies
-    #     if (previous_snake_id and previous_snake_id == main_snake_id):
-    #         # our snake killed itself last move
-    #         return float('-inf')
-    #     elif (previous_snake_id and previous_snake_id != main_snake_id):
-    #         # some other snake killed itself
-    #         return float('inf')
-
-    # if (depth == 0):
-    #     return evaluatePoint(game_state, depth, main_snake_id, previous_snake_id)
 
     # get the id of the next snake that we're gonna minimax
     curr_index = 0
