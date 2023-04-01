@@ -639,8 +639,49 @@ def fill(visited, width, height, x, y):
     return counter
 
 
-# Calculate the value of the current game state based on the length of all the snakes, needs to be changed
-def evaluatePoint(game_state, depth, curr_snake_id, previous_snake_id):
+# Returns boolean depending on if snake state does not contain given id, snake is deleted when it is dead
+def isGameOver(game_state, snake_id):
+    if (snake_id is None): return False
+
+    if (game_state is None): return True
+
+    snake_state = game_state["snakes"]
+
+    for snake in snake_state:
+        if (snake["id"] == snake_id):
+            return False
+    return True
+
+
+# Calculate the value of the current game state 
+def evaluatePoint(game_state, depth, main_snake_id, curr_snake_id):
+    curr_weight = 0
+    opponent_death_weight = 500
+    food_weight = 75
+    size_difference_weight = 1000
+    available_space_weight = 100
+    outer_bound_weight = 0
+    edge_kill_weight = 60
+    head_losing_weight = -10
+    center_control_weight = 10
+    head_kill_weight = 50
+    turn_weight = 100
+
+    # If the game state given somehow does not exist
+    if (game_state is None):
+        if (curr_snake_id == main_snake_id):
+            return float("-inf")
+        else:
+            return float("inf")
+
+    # Check if our main snake has died
+    if (isGameOver(game_state, main_snake_id)):
+        return float("-inf")
+    
+    # Check if the current snake has died (not main snake)
+    if (curr_snake_id != main_snake_id and isGameOver(game_state, curr_snake_id)):
+        curr_weigth += opponent_death_weight
+
     board_state = game_state["board"]["state_board"]
     board_width = len(board_state[0])
     board_height = len(board_state)
@@ -674,17 +715,6 @@ def evaluatePoint(game_state, depth, curr_snake_id, previous_snake_id):
     # if (previous_snake_id == )
     if (curr_snake_head is None):
         return float("-inf")
-
-    # Weights
-    food_weight = 75
-    size_difference_weight = 1000
-    available_space_weight = 100
-    outer_bound_weight = 0
-    edge_kill_weight = 60
-    head_losing_weight = -10
-    center_control_weight = 10
-    head_kill_weight = 50
-    turn_weight = 100
 
     available_space = floodFill(game_state, curr_snake_head)
 
@@ -755,20 +785,6 @@ def evaluatePoint(game_state, depth, curr_snake_id, previous_snake_id):
             + outer_bound_weight + edge_kill_weight + head_losing_weight +
             center_control_weight + food_weight / (closest_food + 1)
             + head_kill_weight / (closest_smallest_snake + 1) + curr_snake_size * 7)
-
-
-# Returns boolean depending on if snake state does not contain given id, snake is deleted when it is dead
-def isGameOver(game_state, previous_snake_id):
-    if (previous_snake_id is None): return False
-
-    if (game_state is None): return True
-
-    snake_state = game_state["snakes"]
-
-    for snake in snake_state:
-        if (snake["id"] == previous_snake_id):
-            return False
-    return True
 
 
 # The snake MiniMax algorithm
