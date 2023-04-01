@@ -464,10 +464,10 @@ def makeMove(game_state, curr_snake_id, move):
     destination_cell_head = new_head_state[head_y][head_x][-2:]
 
 
-    # Check if snake runs into another snake
+    # Checks if snake runs into another snake or edge boundary
     if (destination_cell not in [0, 1]):
 
-        # Check if collision is with the head of a snake smaller than current snake
+        # Check if collision is with the head of a snake
         if (destination_cell == 2 and destination_cell_head != 0):
             destination_snake_length = 0
             destination_snake_body = None
@@ -482,7 +482,7 @@ def makeMove(game_state, curr_snake_id, move):
 
                 destination_snake_index += 1
 
-            # Our size is bigger, else we return None signifying that we died
+            # Our size is bigger and we kill the another snake
             if (destination_snake_length < curr_snake_length):
 
                 # Remove the destination snake
@@ -504,10 +504,18 @@ def makeMove(game_state, curr_snake_id, move):
                 removeKilledSnake(new_snake_state, destination_snake_index)
 
                 return new_game_state
-
+            
+            # Our snake is smaller or same size
             else:
+                removeKilledSnake(new_snake_state, curr_snake_index)
+
+                # Same size case
+                if (destination_snake_length == curr_snake_length):
+                   removeKilledSnake(new_snake_state, destination_snake_index)
+                   
                 updateSnakeHealth(new_snake_state, curr_snake_index, False, False)
-                return None
+
+                return new_game_state
 
         updateSnakeHealth(new_snake_state, curr_snake_index, False, False)
         return None
