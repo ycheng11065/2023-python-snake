@@ -797,13 +797,14 @@ def headCollisionInfo(game_state, head_x, head_y, curr_snake_size, curr_snake_id
 # Calculate the value of the current game state for our main snake
 def evaluatePoint(game_state, depth, main_snake_id, curr_snake_id):
     curr_weight = 0
+
+    snake_health_weight = 2
     opponent_death_weight = 500
     food_weight = 75
-    size_difference_weight = 1000
+    small_size_penalty_weight = -400
     available_space_weight = 100
+    snake_size_weight = 7
     outer_bound_weight = -6
-    edge_kill_weight = 60
-    head_losing_weight = -10
     center_control_weight = 6
     head_kill_weight = 50
     turn_weight = 100
@@ -831,27 +832,39 @@ def evaluatePoint(game_state, depth, main_snake_id, curr_snake_id):
     # Find current snake as well as average snake size and snakes that are on the edge
     curr_snake_head, curr_snake_size, curr_snake_health, average_snake_size, other_edge_snakes = snakeInfoLoop(
         game_state, curr_snake_id, board_width, board_height)
+    
+    # Add weight if current snake is smaller than average size of snakes
+    if (curr_snake_size < average_snake_size):
+        curr_weight += small_size_penalty_weight
 
-    # FloodFill determines available space for current snake to move
+    # Add weight the bigger the snake is
+    curr_weight += curr_snake_size * snake_size_weight
+
+    # Add weight the more health the snake has
+    curr_weight += curr_snake_health / snake_health_weight
+
+    # FloodFill determines available space for current snake to move, add space weight
     available_space = floodFill(game_state, curr_snake_head)
+    curr_weight = available_space * available_space_weight
 
     # Current snake head coordinates
     head_x = curr_snake_head["x"]
     head_y = curr_snake_head["y"]
 
-    # Closest distance to food
+    # Closest distance to food, add weight scaling depending on how close is curr snake to food
     closest_food_distance = closestFoodDistance(
         board_state, board_width, board_height, head_x, head_y)
+    curr_weight += food_weight/(closest_food_distance + 1)
 
-    # Check if curren snake head is on edge
+    # Add weight if snake is on edge of board
     if (isOnEdge(head_x, head_y)):
-        curr_weight += 6
+        curr_weight += outer_bound_weight
 
-    # Check if current snake is in the center of board
+    # Add weight if snake is in center of board
     if (head_x in [4, 5, 6]):
-        curr_weight += 6
+        curr_weight += center_control_weight
 
-    # Add the edge kill values
+    # Add the edge kill weight
     curr_weight += edgeKillValue(board_width, board_height,
                                  head_x, head_y, other_edge_snakes, main_snake_id)
 
@@ -859,11 +872,12 @@ def evaluatePoint(game_state, depth, main_snake_id, curr_snake_id):
         game_state, head_x, head_y, curr_snake_id, main_snake_id)
     
     curr_weight += head_collision_value
+    curr_weight += head_kill_weight / (smallest_snake_distance + 1)
 
-    return (curr_snake_health/2 + (available_space * available_space_weight) + (size_difference * size_difference_weight)
-            + outer_bound_weight + edge_kill_weight + head_losing_weight +
-            center_control_weight + food_weight / (closest_food + 1)
-            + head_kill_weight / (closest_smallest_snake + 1) + curr_snake_size * 7)
+    if (curr_snake_id == main_snake_id):
+        return curr_weight
+    else:
+        return curr_weight * -1
 
 
 # The snake MiniMax algorithm
