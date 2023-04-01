@@ -791,7 +791,7 @@ def headCollisionInfo(game_state, head_x, head_y, curr_snake_size, curr_snake_id
             elif (len(snake["body"]) == curr_snake_size):
                 curr_head_losing_weight = other_head_equal_weight
 
-    return smallest_snake_distance
+    return smallest_snake_distance, curr_head_losing_weight
 
 
 # Calculate the value of the current game state for our main snake
@@ -855,26 +855,10 @@ def evaluatePoint(game_state, depth, main_snake_id, curr_snake_id):
     curr_weight += edgeKillValue(board_width, board_height,
                                  head_x, head_y, other_edge_snakes, main_snake_id)
 
-    closest_smallest_snake = float("inf")
-
-    for snake in game_state["snakes"]:
-        curr_head_x = snake["head"]["x"]
-        curr_head_y = snake["head"]["y"]
-
-        if (snake["id"] == curr_snake_id):
-            continue
-
-        if (len(snake["body"]) < size):
-            curr_snake_distance = abs(
-                head_x - curr_head_x) + abs(head_y - curr_head_y)
-            closest_smallest_snake = min(
-                closest_smallest_snake, curr_snake_distance)
-
-        if ((abs(head_x - curr_head_x) + abs(head_y - curr_head_y) < 3)):
-            if (len(snake["body"]) > size):
-                head_losing_weight -= float("-inf")
-            elif (len(snake["body"]) == size):
-                head_losing_weight -= 100
+    smallest_snake_distance, head_collision_value = headCollisionInfo(
+        game_state, head_x, head_y, curr_snake_id, main_snake_id)
+    
+    curr_weight += head_collision_value
 
     return (curr_snake_health/2 + (available_space * available_space_weight) + (size_difference * size_difference_weight)
             + outer_bound_weight + edge_kill_weight + head_losing_weight +
