@@ -405,9 +405,24 @@ def snakeStateFoodGrow(new_snake_state, curr_snake_index):
         {"x": last_x, "y": last_y})
 
 
-# Remove killed snake from the snake state list
-def removeKilledSnake(new_snake_state, killed_snake_index):
-    new_snake_state.pop(killed_snake_index)
+# Replace body part value to 0, removing the killed snake from game board and head board
+def removeKilledSnakeBody(new_board_state, new_head_state, new_snake_state, snake_index):
+    snake_body = new_snake_state[snake_index]["body"]
+    snake_head = new_snake_state[snake_index]["head"]
+
+    for body in snake_body:
+        body_x = body["x"]
+        body_y = body["y"]
+
+        if (body == snake_head):
+            new_head_state[body_y][body_x] = 0
+        new_board_state[body_y][body_x] = 0
+
+
+# Remove killed snake from the snake state list and board
+def removeKilledSnake(new_board_state, new_head_state, new_snake_state, snake_index):
+    removeKilledSnakeBody(new_board_state, new_head_state, new_snake_state, snake_index)
+    new_snake_state.pop(snake_index)
 
 
 # Find snake corresponding to the given current ID and return its info
@@ -473,7 +488,7 @@ def makeMove(game_state, curr_snake_id, move):
 
     # Check if snake destination hits border
     if not (0 <= head_x < board_width and 0 <= head_y < board_height):
-        removeKilledSnake(new_snake_state, curr_snake_index)
+        removeKilledSnake(new_board_state, new_head_state, new_snake_state, curr_snake_index)
         updateSnakeHealth(new_snake_state, curr_snake_index, False, False)
         return new_game_state
 
@@ -501,12 +516,8 @@ def makeMove(game_state, curr_snake_id, move):
             # Our size is bigger and we kill the another snake
             if (destination_snake_length < curr_snake_length):
 
-                # Remove the destination snake
-                for body in destination_snake_body:
-                    body_x = body["x"]
-                    body_y = body["y"]
-
-                    new_board_state[body_y][body_x] = 0
+                # Remove destination snake from game board and snake state
+                removeKilledSnake(new_board_state, new_head_state, new_snake_state, destination_snake_index)
 
                 # Snake moves forward and updates all coords in new game state
                 moveForward(new_board_state, new_head_state, new_snake_state,
@@ -515,26 +526,23 @@ def makeMove(game_state, curr_snake_id, move):
                 curr_health = updateSnakeHealth(
                     new_snake_state, curr_snake_index, True, False)
 
-                # check if snake ran out of health
+                # check if our snake ran out of health
                 if (curr_health <= 0):
-                    removeKilledSnake(new_snake_state, curr_snake_index)
-
-                # Remove killed snake from snake state list
-                removeKilledSnake(new_snake_state, destination_snake_index)
+                    removeKilledSnake(new_board_state, new_head_state, new_snake_state, curr_snake_index)
 
             # Our snake is smaller or same size
             else:
-                removeKilledSnake(new_snake_state, curr_snake_index)
+                removeKilledSnake(new_board_state, new_head_state, new_snake_state, curr_snake_index)
 
                 # Same size case
                 if (destination_snake_length == curr_snake_length):
-                    removeKilledSnake(new_snake_state, destination_snake_index)
+                    removeKilledSnake(nnew_board_state, new_head_state, new_snake_state, destination_snake_index)
 
                 updateSnakeHealth(
                     new_snake_state, curr_snake_index, False, False)
 
         else:
-            removeKilledSnake(new_snake_state, curr_snake_index)
+            removeKilledSnake(new_board_state, new_head_state, new_snake_state, curr_snake_index)
             updateSnakeHealth(new_snake_state, curr_snake_index, False, False)
         
         return new_game_state
@@ -565,7 +573,7 @@ def makeMove(game_state, curr_snake_id, move):
 
         # Check if snake ran out of health
         if (curr_health <= 0):
-            removeKilledSnake(new_snake_state, curr_snake_index)
+            removeKilledSnake(new_board_state, new_head_state, new_snake_state, curr_snake_index)
 
         return new_game_state
 
@@ -727,20 +735,32 @@ def evaluatePoint(game_state, depth, curr_snake_id, previous_snake_id):
             + head_kill_weight / (closest_smallest_snake + 1) + curr_snake_size * 7)
 
 
+# Returns boolean depending on if given game_state is an end state
+def isGameOver(game_state):
+    
+
+    return False
+
+
 # The snake MiniMax algorithm
 def miniMax(game_state, depth, curr_snake_id, main_snake_id, previous_snake_id, return_move, alpha, beta):
-    # when given game_state is over, return the current state point
-    if (game_state == None):
-        # Return -inf if our main snake dies, return inf if an opponent snake dies
-        if (previous_snake_id and previous_snake_id == main_snake_id):
-            # our snake killed itself last move
-            return float('-inf')
-        elif (previous_snake_id and previous_snake_id != main_snake_id):
-            # some other snake killed itself
-            return float('inf')
-
-    if (depth == 0):
+    # If given game_state reached an end or depth has reached zero, return game_state score
+    if (depth == 0 or isGameOver(game_state)):
         return evaluatePoint(game_state, depth, main_snake_id, previous_snake_id)
+    
+
+    # # when given game_state is over, return the current state point
+    # if (game_state == None):
+    #     # Return -inf if our main snake dies, return inf if an opponent snake dies
+    #     if (previous_snake_id and previous_snake_id == main_snake_id):
+    #         # our snake killed itself last move
+    #         return float('-inf')
+    #     elif (previous_snake_id and previous_snake_id != main_snake_id):
+    #         # some other snake killed itself
+    #         return float('inf')
+
+    # if (depth == 0):
+    #     return evaluatePoint(game_state, depth, main_snake_id, previous_snake_id)
 
     # get the id of the next snake that we're gonna minimax
     curr_index = 0
