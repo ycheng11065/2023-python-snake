@@ -1,7 +1,5 @@
-from networkx.drawing.nx_agraph import graphviz_layout
 import numpy as np
 import matplotlib.pyplot as plt
-from tabulate import tabulate
 from minimax import *
 import sys
 sys.path.append('/path/to/directory/containing/minimax.py')
