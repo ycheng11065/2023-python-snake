@@ -610,7 +610,6 @@ def floodFill(game_state, curr_snake_head):
 
 # Recursive function of floodfill
 def fill(visited, width, height, x, y):
-
     queue = deque([(x, y)])
     counter = 0
 
@@ -833,7 +832,7 @@ def evaluatePoint(game_state, depth, main_snake_id, curr_snake_id):
     curr_weight += food_weight/(closest_food_distance + 1)
 
     # Add weight if snake is on edge of board
-    if (isOnEdge(head_x, head_y)):
+    if (isOnEdge(head_x, head_y, board_width, board_height)):
         curr_weight += outer_bound_weight
 
     # Add weight if snake is in center of board
@@ -921,7 +920,7 @@ def miniMax(game_state, depth, curr_snake_id, main_snake_id, previous_snake_id, 
 def miniMax_value(game_state, safe_moves):
     current_game_state = createGameState(game_state, game_state["you"]["id"])
 
-    depth = 1
+    depth = 4
 
     result_value, best_move = miniMax(
         current_game_state, depth, game_state["you"]["id"], game_state["you"]["id"], None, True, float("-inf"), float("inf"))
