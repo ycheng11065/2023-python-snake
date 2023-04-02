@@ -295,7 +295,6 @@ def snakeState(game_state):
             body_x = body["x"]
             body_y = body["y"]
             snake_body.append({"x": body_x, "y": board_height - 1 - body_y})
-        # snake_body = [dict(coord) for coord in snake["body"]]
 
         snake_state.append({
             "id": snake_id,
@@ -486,11 +485,14 @@ def makeMove(game_state, curr_snake_id, move):
     curr_snake_index, curr_snake_length, curr_snake_body, curr_snake_health = findCurrentSnake(
         new_snake_state, curr_snake_id)
 
+    print(curr_snake_index)
+    print(new_snake_state)
+
     # Check if snake destination hits border
     if not (0 <= head_x < board_width and 0 <= head_y < board_height):
         removeKilledSnake(new_board_state, new_head_state,
                           new_snake_state, curr_snake_index)
-        updateSnakeHealth(new_snake_state, curr_snake_index, False, False)
+        # updateSnakeHealth(new_snake_state, curr_snake_index, False, False)
         return new_game_state
 
     destination_cell = new_board_state[head_y][head_x]
@@ -520,7 +522,10 @@ def makeMove(game_state, curr_snake_id, move):
                 # Remove destination snake from game board and snake state
                 removeKilledSnake(new_board_state, new_head_state,
                                   new_snake_state, destination_snake_index)
-
+                
+                # Index might have changed when snake is removed
+                curr_snake_index, _, _, _ = findCurrentSnake(new_snake_state, curr_snake_id)
+                
                 # Snake moves forward and updates all coords in new game state
                 moveForward(new_board_state, new_head_state, new_snake_state,
                             curr_snake_id, curr_snake_index, curr_snake_body, head_x, head_y)
@@ -543,13 +548,13 @@ def makeMove(game_state, curr_snake_id, move):
                     removeKilledSnake(
                         new_board_state, new_head_state, new_snake_state, destination_snake_index)
 
-                updateSnakeHealth(
-                    new_snake_state, curr_snake_index, False, False)
+                # updateSnakeHealth(
+                #     new_snake_state, curr_snake_index, False, False)
 
         else:
             removeKilledSnake(new_board_state, new_head_state,
                               new_snake_state, curr_snake_index)
-            updateSnakeHealth(new_snake_state, curr_snake_index, False, False)
+            # updateSnakeHealth(new_snake_state, curr_snake_index, False, False)
 
         return new_game_state
 
@@ -844,7 +849,7 @@ def evaluatePoint(game_state, depth, main_snake_id, curr_snake_id):
                                  head_x, head_y, other_edge_snakes, main_snake_id)
 
     smallest_snake_distance, head_collision_value = headCollisionInfo(
-        game_state, head_x, head_y, curr_snake_id, main_snake_id)
+        game_state, head_x, head_y, curr_snake_size, curr_snake_id, main_snake_id)
     
     curr_weight += head_collision_value
     curr_weight += head_kill_weight / (smallest_snake_distance + 1)
