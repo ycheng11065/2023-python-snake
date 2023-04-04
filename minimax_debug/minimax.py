@@ -6,7 +6,8 @@ import numpy as np
 
 # current_game_state = {'game': {'id': '0979620c-9e49-4e0e-8d50-e8ec5f75b0e0', 'ruleset': {'name': 'standard', 'version': 'v1.2.3', 'settings': {'foodSpawnChance': 15, 'minimumFood': 1, 'hazardDamagePerTurn': 0, 'hazardMap': '', 'hazardMapAuthor': '', 'royale': {'shrinkEveryNTurns': 0}, 'squad': {'allowBodyCollisions': False, 'sharedElimination': False, 'sharedHealth': False, 'sharedLength': False}}}, 'map': 'standard', 'timeout': 500, 'source': 'custom'}, 'turn': 0, 'board': {'height': 11, 'width': 11, 'snakes': [{'id': 'gs_cCpbKfRGwpBprRRfyFW4S6Wb', 'name': '2023_Test', 'latency': '', 'health': 100, 'body': [{'x': 1, 'y': 1}, {'x': 1, 'y': 1}, {'x': 1, 'y': 1}], 'head': {'x': 1, 'y': 1}, 'length': 3, 'shout': '', 'squad': '', 'customizations': {'color': '#4c0099', 'head': 'default', 'tail': 'default'}}, {'id': 'gs_JkHjV4xXpj4XY3xTbyDw7vqP', 'name': 'test_123', 'latency': '', 'health': 100, 'body': [{'x': 9, 'y': 1}, {'x': 9, 'y': 1}, {'x': 9, 'y': 1}], 'head': {'x': 9, 'y': 1}, 'length': 3, 'shout': '', 'squad': '', 'customizations': {'color': '#000000', 'head': 'do-sammy', 'tail': 'do-sammy'}}], 'food': [{'x': 0, 'y': 2}, {'x': 8, 'y': 0}, {'x': 5, 'y': 5}], 'hazards': []}, 'you': {'id': 'gs_JkHjV4xXpj4XY3xTbyDw7vqP', 'name': 'test_123', 'latency': '', 'health': 100, 'body': [{'x': 9, 'y': 1}, {'x': 9, 'y': 1}, {'x': 9, 'y': 1}], 'head': {'x': 9, 'y': 1}, 'length': 3, 'shout': '', 'squad': '', 'customizations': {'color': '#000000', 'head': 'do-sammy', 'tail': 'do-sammy'}}}
 
-current_game_state = {'game': {'id': '6948db1c-8b7d-430c-bdc3-29e26ef358b9', 'ruleset': {'name': 'standard', 'version': 'v1.2.3', 'settings': {'foodSpawnChance': 15, 'minimumFood': 1, 'hazardDamagePerTurn': 0, 'hazardMap': '', 'hazardMapAuthor': '', 'royale': {'shrinkEveryNTurns': 0}, 'squad': {'allowBodyCollisions': False, 'sharedElimination': False, 'sharedHealth': False, 'sharedLength': False}}}, 'map': 'standard', 'timeout': 500, 'source': 'custom'}, 'turn': 9, 'board': {'height': 11, 'width': 11, 'snakes': [{'id': 'gs_fWdBSd47dkQJMCSmmSBK8SRb', 'name': '2023_Test', 'latency': '234', 'health': 93, 'body': [{'x': 2, 'y': 7}, {'x': 1, 'y': 7}, {'x': 1, 'y': 8}, {'x': 1, 'y': 9}], 'head': {'x': 2, 'y': 7}, 'length': 4, 'shout': '', 'squad': '', 'customizations': {'color': '#4c0099', 'head': 'default', 'tail': 'default'}}, {'id': 'gs_wrFgD6DTj9rhcF6b7kvRPTFQ', 'name': 'test_123', 'latency': '91', 'health': 99, 'body': [{'x': 3, 'y': 8}, {'x': 4, 'y': 8}, {'x': 5, 'y': 8}, {'x': 6, 'y': 8}, {'x': 7, 'y': 8}], 'head': {'x': 3, 'y': 8}, 'length': 5, 'shout': '', 'squad': '', 'customizations': {'color': '#000000', 'head': 'do-sammy', 'tail': 'do-sammy'}}], 'food': [{'x': 5, 'y': 5}, {'x': 2, 'y': 8}], 'hazards': []}, 'you': {'id': 'gs_fWdBSd47dkQJMCSmmSBK8SRb', 'name': '2023_Test', 'latency': '234', 'health': 93, 'body': [{'x': 2, 'y': 7}, {'x': 1, 'y': 7}, {'x': 1, 'y': 8}, {'x': 1, 'y': 9}], 'head': {'x': 2, 'y': 7}, 'length': 4, 'shout': '', 'squad': '', 'customizations': {'color': '#4c0099', 'head': 'default', 'tail': 'default'}}}
+current_game_state = {'game': {'id': '9762c05e-7d8e-4229-9134-80e93be8a1c9', 'ruleset': {'name': 'standard', 'version': 'v1.2.3', 'settings': {'foodSpawnChance': 15, 'minimumFood': 1, 'hazardDamagePerTurn': 0, 'hazardMap': '', 'hazardMapAuthor': '', 'royale': {'shrinkEveryNTurns': 0}, 'squad': {'allowBodyCollisions': False, 'sharedElimination': False, 'sharedHealth': False, 'sharedLength': False}}}, 'map': 'standard', 'timeout': 500, 'source': 'custom'}, 'turn': 2, 'board': {'height': 11, 'width': 11, 'snakes': [{'id': 'gs_rWHr64bBgwdWwF44xdSXHJp6', 'name': '2023_Test', 'latency': '169', 'health': 100, 'body': [{'x': 0, 'y': 6}, {'x': 1, 'y': 6}, {'x': 1, 'y': 5}, {'x': 1, 'y': 5}], 'head': {'x': 0, 'y': 6}, 'length': 4, 'shout': '', 'squad': '', 'customizations': {'color': '#4c0099', 'head': 'default', 'tail': 'default'}}, {'id': 'gs_YJpjkBp4TKc7FFXVJcJmRR9C', 'name': 'Devious Devin', 'latency': '413', 'health': 100, 'body': [{'x': 4, 'y': 0}, {'x': 5, 'y': 0}, {'x': 5, 'y': 1}, {'x': 5, 'y': 1}], 'head': {'x': 4, 'y': 0}, 'length': 4, 'shout': '', 'squad': '', 'customizations': {'color': '#99cc00', 'head': 'trans-rights-scarf', 'tail': 'rbc-necktie'}}], 'food': [{'x': 5, 'y': 5}], 'hazards': []}, 'you': {'id': 'gs_rWHr64bBgwdWwF44xdSXHJp6', 'name': '2023_Test', 'latency': '169', 'health': 100, 'body': [{'x': 0, 'y': 6}, {'x': 1, 'y': 6}, {'x': 1, 'y': 5}, {'x': 1, 'y': 5}], 'head': {'x': 0, 'y': 6}, 'length': 4, 'shout': '', 'squad': '', 'customizations': {'color': '#4c0099', 'head': 'default', 'tail': 'default'}}}
+
 current_game_state1 = {
     'game': {
         'id': '6f7716f8-c8de-4132-b5ab-0552e401f8fd',
@@ -90,9 +91,9 @@ def createBoardState(game_state):
             body_y = board_height - 1 - body["y"]
             if (body == snake_head):
                 board_copy[body_y][body_x] = 2
-                head_board[body_y][body_x] = snake_id[-2:]
+                head_board[body_y][body_x] = snake_id
             else:
-                board_copy[body_y][body_x] = snake_id[-2:]
+                board_copy[body_y][body_x] = snake_id
 
     board_state = {
         "state_board": board_copy,
@@ -180,15 +181,15 @@ def moveForward(new_board_state, new_head_state, new_snake_state, curr_snake_id,
 
         if (body_index == 0):
             new_board_state[head_y][head_x] = 2
-            new_head_state[head_y][head_x] = curr_snake_id[-2:]
+            new_head_state[head_y][head_x] = curr_snake_id
             updateSnakeHead(new_snake_state, curr_snake_index, head_x, head_y)
         else:
-            if (new_head_state[prev_y][prev_x] == curr_snake_id[-2:]):
+            if (new_head_state[prev_y][prev_x] == curr_snake_id):
                 new_head_state[prev_y][prev_x] = "0"
             if (body_index > 0):
                 updateSnakeBody(new_snake_state, curr_snake_index,
                                 body_index, prev_x, prev_y)
-            new_board_state[prev_y][prev_x] = curr_snake_id[-2:]
+            new_board_state[prev_y][prev_x] = curr_snake_id
 
         prev_x = curr_x
         prev_y = curr_y
@@ -260,7 +261,7 @@ def findHeadCoord(width, height, new_head_state, curr_snake_id):
 
     for y in range(height):
         for x in range(width):
-            if (new_head_state[y][x] == curr_snake_id[-2:]):
+            if (new_head_state[y][x] == curr_snake_id):
                 head_x = x
                 head_y = y
                 break
@@ -308,8 +309,8 @@ def makeMove(game_state, curr_snake_id, move):
     curr_snake_index, curr_snake_length, curr_snake_body, curr_snake_health = findCurrentSnake(
         new_snake_state, curr_snake_id)
 
-    print(curr_snake_index)
-    print(new_snake_state)
+    # print(curr_snake_index)
+    # print(new_snake_state)
 
     # Check if snake destination hits border
     if not (0 <= head_x < board_width and 0 <= head_y < board_height):
@@ -319,7 +320,7 @@ def makeMove(game_state, curr_snake_id, move):
         return new_game_state
 
     destination_cell = new_board_state[head_y][head_x]
-    destination_cell_head = new_head_state[head_y][head_x][-2:]
+    destination_cell_head = new_head_state[head_y][head_x]
 
     # Checks if snake runs into another snake or edge boundary
     if (destination_cell not in [0, 1]):
@@ -332,7 +333,7 @@ def makeMove(game_state, curr_snake_id, move):
 
             # Find the snake the current snake is about to collide with
             for snake in new_snake_state:
-                if (snake["id"][-2:] == destination_cell_head):
+                if (snake["id"] == destination_cell_head):
                     destination_snake_body = snake["body"]
                     destination_snake_length = len(destination_snake_body)
                     break
@@ -365,6 +366,9 @@ def makeMove(game_state, curr_snake_id, move):
             else:
                 removeKilledSnake(new_board_state, new_head_state,
                                   new_snake_state, curr_snake_index)
+
+                # Index might have changed when snake is removed
+                destination_snake_index, _, _, _ = findCurrentSnake(new_snake_state, destination_snake_index)
 
                 # Same size case
                 if (destination_snake_length == curr_snake_length):
@@ -498,7 +502,8 @@ def snakeInfoLoop(game_state, curr_snake_id, board_width, board_height):
             if isOnEdge(head_x, head_y, board_width, board_height):
                 other_edge_snakes.append(snake)
 
-    average_snake_size = total_snake_amount // curr_length_total
+    if (total_snake_amount > 0):
+      average_snake_size = curr_length_total // total_snake_amount
 
     return curr_snake_head, curr_snake_size, curr_snake_health, average_snake_size, other_edge_snakes
 
@@ -525,9 +530,9 @@ def isOnEdgeBorder(head_x, head_y, board_height, board_width):
 # Return edge kill value of current snake
 def edgeKillValue(board_width, board_height, head_x, head_y, other_edge_snakes, main_snake_id):
     main_snake_edge_kill_weight = -2000
-    other_snake_edge_kill_weight = 16
+    other_snake_edge_kill_weight = 25
 
-    if (isOnEdgeBorder):
+    if (isOnEdgeBorder(head_x, head_y, board_width, board_height)):
         for snake in other_edge_snakes:
             curr_edge_kill_weight = other_snake_edge_kill_weight
             edge_head_x = snake["head"]["x"]
@@ -561,10 +566,10 @@ def edgeKillValue(board_width, board_height, head_x, head_y, other_edge_snakes, 
 # Finds the closest smallest snake distance as well as returning head collision values
 def headCollisionInfo(game_state, head_x, head_y, curr_snake_size, curr_snake_id, main_snake_id):
     smallest_snake_distance = float("inf")
-    other_head_losing_weight = -1200
-    main_head_losing_weight = 3000
+    other_head_losing_weight = -500
+    main_head_losing_weight = 200
 
-    other_head_equal_weight = -600
+    other_head_equal_weight = -300
 
     for snake in game_state["snakes"]:
         curr_head_losing_weight = 0
@@ -602,15 +607,16 @@ def evaluatePoint(game_state, depth, main_snake_id, curr_snake_id):
     curr_weight = 0
 
     snake_health_weight = 2
-    opponent_death_weight = 500
-    food_weight = 75
+    opponent_death_weight = float("inf")
+    food_weight = 20
     small_size_penalty_weight = -400
-    available_space_weight = 100
-    snake_size_weight = 7
-    outer_bound_weight = -6
-    center_control_weight = 6
+    available_space_weight = 0.5
+    outer_bound_weight = -12
+    center_control_weight = 12
     head_kill_weight = 50
     turn_weight = 100
+
+    depth_discount_factor = 0.4
 
     # If the game state given somehow does not exist
     if (game_state is None):
@@ -635,20 +641,22 @@ def evaluatePoint(game_state, depth, main_snake_id, curr_snake_id):
     # Find current snake as well as average snake size and snakes that are on the edge
     curr_snake_head, curr_snake_size, curr_snake_health, average_snake_size, other_edge_snakes = snakeInfoLoop(
         game_state, curr_snake_id, board_width, board_height)
-    
-    # Add weight if current snake is smaller than average size of snakes
-    if (curr_snake_size < average_snake_size):
-        curr_weight += small_size_penalty_weight
+      
+    # # Add weight if current snake is smaller than average size of snakes
+    # if (curr_snake_size < average_snake_size):
+    #     curr_weight += small_size_penalty_weight
 
-    # Add weight the bigger the snake is
+    snake_size_weight = 15
+    
+    # Add weight the bigger the snake is, currently + 15 for each growth
     curr_weight += curr_snake_size * snake_size_weight
 
     # Add weight the more health the snake has
-    curr_weight += curr_snake_health / snake_health_weight
+    # curr_weight += curr_snake_health / snake_health_weight
 
-    # FloodFill determines available space for current snake to move, add space weight
-    available_space = floodFill(game_state, curr_snake_head)
-    curr_weight = available_space * available_space_weight
+    # # # FloodFill determines available space for current snake to move, add space weight
+    # available_space = floodFill(game_state, curr_snake_head)
+    # curr_weight += available_space * available_space_weight
 
     # Current snake head coordinates
     head_x = curr_snake_head["x"]
@@ -659,17 +667,17 @@ def evaluatePoint(game_state, depth, main_snake_id, curr_snake_id):
         board_state, board_width, board_height, head_x, head_y)
     curr_weight += food_weight/(closest_food_distance + 1)
 
-    # Add weight if snake is on edge of board
-    if (isOnEdge(head_x, head_y, board_width, board_height)):
-        curr_weight += outer_bound_weight
+    # # # Add weight if snake is on edge of board
+    # if (isOnEdge(head_x, head_y, board_width, board_height)):
+    #     curr_weight += outer_bound_weight
 
-    # Add weight if snake is in center of board
-    if (head_x in [4, 5, 6]):
-        curr_weight += center_control_weight
+    # # Add weight if snake is in center of board
+    # if (head_x in [4, 5, 6]):
+    #     curr_weight += center_control_weight
 
-    # Add the edge kill weight
-    curr_weight += edgeKillValue(board_width, board_height,
-                                 head_x, head_y, other_edge_snakes, main_snake_id)
+    # # Add the edge kill weight
+    # curr_weight += edgeKillValue(board_width, board_height,
+    #                              head_x, head_y, other_edge_snakes, main_snake_id)
 
     smallest_snake_distance, head_collision_value = headCollisionInfo(
         game_state, head_x, head_y, curr_snake_size, curr_snake_id, main_snake_id)
@@ -677,11 +685,11 @@ def evaluatePoint(game_state, depth, main_snake_id, curr_snake_id):
     curr_weight += head_collision_value
     curr_weight += head_kill_weight / (smallest_snake_distance + 1)
 
+    # curr_weight *= depth_discount_factor * depth
     if (curr_snake_id == main_snake_id):
         return curr_weight
     else:
         return curr_weight * -1
-
 
 # The snake MiniMax algorithm
 def miniMax(game_state, depth, curr_snake_id, main_snake_id, previous_snake_id, return_move, alpha, beta):
@@ -752,11 +760,14 @@ def miniMax_value(game_state, safe_moves):
 
     result_value, best_move = miniMax(
         current_game_state, depth, game_state["you"]["id"], game_state["you"]["id"], None, True, float("-inf"), float("inf"))
-    # print(f"Minimax value: {result_value}, Best move: {best_move}")
+    print(f"Minimax value: {result_value}, Best move: {best_move}")
 
     if (best_move is not None):
         if (best_move in safe_moves):
             safe_moves[best_move] += result_value
+
+
+    return best_move
 
 
 def createGrid(state):
@@ -775,7 +786,6 @@ def main():
         current_game_state, 'gs_Xkqb4BwwxrJcrPQBQtd6cq8X')
     board_state = game_state["board"]["state_board"]
     head_state = game_state["board"]["head_board"]
-
 
 
 if __name__ == "__main__":

@@ -97,10 +97,10 @@ def miniMaxTree(game_state, depth, curr_snake_id, main_snake_id, previous_snake_
 
             # alpha = max(alpha, curr_val)
 
-            # if (alpha >= beta):
-            #     break
+            if (alpha >= beta):
+                break
 
-            # print(best_move)
+            print(best_move)
 
                 
             if (move == "up"):
@@ -142,10 +142,10 @@ def miniMaxTree(game_state, depth, curr_snake_id, main_snake_id, previous_snake_
 
             # print(f"Min value (after update): {min_value}")
 
-            # beta = min(curr_val, beta)
+            beta = min(curr_val, beta)
 
-            # if (beta <= alpha):
-            #     break
+            if (beta <= alpha):
+                break
 
             if (move == "up"):
                 curr_root.up = curr_node
@@ -264,7 +264,7 @@ def main():
     board_state = game_state["board"]["state_board"]
     head_state = game_state["board"]["head_board"]
 
-    root = createMinimaxTree(current_game_state, 'gs_fWdBSd47dkQJMCSmmSBK8SRb')
+    root = createMinimaxTree(current_game_state, current_game_state["you"]["id"])
     draw_decision_tree(root)
 
 
