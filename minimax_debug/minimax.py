@@ -169,7 +169,7 @@ def updateSnakeHealth(new_snake_state, curr_snake_index, isAlive, hasAte):
 
 
 # Update the snake's movement location in the new board and head state, also updates snake state's coords
-def moveForward(new_board_state, new_head_state, new_snake_state, curr_snake_id, curr_snake_index, curr_snake_body, head_x, head_y):
+def moveForward(new_board_state, new_head_state, new_snake_state, curr_snake_id, curr_snake_index, curr_snake_body, head_x, head_y, is_tail):
     prev_x, prev_y = None, None
 
     body_index = 0
@@ -177,7 +177,8 @@ def moveForward(new_board_state, new_head_state, new_snake_state, curr_snake_id,
         curr_x = body["x"]
         curr_y = body["y"]
 
-        new_board_state[curr_y][curr_x] = 0
+        if (not is_tail):
+            new_board_state[curr_y][curr_x] = 0
 
         if (body_index == 0):
             new_board_state[head_y][head_x] = 2
@@ -354,7 +355,7 @@ def makeMove(game_state, curr_snake_id, move):
                 
                 # Snake moves forward and updates all coords in new game state
                 moveForward(new_board_state, new_head_state, new_snake_state,
-                            curr_snake_id, curr_snake_index, curr_snake_body, head_x, head_y)
+                            curr_snake_id, curr_snake_index, curr_snake_body, head_x, head_y, False)
 
                 curr_health = updateSnakeHealth(
                     new_snake_state, curr_snake_index, True, False)
@@ -385,8 +386,18 @@ def makeMove(game_state, curr_snake_id, move):
                 if (head_x == curr_snake_tail["x"] and head_y == curr_snake_tail["y"]):
                     # Snake moves forward and updates all coords in new game state
                     moveForward(new_board_state, new_head_state, new_snake_state,
-                            curr_snake_id, curr_snake_index, curr_snake_body, head_x, head_y)
-                    updateSnakeHealth(new_snake_state, curr_snake_index, False, False)
+                            curr_snake_id, curr_snake_index, curr_snake_body, head_x, head_y, True)
+                    
+                    curr_health = updateSnakeHealth(
+                    new_snake_state, curr_snake_index, True, False)
+
+                # check if our snake ran out of health
+                    if (curr_health <= 0):
+                        removeKilledSnake(
+                            new_board_state, new_head_state, new_snake_state, curr_snake_index)
+                else:
+                    removeKilledSnake(new_board_state, new_head_state,
+                              new_snake_state, curr_snake_index)
                     
             else:
                 removeKilledSnake(new_board_state, new_head_state,
@@ -399,7 +410,7 @@ def makeMove(game_state, curr_snake_id, move):
 
         # Snake moves forward and updates all coords in new game state
         moveForward(new_board_state, new_head_state, new_snake_state,
-                    curr_snake_id, curr_snake_index, curr_snake_body, head_x, head_y)
+                    curr_snake_id, curr_snake_index, curr_snake_body, head_x, head_y, False)
 
         updateSnakeHealth(new_snake_state, curr_snake_index, True, True)
 
@@ -413,7 +424,7 @@ def makeMove(game_state, curr_snake_id, move):
 
         # Snake moves forward and updates all coords in new game state
         moveForward(new_board_state, new_head_state, new_snake_state,
-                    curr_snake_id, curr_snake_index, curr_snake_body, head_x, head_y)
+                    curr_snake_id, curr_snake_index, curr_snake_body, head_x, head_y, False)
 
         curr_health = updateSnakeHealth(
             new_snake_state, curr_snake_index, True, False)
