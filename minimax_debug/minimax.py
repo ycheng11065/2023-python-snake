@@ -6,7 +6,13 @@ import numpy as np
 
 # current_game_state = {'game': {'id': '0979620c-9e49-4e0e-8d50-e8ec5f75b0e0', 'ruleset': {'name': 'standard', 'version': 'v1.2.3', 'settings': {'foodSpawnChance': 15, 'minimumFood': 1, 'hazardDamagePerTurn': 0, 'hazardMap': '', 'hazardMapAuthor': '', 'royale': {'shrinkEveryNTurns': 0}, 'squad': {'allowBodyCollisions': False, 'sharedElimination': False, 'sharedHealth': False, 'sharedLength': False}}}, 'map': 'standard', 'timeout': 500, 'source': 'custom'}, 'turn': 0, 'board': {'height': 11, 'width': 11, 'snakes': [{'id': 'gs_cCpbKfRGwpBprRRfyFW4S6Wb', 'name': '2023_Test', 'latency': '', 'health': 100, 'body': [{'x': 1, 'y': 1}, {'x': 1, 'y': 1}, {'x': 1, 'y': 1}], 'head': {'x': 1, 'y': 1}, 'length': 3, 'shout': '', 'squad': '', 'customizations': {'color': '#4c0099', 'head': 'default', 'tail': 'default'}}, {'id': 'gs_JkHjV4xXpj4XY3xTbyDw7vqP', 'name': 'test_123', 'latency': '', 'health': 100, 'body': [{'x': 9, 'y': 1}, {'x': 9, 'y': 1}, {'x': 9, 'y': 1}], 'head': {'x': 9, 'y': 1}, 'length': 3, 'shout': '', 'squad': '', 'customizations': {'color': '#000000', 'head': 'do-sammy', 'tail': 'do-sammy'}}], 'food': [{'x': 0, 'y': 2}, {'x': 8, 'y': 0}, {'x': 5, 'y': 5}], 'hazards': []}, 'you': {'id': 'gs_JkHjV4xXpj4XY3xTbyDw7vqP', 'name': 'test_123', 'latency': '', 'health': 100, 'body': [{'x': 9, 'y': 1}, {'x': 9, 'y': 1}, {'x': 9, 'y': 1}], 'head': {'x': 9, 'y': 1}, 'length': 3, 'shout': '', 'squad': '', 'customizations': {'color': '#000000', 'head': 'do-sammy', 'tail': 'do-sammy'}}}
 
-current_game_state = {'game': {'id': '9762c05e-7d8e-4229-9134-80e93be8a1c9', 'ruleset': {'name': 'standard', 'version': 'v1.2.3', 'settings': {'foodSpawnChance': 15, 'minimumFood': 1, 'hazardDamagePerTurn': 0, 'hazardMap': '', 'hazardMapAuthor': '', 'royale': {'shrinkEveryNTurns': 0}, 'squad': {'allowBodyCollisions': False, 'sharedElimination': False, 'sharedHealth': False, 'sharedLength': False}}}, 'map': 'standard', 'timeout': 500, 'source': 'custom'}, 'turn': 2, 'board': {'height': 11, 'width': 11, 'snakes': [{'id': 'gs_rWHr64bBgwdWwF44xdSXHJp6', 'name': '2023_Test', 'latency': '169', 'health': 100, 'body': [{'x': 0, 'y': 6}, {'x': 1, 'y': 6}, {'x': 1, 'y': 5}, {'x': 1, 'y': 5}], 'head': {'x': 0, 'y': 6}, 'length': 4, 'shout': '', 'squad': '', 'customizations': {'color': '#4c0099', 'head': 'default', 'tail': 'default'}}, {'id': 'gs_YJpjkBp4TKc7FFXVJcJmRR9C', 'name': 'Devious Devin', 'latency': '413', 'health': 100, 'body': [{'x': 4, 'y': 0}, {'x': 5, 'y': 0}, {'x': 5, 'y': 1}, {'x': 5, 'y': 1}], 'head': {'x': 4, 'y': 0}, 'length': 4, 'shout': '', 'squad': '', 'customizations': {'color': '#99cc00', 'head': 'trans-rights-scarf', 'tail': 'rbc-necktie'}}], 'food': [{'x': 5, 'y': 5}], 'hazards': []}, 'you': {'id': 'gs_rWHr64bBgwdWwF44xdSXHJp6', 'name': '2023_Test', 'latency': '169', 'health': 100, 'body': [{'x': 0, 'y': 6}, {'x': 1, 'y': 6}, {'x': 1, 'y': 5}, {'x': 1, 'y': 5}], 'head': {'x': 0, 'y': 6}, 'length': 4, 'shout': '', 'squad': '', 'customizations': {'color': '#4c0099', 'head': 'default', 'tail': 'default'}}}
+current_game_state_going_same_food = {'game': {'id': '721404dd-9e85-4201-b223-213f8f85d216', 'ruleset': {'name': 'standard', 'version': 'v1.2.3', 'settings': {'foodSpawnChance': 15, 'minimumFood': 1, 'hazardDamagePerTurn': 0, 'hazardMap': '', 'hazardMapAuthor': '', 'royale': {'shrinkEveryNTurns': 0}, 'squad': {'allowBodyCollisions': False, 'sharedElimination': False, 'sharedHealth': False, 'sharedLength': False}}}, 'map': 'standard', 'timeout': 500, 'source': 'custom'}, 'turn': 7, 'board': {'height': 11, 'width': 11, 'snakes': [{'id': 'gs_Yt9S86rWyD47m89Rp3PKpxqB', 'name': "Orion's Fang", 'latency': '197', 'health': 95, 'body': [{'x': 5, 'y': 4}, {'x': 4, 'y': 4}, {'x': 4, 'y': 3}, {'x': 4, 'y': 2}], 'head': {'x': 5, 'y': 4}, 'length': 4, 'shout': '', 'squad': '', 'customizations': {'color': '#9188e6', 'head': 'safe', 'tail': 'nr-booster'}}, {'id': 'gs_wjcptXD6Df3ypCT6jYqYQbtH', 'name': '2023_Test', 'latency': '252', 'health': 95, 'body': [{'x': 5, 'y': 6}, {'x': 4, 'y': 6}, {'x': 4, 'y': 7}, {'x': 4, 'y': 8}], 'head': {'x': 5, 'y': 6}, 'length': 4, 'shout': '', 'squad': '', 'customizations': {'color': '#4c0099', 'head': 'default', 'tail': 'default'}}], 'food': [{'x': 5, 'y': 5}, {'x': 8, 'y': 1}, {'x': 8, 'y': 2}], 'hazards': []}, 'you': {'id': 'gs_wjcptXD6Df3ypCT6jYqYQbtH', 'name': '2023_Test', 'latency': '252', 'health': 95, 'body': [{'x': 5, 'y': 6}, {'x': 4, 'y': 6}, {'x': 4, 'y': 7}, {'x': 4, 'y': 8}], 'head': {'x': 5, 'y': 6}, 'length': 4, 'shout': '', 'squad': '', 'customizations': {'color': '#4c0099', 'head': 'default', 'tail': 'default'}}}
+
+current_game_state_going_in_dead_end = {'game': {'id': 'c6959f41-7f0a-430a-91c4-118ddf4a3c69', 'ruleset': {'name': 'standard', 'version': 'v1.2.3', 'settings': {'foodSpawnChance': 15, 'minimumFood': 1, 'hazardDamagePerTurn': 0, 'hazardMap': '', 'hazardMapAuthor': '', 'royale': {'shrinkEveryNTurns': 0}, 'squad': {'allowBodyCollisions': False, 'sharedElimination': False, 'sharedHealth': False, 'sharedLength': False}}}, 'map': 'standard', 'timeout': 500, 'source': 'custom'}, 'turn': 264, 'board': {'height': 11, 'width': 11, 'snakes': [{'id': 'gs_DM4MPGwmcvbJG7FSHdqW636Y', 'name': '2023_Test', 'latency': '429', 'health': 97, 'body': [{'x': 3, 'y': 9}, {'x': 3, 'y': 10}, {'x': 4, 'y': 10}, {'x': 5, 'y': 10}, {'x': 6, 'y': 10}, {'x': 7, 'y': 10}, {'x': 7, 'y': 9}, {'x': 8, 'y': 9}, {'x': 9, 'y': 9}, {'x': 10, 'y': 9}, {'x': 10, 'y': 8}, {'x': 10, 'y': 7}, {'x': 10, 'y': 6}, {'x': 10, 'y': 5}, {'x': 10, 'y': 4}, {'x': 10, 'y': 3}, {'x': 10, 'y': 2}, {'x': 10, 'y': 1}, {'x': 10, 'y': 0}, {'x': 9, 'y': 0}, {'x': 9, 'y': 1}, {'x': 9, 'y': 2}, {'x': 9, 'y': 3}, {'x': 8, 'y': 3}, {'x': 7, 'y': 3}], 'head': {'x': 3, 'y': 9}, 'length': 25, 'shout': '', 'squad': '', 'customizations': {'color': '#4c0099', 'head': 'default', 'tail': 'default'}}, {'id': 'gs_RPrJBXWhhfV8gCq7b67vgGV4', 'name': 'SSSSSSShark', 'latency': '71', 'health': 99, 'body': [{'x': 1, 'y': 3}, {'x': 2, 'y': 3}, {'x': 3, 'y': 3}, {'x': 3, 'y': 2}, {'x': 4, 'y': 2}, {'x': 4, 'y': 3}, {'x': 4, 'y': 4}, {'x': 5, 'y': 4}, {'x': 5, 'y': 3}, {'x': 6, 'y': 3}, {'x': 6, 'y': 4}, {'x': 7, 'y': 4}, {'x': 8, 'y': 4}, {'x': 9, 'y': 4}, {'x': 9, 'y': 5}, {'x': 8, 'y': 5}, {'x': 7, 'y': 5}, {'x': 7, 'y': 6}, {'x': 7, 'y': 7}, {'x': 7, 'y': 8}, {'x': 6, 'y': 8}, {'x': 5, 'y': 8}, {'x': 4, 'y': 8}, {'x': 4, 'y': 7}, {'x': 4, 'y': 6}, {'x': 3, 'y': 6}, {'x': 3, 'y': 7}], 'head': {'x': 1, 'y': 3}, 'length': 27, 'shout': '', 'squad': '', 'customizations': {'color': '#3399ff', 'head': 'do-sammy', 'tail': 'do-sammy'}}], 'food': [{'x': 0, 'y': 3}], 'hazards': []}, 'you': {'id': 'gs_DM4MPGwmcvbJG7FSHdqW636Y', 'name': '2023_Test', 'latency': '429', 'health': 97, 'body': [{'x': 3, 'y': 9}, {'x': 3, 'y': 10}, {'x': 4, 'y': 10}, {'x': 5, 'y': 10}, {'x': 6, 'y': 10}, {'x': 7, 'y': 10}, {'x': 7, 'y': 9}, {'x': 8, 'y': 9}, {'x': 9, 'y': 9}, {'x': 10, 'y': 9}, {'x': 10, 'y': 8}, {'x': 10, 'y': 7}, {'x': 10, 'y': 6}, {'x': 10, 'y': 5}, {'x': 10, 'y': 4}, {'x': 10, 'y': 3}, {'x': 10, 'y': 2}, {'x': 10, 'y': 1}, {'x': 10, 'y': 0}, {'x': 9, 'y': 0}, {'x': 9, 'y': 1}, {'x': 9, 'y': 2}, {'x': 9, 'y': 3}, {'x': 8, 'y': 3}, {'x': 7, 'y': 3}], 'head': {'x': 3, 'y': 9}, 'length': 25, 'shout': '', 'squad': '', 'customizations': {'color': '#4c0099', 'head': 'default', 'tail': 'default'}}}
+
+current_game_state_prefer_go_to_edge = {'game': {'id': '548ddb37-6d65-4b84-a512-d3262fcc7883', 'ruleset': {'name': 'standard', 'version': 'v1.2.3', 'settings': {'foodSpawnChance': 15, 'minimumFood': 1, 'hazardDamagePerTurn': 0, 'hazardMap': '', 'hazardMapAuthor': '', 'royale': {'shrinkEveryNTurns': 0}, 'squad': {'allowBodyCollisions': False, 'sharedElimination': False, 'sharedHealth': False, 'sharedLength': False}}}, 'map': 'standard', 'timeout': 500, 'source': 'custom'}, 'turn': 157, 'board': {'height': 11, 'width': 11, 'snakes': [{'id': 'gs_SRRtB68rTpHdHt6ShXSkKphQ', 'name': '2023_Test', 'latency': '369', 'health': 84, 'body': [{'x': 2, 'y': 9}, {'x': 2, 'y': 8}, {'x': 2, 'y': 7}, {'x': 2, 'y': 6}, {'x': 1, 'y': 6}, {'x': 1, 'y': 5}, {'x': 1, 'y': 4}, {'x': 1, 'y': 3}, {'x': 1, 'y': 2}, {'x': 1, 'y': 1}, {'x': 2, 'y': 1}, {'x': 3, 'y': 1}, {'x': 3, 'y': 2}, {'x': 3, 'y': 3}], 'head': {'x': 2, 'y': 9}, 'length': 14, 'shout': '', 'squad': '', 'customizations': {'color': '#4c0099', 'head': 'default', 'tail': 'default'}}, {'id': 'gs_KXvcRTvW4JQTjCkhvS3PSSYT', 'name': 'SSSSSSShark', 'latency': '70', 'health': 92, 'body': [{'x': 7, 'y': 2}, {'x': 7, 'y': 1}, {'x': 6, 'y': 1}, {'x': 6, 'y': 2}, {'x': 6, 'y': 3}, {'x': 6, 'y': 4}, {'x': 5, 'y': 4}, {'x': 5, 'y': 3}, {'x': 5, 'y': 2}, {'x': 5, 'y': 1}, {'x': 4, 'y': 1}, {'x': 4, 'y': 2}, {'x': 4, 'y': 3}, {'x': 4, 'y': 4}, {'x': 4, 'y': 5}, {'x': 5, 'y': 5}, {'x': 5, 'y': 6}], 'head': {'x': 7, 'y': 2}, 'length': 17, 'shout': '', 'squad': '', 'customizations': {'color': '#3399ff', 'head': 'do-sammy', 'tail': 'do-sammy'}}], 'food': [{'x': 9, 'y': 7}, {'x': 6, 'y': 5}, {'x': 4, 'y': 10}], 'hazards': []}, 'you': {'id': 'gs_SRRtB68rTpHdHt6ShXSkKphQ', 'name': '2023_Test', 'latency': '369', 'health': 84, 'body': [{'x': 2, 'y': 9}, {'x': 2, 'y': 8}, {'x': 2, 'y': 7}, {'x': 2, 'y': 6}, {'x': 1, 'y': 6}, {'x': 1, 'y': 5}, {'x': 1, 'y': 4}, {'x': 1, 'y': 3}, {'x': 1, 'y': 2}, {'x': 1, 'y': 1}, {'x': 2, 'y': 1}, {'x': 3, 'y': 1}, {'x': 3, 'y': 2}, {'x': 3, 'y': 3}], 'head': {'x': 2, 'y': 9}, 'length': 14, 'shout': '', 'squad': '', 'customizations': {'color': '#4c0099', 'head': 'default', 'tail': 'default'}}}
+
+current_game_state = {'game': {'id': 'fb8fc6c9-b0c1-47fa-98a0-be05c74a52f6', 'ruleset': {'name': 'standard', 'version': 'v1.2.3', 'settings': {'foodSpawnChance': 15, 'minimumFood': 1, 'hazardDamagePerTurn': 0, 'hazardMap': '', 'hazardMapAuthor': '', 'royale': {'shrinkEveryNTurns': 0}, 'squad': {'allowBodyCollisions': False, 'sharedElimination': False, 'sharedHealth': False, 'sharedLength': False}}}, 'map': 'standard', 'timeout': 500, 'source': 'custom'}, 'turn': 97, 'board': {'height': 11, 'width': 11, 'snakes': [{'id': 'gs_KqmqqWkpwj4KbMgJpxQR7gbd', 'name': '2023_Test', 'latency': '184', 'health': 84, 'body': [{'x': 2, 'y': 1}, {'x': 3, 'y': 1}, {'x': 3, 'y': 2}, {'x': 4, 'y': 2}, {'x': 4, 'y': 3}, {'x': 5, 'y': 3}, {'x': 5, 'y': 2}, {'x': 5, 'y': 1}, {'x': 6, 'y': 1}, {'x': 7, 'y': 1}], 'head': {'x': 2, 'y': 1}, 'length': 10, 'shout': '', 'squad': '', 'customizations': {'color': '#4c0099', 'head': 'default', 'tail': 'default'}}, {'id': 'gs_gvgYbxYBJPx9hdCrF6yKJGX7', 'name': 'SSSSSSShark', 'latency': '72', 'health': 93, 'body': [{'x': 5, 'y': 0}, {'x': 6, 'y': 0}, {'x': 7, 'y': 0}, {'x': 8, 'y': 0}, {'x': 9, 'y': 0}, {'x': 10, 'y': 0}, {'x': 10, 'y': 1}, {'x': 9, 'y': 1}, {'x': 8, 'y': 1}, {'x': 8, 'y': 2}, {'x': 9, 'y': 2}, {'x': 9, 'y': 3}, {'x': 9, 'y': 4}], 'head': {'x': 5, 'y': 0}, 'length': 13, 'shout': '', 'squad': '', 'customizations': {'color': '#3399ff', 'head': 'do-sammy', 'tail': 'do-sammy'}}], 'food': [{'x': 0, 'y': 1}, {'x': 0, 'y': 3}, {'x': 8, 'y': 10}, {'x': 6, 'y': 8}, {'x': 5, 'y': 8}, {'x': 3, 'y': 10}, {'x': 7, 'y': 5}], 'hazards': []}, 'you': {'id': 'gs_KqmqqWkpwj4KbMgJpxQR7gbd', 'name': '2023_Test', 'latency': '184', 'health': 84, 'body': [{'x': 2, 'y': 1}, {'x': 3, 'y': 1}, {'x': 3, 'y': 2}, {'x': 4, 'y': 2}, {'x': 4, 'y': 3}, {'x': 5, 'y': 3}, {'x': 5, 'y': 2}, {'x': 5, 'y': 1}, {'x': 6, 'y': 1}, {'x': 7, 'y': 1}], 'head': {'x': 2, 'y': 1}, 'length': 10, 'shout': '', 'squad': '', 'customizations': {'color': '#4c0099', 'head': 'default', 'tail': 'default'}}}
 
 current_game_state1 = {
     'game': {
@@ -408,6 +414,22 @@ def makeMove(game_state, curr_snake_id, move):
     # Snake move to a cell with food
     elif (destination_cell == 1):
 
+        # Check if theres a competitor for the targeted food and if that comptetitor is bigger or equal size
+        directions = [[0, 1], [0, -1], [1, 0], [-1, 0]]
+        for dir in directions:
+            curr_x = head_x + dir[0]
+            curr_y = head_y + dir[1]
+            if (curr_x < 0 or curr_y < 0 or curr_x >= board_width or curr_y >= board_height or new_head_state[curr_y][curr_x] == curr_snake_id):
+                continue
+            if (new_head_state[curr_y][curr_x] not in [curr_snake_id, 0] and new_board_state[curr_y][curr_x] == 2):
+                _, other_snake_length, _, _, _ = findCurrentSnake(
+                    new_snake_state, new_head_state[curr_y][curr_x])
+                if (other_snake_length >= curr_snake_length):
+                    removeKilledSnake(new_board_state, new_head_state,
+                                      new_snake_state, curr_snake_index)
+                    
+                    return new_game_state
+
         # Snake moves forward and updates all coords in new game state
         moveForward(new_board_state, new_head_state, new_snake_state,
                     curr_snake_id, curr_snake_index, curr_snake_body, head_x, head_y, False)
@@ -586,20 +608,22 @@ def edgeKillValue(board_width, board_height, head_x, head_y, other_edge_snakes, 
 # Finds the closest smallest snake distance as well as returning head collision values
 def headCollisionInfo(game_state, head_x, head_y, curr_snake_size, curr_snake_id, main_snake_id):
     smallest_snake_distance = float("inf")
-    other_head_losing_weight = -500
-    main_head_losing_weight = 200
+    other_head_losing_weight = float("-inf")
+    main_head_losing_weight = float("inf")
 
-    other_head_equal_weight = -300
+    other_head_equal_weight = float("-inf")
 
-    for snake in game_state["snakes"]:
-        curr_head_losing_weight = 0
+
+    curr_head_losing_weight = 0
+
+    for snake in game_state["snakes"]:    
         curr_head_x = snake["head"]["x"]
         curr_head_y = snake["head"]["y"]
 
         if (snake["id"] == curr_snake_id):
             continue
 
-        if (len(snake["body"]) < curr_snake_size):
+        if (len(snake["body"]) < curr_snake_size and (curr_snake_size - len(snake["body"])) > 1):
             curr_snake_distance = abs(
                 head_x - curr_head_x) + abs(head_y - curr_head_y)
             smallest_snake_distance = min(
@@ -607,9 +631,11 @@ def headCollisionInfo(game_state, head_x, head_y, curr_snake_size, curr_snake_id
 
         # If current snake size is smaller or equal
         if ((abs(head_x - curr_head_x) + abs(head_y - curr_head_y) < 2)):
+            
             # If current snake size is smaller
             if (len(snake["body"]) > curr_snake_size):
                 curr_head_losing_weight = other_head_losing_weight
+                print("true")
 
                 # If current snake is going up against our main snake
                 if (curr_snake_id != main_snake_id and snake["id"] == main_snake_id):
@@ -618,6 +644,9 @@ def headCollisionInfo(game_state, head_x, head_y, curr_snake_size, curr_snake_id
             # If current snake size is equal
             elif (len(snake["body"]) == curr_snake_size):
                 curr_head_losing_weight = other_head_equal_weight
+            
+            # elif (curr_snake_size - len(snake["body"]) < 2):
+            #     curr_head_losing_weight = other_head_equal_weight
 
     return smallest_snake_distance, curr_head_losing_weight
 
@@ -628,11 +657,10 @@ def evaluatePoint(game_state, depth, main_snake_id, curr_snake_id):
 
     snake_health_weight = 2
     opponent_death_weight = float("inf")
-    food_weight = 20
     small_size_penalty_weight = -400
     available_space_weight = 0.5
-    outer_bound_weight = -12
-    center_control_weight = 12
+    outer_bound_weight = -13
+    center_control_weight = 10
     head_kill_weight = 50
     turn_weight = 100
 
@@ -667,37 +695,39 @@ def evaluatePoint(game_state, depth, main_snake_id, curr_snake_id):
     #     curr_weight += small_size_penalty_weight
 
     snake_size_weight = 15
-    
+  
     # Add weight the bigger the snake is, currently + 15 for each growth
     curr_weight += curr_snake_size * snake_size_weight
 
     # Add weight the more health the snake has
     # curr_weight += curr_snake_health / snake_health_weight
 
-    # # # FloodFill determines available space for current snake to move, add space weight
-    # available_space = floodFill(game_state, curr_snake_head)
-    # curr_weight += available_space * available_space_weight
+    # # FloodFill determines available space for current snake to move, add space weight
+    available_space = floodFill(game_state, curr_snake_head)
+    curr_weight += available_space * available_space_weight
 
     # Current snake head coordinates
     head_x = curr_snake_head["x"]
     head_y = curr_snake_head["y"]
 
+  
+    food_weight = 20
     # Closest distance to food, add weight scaling depending on how close is curr snake to food
     closest_food_distance = closestFoodDistance(
         board_state, board_width, board_height, head_x, head_y)
     curr_weight += food_weight/(closest_food_distance + 1)
 
     # # # Add weight if snake is on edge of board
-    # if (isOnEdge(head_x, head_y, board_width, board_height)):
-    #     curr_weight += outer_bound_weight
+    if (isOnEdge(head_x, head_y, board_width, board_height)):
+        curr_weight += outer_bound_weight
 
-    # # Add weight if snake is in center of board
-    # if (head_x in [4, 5, 6]):
-    #     curr_weight += center_control_weight
+    # Add weight if snake is in center of board
+    if (head_x in [4, 5, 6]):
+        curr_weight += center_control_weight
 
     # # Add the edge kill weight
-    # curr_weight += edgeKillValue(board_width, board_height,
-    #                              head_x, head_y, other_edge_snakes, main_snake_id)
+    curr_weight += edgeKillValue(board_width, board_height,
+                                 head_x, head_y, other_edge_snakes, main_snake_id)
 
     smallest_snake_distance, head_collision_value = headCollisionInfo(
         game_state, head_x, head_y, curr_snake_size, curr_snake_id, main_snake_id)
@@ -710,66 +740,6 @@ def evaluatePoint(game_state, depth, main_snake_id, curr_snake_id):
         return curr_weight
     else:
         return curr_weight * -1
-
-# The snake MiniMax algorithm
-def miniMax(game_state, depth, curr_snake_id, main_snake_id, previous_snake_id, return_move, alpha, beta):
-    # If given game_state reached an end or depth has reached zero, return game_state score
-    if (depth == 0 or isGameOver(game_state, previous_snake_id)):
-        return evaluatePoint(game_state, depth, main_snake_id, previous_snake_id)
-
-    # get the id of the next snake that we're gonna minimax
-    curr_index = 0
-    for index, snake in enumerate(game_state["snakes"]):
-        if (snake["id"] == curr_snake_id):
-            curr_index = index
-            break
-
-    # Select the next snake id inside the snake array
-    next_snake_id = game_state["snakes"][(
-        curr_index + 1) % len(game_state["snakes"])]["id"]
-
-    moves = ["up", "down", "right", "left"]
-
-    if (curr_snake_id == main_snake_id):
-        highest_value = float("-inf")
-        best_move = None
-        for move in moves:
-            # Makes a copy of the current game state with the current snake taking a possible move
-            new_game_state = makeMove(game_state, curr_snake_id, move)
-            curr_val = miniMax(new_game_state, depth - 1, next_snake_id,
-                               main_snake_id, curr_snake_id, False, alpha, beta)
-            # print(f"{curr_snake_id} {move}: {curr_val}")
-            if (curr_val > highest_value):
-                best_move = move
-                highest_value = curr_val
-
-            alpha = max(alpha, curr_val)
-
-            if (alpha >= beta):
-                break
-
-        # print(f"highest :   {curr_snake_id} {best_move}: {highest_value}")
-
-        return (highest_value, best_move) if return_move else highest_value
-
-    else:
-        min_value = float("inf")
-        best_move = None
-        for move in moves:
-            new_game_state = makeMove(game_state, curr_snake_id, move)
-            curr_val = miniMax(new_game_state, depth - 1, next_snake_id,
-                               main_snake_id, curr_snake_id, False, alpha, beta)
-            # print(f"{curr_snake_id} {move}: {curr_val}")
-            if (min_value > curr_val):
-                best_move = move
-                min_value = curr_val
-
-            beta = min(curr_val, beta)
-
-            if (beta <= alpha):
-                break
-
-        return (min_value, best_move) if return_move else min_value
 
 
 # Main function

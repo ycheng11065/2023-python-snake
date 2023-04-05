@@ -88,9 +88,9 @@ def move(game_state: typing.Dict) -> typing.Dict:
 
     # Choose a random move from the best ones
     if (selected_move is None):
-      next_move = random.choice(best_move)
+        next_move = random.choice(best_move)
     else:
-      next_move = selected_move
+        next_move = selected_move
     print(
         f"MOVE {game_state['turn']}: {next_move}, SNAKE HEALTH: {game_state['you']['health']}")
     return {"move": next_move}
@@ -100,10 +100,14 @@ def move(game_state: typing.Dict) -> typing.Dict:
 # -----------------------------------------------------------------------------
 
 # Calculate the distance between the two entities
+
+
 def calculateDist(a, b):
     return abs(a["x"] - b["x"]) + abs(a["y"] - b["y"])
 
 # Prevents snake going backwards
+
+
 def preventBack(game_state, is_move_safe):
     my_head = game_state["you"]["body"][0]  # Coordinates of your head
     my_neck = game_state["you"]["body"][1]  # Coordinates of your "neck"
@@ -588,6 +592,22 @@ def makeMove(game_state, curr_snake_id, move):
     # Snake move to a cell with food
     elif (destination_cell == 1):
 
+        # Check if theres a competitor for the targeted food and if that comptetitor is bigger or equal size
+        directions = [[0, 1], [0, -1], [1, 0], [-1, 0]]
+        for dir in directions:
+            curr_x = head_x + dir[0]
+            curr_y = head_y + dir[1]
+            if (curr_x < 0 or curr_y < 0 or curr_x >= board_width or curr_y >= board_height or new_head_state[curr_y][curr_x] == curr_snake_id):
+                continue
+            if (new_head_state[curr_y][curr_x] not in [curr_snake_id, 0] and new_board_state[curr_y][curr_x] == 2):
+                _, other_snake_length, _, _, _ = findCurrentSnake(
+                    new_snake_state, new_head_state[curr_y][curr_x])
+                if (other_snake_length >= curr_snake_length):
+                    removeKilledSnake(new_board_state, new_head_state,
+                                      new_snake_state, curr_snake_index)
+                    
+                    return new_game_state
+
         # Snake moves forward and updates all coords in new game state
         moveForward(new_board_state, new_head_state, new_snake_state,
                     curr_snake_id, curr_snake_index, curr_snake_body, head_x, head_y, False)
@@ -766,10 +786,10 @@ def edgeKillValue(board_width, board_height, head_x, head_y, other_edge_snakes, 
 # Finds the closest smallest snake distance as well as returning head collision values
 def headCollisionInfo(game_state, head_x, head_y, curr_snake_size, curr_snake_id, main_snake_id):
     smallest_snake_distance = float("inf")
-    other_head_losing_weight = -500
-    main_head_losing_weight = 200
+    other_head_losing_weight = float("-inf")
+    main_head_losing_weight = 250
 
-    other_head_equal_weight = -300
+    other_head_equal_weight = float("-inf")
 
     for snake in game_state["snakes"]:
         curr_head_losing_weight = 0
@@ -779,7 +799,7 @@ def headCollisionInfo(game_state, head_x, head_y, curr_snake_size, curr_snake_id
         if (snake["id"] == curr_snake_id):
             continue
 
-        if (len(snake["body"]) < curr_snake_size):
+        if (len(snake["body"]) < curr_snake_size and (curr_snake_size - len(snake["body"])) > 1):
             curr_snake_distance = abs(
                 head_x - curr_head_x) + abs(head_y - curr_head_y)
             smallest_snake_distance = min(
@@ -798,6 +818,9 @@ def headCollisionInfo(game_state, head_x, head_y, curr_snake_size, curr_snake_id
             # If current snake size is equal
             elif (len(snake["body"]) == curr_snake_size):
                 curr_head_losing_weight = other_head_equal_weight
+            
+            # elif (curr_snake_size - len(snake["body"]) < 2):
+            #     curr_head_losing_weight = other_head_equal_weight
 
     return smallest_snake_distance, curr_head_losing_weight
 
@@ -965,7 +988,6 @@ def miniMax_value(game_state, safe_moves):
     if (best_move is not None):
         if (best_move in safe_moves):
             safe_moves[best_move] += result_value
-
 
     return best_move
 
