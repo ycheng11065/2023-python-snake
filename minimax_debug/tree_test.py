@@ -1,8 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from minimax import *
-import sys
-sys.path.append('/path/to/directory/containing/minimax.py')
+# import sys
+# sys.path.append('/path/to/directory/containing/minimax.py')
 
 
 class Node:
@@ -19,54 +19,22 @@ class Node:
 
 
 # The snake MiniMax algorithm
-def miniMaxTree(game_state, depth, curr_snake_id, main_snake_id, previous_snake_id, alpha, beta):
+def miniMaxTree(game_state, depth, curr_snake_id, main_snake_id, previous_snake_id, alpha, beta, current_turn):
     if (depth == 0 or isGameOver(game_state, previous_snake_id)):
         if (game_state == None):
 
             curr_root = Node(None)
             curr_root.turn = "end"
-            curr_root.curr_snake = curr_snake_id[-1]
-            curr_root.value = evaluatePoint(game_state, depth, main_snake_id, previous_snake_id)
-            return curr_root, curr_root.value
-        
-        curr_root = Node(game_state["board"]["state_board"])
-        curr_root.turn = game_state["turn"]
+
+        else:
+            curr_root = Node(game_state["board"]["state_board"])
+            curr_root.turn = game_state["turn"]
+
         curr_root.curr_snake = curr_snake_id[-1]
         curr_root.value = evaluatePoint(
-            game_state, depth, main_snake_id, previous_snake_id)
+            game_state, depth, main_snake_id, previous_snake_id, current_turn)
         return curr_root, curr_root.value
 
-    # when given game_state is over, return the current state point
-    if (game_state == None):
-        # Return -inf if our main snake dies, return inf if an opponent snake dies
-        if (previous_snake_id and previous_snake_id == main_snake_id):
-            # our snake killed itself last move
-            curr_root = Node(None)
-            curr_root.turn = "end"
-            curr_root.curr_snake = curr_snake_id[-1]
-            curr_root.value = float('-inf')
-            # print(curr_root.value)
-
-            return curr_root, curr_root.value
-        elif (previous_snake_id and previous_snake_id != main_snake_id):
-            # some other snake killed itself
-            curr_root = Node(None)
-            curr_root.turn = "end"
-            curr_root.curr_snake = curr_snake_id[-1]
-            curr_root.value = 200
-            # print(curr_root.value)
-
-            return curr_root, curr_root.value
-
-    if (depth == 0):
-        curr_root = Node(game_state["board"]["state_board"])
-        curr_root.turn = game_state["turn"]
-        curr_root.curr_snake = curr_snake_id[-1]
-        curr_root.value = evaluatePoint(
-            game_state, depth, main_snake_id, previous_snake_id)
-        # print(curr_root.value)
-
-        return curr_root, curr_root.value
 
     # get the id of the next snake that we're gonna minimax
     curr_index = 0
@@ -89,20 +57,19 @@ def miniMaxTree(game_state, depth, curr_snake_id, main_snake_id, previous_snake_
         for move in moves:
             new_game_state = makeMove(game_state, curr_snake_id, move)
             curr_node, curr_val = miniMaxTree(
-                new_game_state, depth - 1, next_snake_id, main_snake_id, curr_snake_id, alpha, beta)
+                new_game_state, depth - 1, next_snake_id, main_snake_id, curr_snake_id, alpha, beta, current_turn + 1)
 
             if (curr_val > highest_value):
                 best_move = move
                 highest_value = curr_val
 
-            # alpha = max(alpha, curr_val)
+            alpha = max(alpha, curr_val)
 
             if (alpha >= beta):
                 break
 
             print(best_move)
-
-                
+  
             if (move == "up"):
                 curr_root.up = curr_node
             elif (move == "down"):
@@ -128,19 +95,13 @@ def miniMaxTree(game_state, depth, curr_snake_id, main_snake_id, previous_snake_
         for move in moves:
             new_game_state = makeMove(game_state, curr_snake_id, move)
             curr_node, curr_val = miniMaxTree(
-                new_game_state, depth - 1, next_snake_id, main_snake_id, curr_snake_id, alpha, beta)
-
-            # print(f"Move: {move}, Current value: {curr_val}, Min value (before update): {min_value}")
+                new_game_state, depth - 1, next_snake_id, main_snake_id, curr_snake_id, alpha, beta, current_turn)
 
 
             if (curr_val < min_value):
                 best_move = move
                 min_value = curr_val
 
-            # print(best_move)
-            
-
-            # print(f"Min value (after update): {min_value}")
 
             beta = min(curr_val, beta)
 
@@ -166,16 +127,17 @@ def miniMaxTree(game_state, depth, curr_snake_id, main_snake_id, previous_snake_
 # Main function
 def createMinimaxTree(game_state, curr_snake_id):
     current_game_state = createGameState(game_state, curr_snake_id)
+    current_turn = game_state["turn"]
 
     depth = 3
 
     root, highest_value = miniMaxTree(
-        current_game_state, depth, curr_snake_id, curr_snake_id, None, float("-inf"), float("inf"))
-    # print(f"Minimax value: {result_value}, Best move: {best_move}")
+        current_game_state, depth, curr_snake_id, curr_snake_id, None, float("-inf"), float("inf"), current_turn)
 
     return root
 
 
+# Create a visual grid of the game board
 def format_grid(grid):
     formatted_rows = []
     for row in grid:
@@ -184,6 +146,7 @@ def format_grid(grid):
     return "\n".join(formatted_rows)
 
 
+# Creates a decision tree in matplotlib
 def draw_decision_tree(tree_root):
     def build_graph(node, graph, depth=0, x_offset=0, spacing_factor=1.5):
         nonlocal max_x
@@ -247,17 +210,20 @@ def draw_decision_tree(tree_root):
     plt.show()
 
 
+# Prints a grid of the game board
 def createGrid(state):
     for row in state:
         row = " ".join(str(el).rjust(2, ' ') for el in row)
         print(row)
 
 
-def foodSpawm(state, x, y):
+# Spawns food on the board
+def foodSpawn(state, x, y):
     board = state["board"]["board_state"]
     board[x][y] = 1
 
 
+# Main function
 def main():
     game_state = createGameState(
         current_game_state, 'gs_MDVyP6JTktJdwVbXjwSHTvrX')
