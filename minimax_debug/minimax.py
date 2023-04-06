@@ -14,7 +14,18 @@ current_game_state_prefer_go_to_edge = {'game': {'id': '548ddb37-6d65-4b84-a512-
 
 current_game_state_no_edge_kill = {'game': {'id': 'fb8fc6c9-b0c1-47fa-98a0-be05c74a52f6', 'ruleset': {'name': 'standard', 'version': 'v1.2.3', 'settings': {'foodSpawnChance': 15, 'minimumFood': 1, 'hazardDamagePerTurn': 0, 'hazardMap': '', 'hazardMapAuthor': '', 'royale': {'shrinkEveryNTurns': 0}, 'squad': {'allowBodyCollisions': False, 'sharedElimination': False, 'sharedHealth': False, 'sharedLength': False}}}, 'map': 'standard', 'timeout': 500, 'source': 'custom'}, 'turn': 97, 'board': {'height': 11, 'width': 11, 'snakes': [{'id': 'gs_KqmqqWkpwj4KbMgJpxQR7gbd', 'name': '2023_Test', 'latency': '184', 'health': 84, 'body': [{'x': 2, 'y': 1}, {'x': 3, 'y': 1}, {'x': 3, 'y': 2}, {'x': 4, 'y': 2}, {'x': 4, 'y': 3}, {'x': 5, 'y': 3}, {'x': 5, 'y': 2}, {'x': 5, 'y': 1}, {'x': 6, 'y': 1}, {'x': 7, 'y': 1}], 'head': {'x': 2, 'y': 1}, 'length': 10, 'shout': '', 'squad': '', 'customizations': {'color': '#4c0099', 'head': 'default', 'tail': 'default'}}, {'id': 'gs_gvgYbxYBJPx9hdCrF6yKJGX7', 'name': 'SSSSSSShark', 'latency': '72', 'health': 93, 'body': [{'x': 5, 'y': 0}, {'x': 6, 'y': 0}, {'x': 7, 'y': 0}, {'x': 8, 'y': 0}, {'x': 9, 'y': 0}, {'x': 10, 'y': 0}, {'x': 10, 'y': 1}, {'x': 9, 'y': 1}, {'x': 8, 'y': 1}, {'x': 8, 'y': 2}, {'x': 9, 'y': 2}, {'x': 9, 'y': 3}, {'x': 9, 'y': 4}], 'head': {'x': 5, 'y': 0}, 'length': 13, 'shout': '', 'squad': '', 'customizations': {'color': '#3399ff', 'head': 'do-sammy', 'tail': 'do-sammy'}}], 'food': [{'x': 0, 'y': 1}, {'x': 0, 'y': 3}, {'x': 8, 'y': 10}, {'x': 6, 'y': 8}, {'x': 5, 'y': 8}, {'x': 3, 'y': 10}, {'x': 7, 'y': 5}], 'hazards': []}, 'you': {'id': 'gs_KqmqqWkpwj4KbMgJpxQR7gbd', 'name': '2023_Test', 'latency': '184', 'health': 84, 'body': [{'x': 2, 'y': 1}, {'x': 3, 'y': 1}, {'x': 3, 'y': 2}, {'x': 4, 'y': 2}, {'x': 4, 'y': 3}, {'x': 5, 'y': 3}, {'x': 5, 'y': 2}, {'x': 5, 'y': 1}, {'x': 6, 'y': 1}, {'x': 7, 'y': 1}], 'head': {'x': 2, 'y': 1}, 'length': 10, 'shout': '', 'squad': '', 'customizations': {'color': '#4c0099', 'head': 'default', 'tail': 'default'}}}
 
-current_game_state = {'game': {'id': '37f560f5-08e9-4d0a-83b4-00490290c417', 'ruleset': {'name': 'standard', 'version': 'v1.2.3', 'settings': {'foodSpawnChance': 15, 'minimumFood': 1, 'hazardDamagePerTurn': 0, 'hazardMap': '', 'hazardMapAuthor': '', 'royale': {'shrinkEveryNTurns': 0}, 'squad': {'allowBodyCollisions': False, 'sharedElimination': False, 'sharedHealth': False, 'sharedLength': False}}}, 'map': 'standard', 'timeout': 500, 'source': 'custom'}, 'turn': 28, 'board': {'height': 11, 'width': 11, 'snakes': [{'id': 'gs_VqKFDxYGmWWWdXjSdhqScBT7', 'name': '2023_Test', 'latency': '153', 'health': 97, 'body': [{'x': 4, 'y': 10}, {'x': 5, 'y': 10}, {'x': 6, 'y': 10}, {'x': 6, 'y': 9}, {'x': 5, 'y': 9}, {'x': 5, 'y': 8}], 'head': {'x': 4, 'y': 10}, 'length': 6, 'shout': '', 'squad': '', 'customizations': {'color': '#00ff00', 'head': 'default', 'tail': 'default'}}, {'id': 'gs_mG99cYpP6WB8gjqGkfjYxTGb', 'name': 'Devious Devin', 'latency': '412', 'health': 92, 'body': [{'x': 3, 'y': 9}, {'x': 3, 'y': 8}, {'x': 3, 'y': 7}, {'x': 3, 'y': 6}, {'x': 3, 'y': 5}], 'head': {'x': 3, 'y': 9}, 'length': 5, 'shout': '', 'squad': '', 'customizations': {'color': '#99cc00', 'head': 'trans-rights-scarf', 'tail': 'rbc-necktie'}}], 'food': [{'x': 1, 'y': 10}, {'x': 0, 'y': 9}, {'x': 4, 'y': 2}], 'hazards': []}, 'you': {'id': 'gs_VqKFDxYGmWWWdXjSdhqScBT7', 'name': '2023_Test', 'latency': '153', 'health': 97, 'body': [{'x': 4, 'y': 10}, {'x': 5, 'y': 10}, {'x': 6, 'y': 10}, {'x': 6, 'y': 9}, {'x': 5, 'y': 9}, {'x': 5, 'y': 8}], 'head': {'x': 4, 'y': 10}, 'length': 6, 'shout': '', 'squad': '', 'customizations': {'color': '#00ff00', 'head': 'default', 'tail': 'default'}}}
+current_game_state_got_edge_killed = {'game': {'id': '37f560f5-08e9-4d0a-83b4-00490290c417', 'ruleset': {'name': 'standard', 'version': 'v1.2.3', 'settings': {'foodSpawnChance': 15, 'minimumFood': 1, 'hazardDamagePerTurn': 0, 'hazardMap': '', 'hazardMapAuthor': '', 'royale': {'shrinkEveryNTurns': 0}, 'squad': {'allowBodyCollisions': False, 'sharedElimination': False, 'sharedHealth': False, 'sharedLength': False}}}, 'map': 'standard', 'timeout': 500, 'source': 'custom'}, 'turn': 28, 'board': {'height': 11, 'width': 11, 'snakes': [{'id': 'gs_VqKFDxYGmWWWdXjSdhqScBT7', 'name': '2023_Test', 'latency': '153', 'health': 97, 'body': [{'x': 4, 'y': 10}, {'x': 5, 'y': 10}, {'x': 6, 'y': 10}, {'x': 6, 'y': 9}, {'x': 5, 'y': 9}, {'x': 5, 'y': 8}], 'head': {'x': 4, 'y': 10}, 'length': 6, 'shout': '', 'squad': '', 'customizations': {'color': '#00ff00', 'head': 'default', 'tail': 'default'}}, {'id': 'gs_mG99cYpP6WB8gjqGkfjYxTGb', 'name': 'Devious Devin', 'latency': '412', 'health': 92, 'body': [{'x': 3, 'y': 9}, {'x': 3, 'y': 8}, {'x': 3, 'y': 7}, {'x': 3, 'y': 6}, {'x': 3, 'y': 5}], 'head': {'x': 3, 'y': 9}, 'length': 5, 'shout': '', 'squad': '', 'customizations': {'color': '#99cc00', 'head': 'trans-rights-scarf', 'tail': 'rbc-necktie'}}], 'food': [{'x': 1, 'y': 10}, {'x': 0, 'y': 9}, {'x': 4, 'y': 2}], 'hazards': []}, 'you': {'id': 'gs_VqKFDxYGmWWWdXjSdhqScBT7', 'name': '2023_Test', 'latency': '153', 'health': 97, 'body': [{'x': 4, 'y': 10}, {'x': 5, 'y': 10}, {'x': 6, 'y': 10}, {'x': 6, 'y': 9}, {'x': 5, 'y': 9}, {'x': 5, 'y': 8}], 'head': {'x': 4, 'y': 10}, 'length': 6, 'shout': '', 'squad': '', 'customizations': {'color': '#00ff00', 'head': 'default', 'tail': 'default'}}}
+
+current_game_state_choose_two_deaths = {'game': {'id': 'fd647d38-d0a7-4321-a561-95bde13e4a8f', 'ruleset': {'name': 'standard', 'version': 'v1.2.3', 'settings': {'foodSpawnChance': 15, 'minimumFood': 1, 'hazardDamagePerTurn': 0, 'hazardMap': '', 'hazardMapAuthor': '', 'royale': {'shrinkEveryNTurns': 0}, 'squad': {'allowBodyCollisions': False, 'sharedElimination': False, 'sharedHealth': False, 'sharedLength': False}}}, 'map': 'standard', 'timeout': 500, 'source': 'custom'}, 'turn': 133, 'board': {'height': 11, 'width': 11, 'snakes': [{'id': 'gs_pVWdSGGWHjBMDQYMmR7WwXYX', 'name': '2023_Test', 'latency': '119', 'health': 98, 'body': [{'x': 9, 'y': 10}, {'x': 10, 'y': 10}, {'x': 10, 'y': 9}, {'x': 10, 'y': 8}, {'x': 10, 'y': 7}, {'x': 9, 'y': 7}, {'x': 8, 'y': 7}, {'x': 8, 'y': 8}, {'x': 8, 'y': 9}, {'x': 7, 'y': 9}, {'x': 7, 'y': 8}, {'x': 7, 'y': 7}, {'x': 7, 'y': 6}, {'x': 7, 'y': 5}], 'head': {'x': 9, 'y': 10}, 'length': 14, 'shout': '', 'squad': '', 'customizations': {'color': '#00ff00', 'head': 'default', 'tail': 'default'}}, {'id': 'gs_FmQky8jgVMkgdH9Kp4q6J3MW', 'name': 'Devious Devin', 'latency': '21', 'health': 89, 'body': [{'x': 4, 'y': 9}, {'x': 4, 'y': 8}, {'x': 4, 'y': 7}, {'x': 3, 'y': 7}, {'x': 3, 'y': 8}, {'x': 2, 'y': 8}, {'x': 2, 'y': 9}, {'x': 1, 'y': 9}, {'x': 1, 'y': 10}, {'x': 0, 'y': 10}, {'x': 0, 'y': 9}, {'x': 0, 'y': 8}, {'x': 1, 'y': 8}, {'x': 1, 'y': 7}, {'x': 1, 'y': 6}], 'head': {'x': 4, 'y': 9}, 'length': 15, 'shout': '', 'squad': '', 'customizations': {'color': '#99cc00', 'head': 'trans-rights-scarf', 'tail': 'rbc-necktie'}}], 'food': [{'x': 10, 'y': 1}, {'x': 4, 'y': 4}, {'x': 0, 'y': 7}, {'x': 1, 'y': 3}], 'hazards': []}, 'you': {'id': 'gs_pVWdSGGWHjBMDQYMmR7WwXYX', 'name': '2023_Test', 'latency': '119', 'health': 98, 'body': [{'x': 9, 'y': 10}, {'x': 10, 'y': 10}, {'x': 10, 'y': 9}, {'x': 10, 'y': 8}, {'x': 10, 'y': 7}, {'x': 9, 'y': 7}, {'x': 8, 'y': 7}, {'x': 8, 'y': 8}, {'x': 8, 'y': 9}, {'x': 7, 'y': 9}, {'x': 7, 'y': 8}, {'x': 7, 'y': 7}, {'x': 7, 'y': 6}, {'x': 7, 'y': 5}], 'head': {'x': 9, 'y': 10}, 'length': 14, 'shout': '', 'squad': '', 'customizations': {'color': '#00ff00', 'head': 'default', 'tail': 'default'}}}
+
+current_game_state_going_towards_head = {'game': {'id': '5ee1f7ce-b204-46cc-93a8-74a7e81aa4e5', 'ruleset': {'name': 'standard', 'version': 'v1.2.3', 'settings': {'foodSpawnChance': 15, 'minimumFood': 1, 'hazardDamagePerTurn': 0, 'hazardMap': '', 'hazardMapAuthor': '', 'royale': {'shrinkEveryNTurns': 0}, 'squad': {'allowBodyCollisions': False, 'sharedElimination': False, 'sharedHealth': False, 'sharedLength': False}}}, 'map': 'standard', 'timeout': 500, 'source': 'custom'}, 'turn': 160, 'board': {'height': 11, 'width': 11, 'snakes': [{'id': 'gs_R9TPDVCWqkDrxSyvMpBCJbMR', 'name': '2023_Test', 'latency': '264', 'health': 77, 'body': [{'x': 4, 'y': 6}, {'x': 4, 'y': 5}, {'x': 4, 'y': 4}, {'x': 4, 'y': 3}, {'x': 4, 'y': 2}, {'x': 5, 'y': 2}, {'x': 5, 'y': 1}, {'x': 6, 'y': 1}, {'x': 6, 'y': 2}, {'x': 6, 'y': 3}, {'x': 6, 'y': 4}, {'x': 6, 'y': 5}, {'x': 6, 'y': 6}], 'head': {'x': 4, 'y': 6}, 'length': 13, 'shout': '', 'squad': '', 'customizations': {'color': '#00ff00', 'head': 'default', 'tail': 'default'}}, {'id': 'gs_JvMGJ4DYBqRB4x89GwVyRJWC', 'name': 'Devious Devin', 'latency': '414', 'health': 91, 'body': [{'x': 6, 'y': 8}, {'x': 7, 'y': 8}, {'x': 8, 'y': 8}, {'x': 8, 'y': 7}, {'x': 8, 'y': 6}, {'x': 8, 'y': 5}, {'x': 8, 'y': 4}, {'x': 9, 'y': 4}, {'x': 9, 'y': 5}, {'x': 9, 'y': 6}, {'x': 10, 'y': 6}, {'x': 10, 'y': 5}, {'x': 10, 'y': 4}, {'x': 10, 'y': 3}, {'x': 10, 'y': 2}, {'x': 10, 'y': 1}, {'x': 9, 'y': 1}], 'head': {'x': 6, 'y': 8}, 'length': 17, 'shout': '', 'squad': '', 'customizations': {'color': '#99cc00', 'head': 'trans-rights-scarf', 'tail': 'rbc-necktie'}}], 'food': [{'x': 0, 'y': 5}, {'x': 0, 'y': 0}, {'x': 4, 'y': 10}, {'x': 10, 'y': 10}], 'hazards': []}, 'you': {'id': 'gs_R9TPDVCWqkDrxSyvMpBCJbMR', 'name': '2023_Test', 'latency': '264', 'health': 77, 'body': [{'x': 4, 'y': 6}, {'x': 4, 'y': 5}, {'x': 4, 'y': 4}, {'x': 4, 'y': 3}, {'x': 4, 'y': 2}, {'x': 5, 'y': 2}, {'x': 5, 'y': 1}, {'x': 6, 'y': 1}, {'x': 6, 'y': 2}, {'x': 6, 'y': 3}, {'x': 6, 'y': 4}, {'x': 6, 'y': 5}, {'x': 6, 'y': 6}], 'head': {'x': 4, 'y': 6}, 'length': 13, 'shout': '', 'squad': '', 'customizations': {'color': '#00ff00', 'head': 'default', 'tail': 'default'}}}
+
+current_game_state_going_to_dead_end2 = {'game': {'id': '33d41a07-33a6-4825-9ca8-095df2f91efa', 'ruleset': {'name': 'standard', 'version': 'v1.2.3', 'settings': {'foodSpawnChance': 15, 'minimumFood': 1, 'hazardDamagePerTurn': 0, 'hazardMap': '', 'hazardMapAuthor': '', 'royale': {'shrinkEveryNTurns': 0}, 'squad': {'allowBodyCollisions': False, 'sharedElimination': False, 'sharedHealth': False, 'sharedLength': False}}}, 'map': 'standard', 'timeout': 500, 'source': 'custom'}, 'turn': 384, 'board': {'height': 11, 'width': 11, 'snakes': [{'id': 'gs_9WJ7qRm37TPBVqtf6x3yYmkQ', 'name': 'vecna_2', 'latency': '402', 'health': 81, 'body': [{'x': 5, 'y': 3}, {'x': 5, 'y': 2}, {'x': 5, 'y': 1}, {'x': 6, 'y': 1}, {'x': 7, 'y': 1}, {'x': 7, 'y': 0}, {'x': 8, 'y': 0}, {'x': 9, 'y': 0}, {'x': 10, 'y': 0}, {'x': 10, 'y': 1}, {'x': 10, 'y': 2}, {'x': 10, 'y': 3}, {'x': 9, 'y': 3}, {'x': 9, 'y': 2}, {'x': 9, 'y': 1}, {'x': 8, 'y': 1}, {'x': 8, 'y': 2}, {'x': 8, 'y': 3}, {'x': 8, 'y': 4}, {'x': 9, 'y': 4}, {'x': 9, 'y': 5}, {'x': 9, 'y': 6}, {'x': 9, 'y': 7}, {'x': 9, 'y': 8}, {'x': 9, 'y': 9}, {'x': 9, 'y': 10}, {'x': 8, 'y': 10}, {'x': 8, 'y': 9}, {'x': 7, 'y': 9}], 'head': {'x': 5, 'y': 3}, 'length': 29, 'shout': '', 'squad': '', 'customizations': {'color': '#bbadff', 'head': 'safe', 'tail': 'nr-booster'}}, {'id': 'gs_yMpYqhJ8Hr7QPc8mcSqpXFPH', 'name': 'Devious Devin', 'latency': '414', 'health': 97, 'body': [{'x': 6, 'y': 6}, {'x': 6, 'y': 5}, {'x': 5, 'y': 5}, {'x': 5, 'y': 4}, {'x': 4, 'y': 4}, {'x': 3, 'y': 4}, {'x': 2, 'y': 4}, {'x': 1, 'y': 4}, {'x': 1, 'y': 3}, {'x': 0, 'y': 3}, {'x': 0, 'y': 4}, {'x': 0, 'y': 5}, {'x': 0, 'y': 6}, {'x': 0, 'y': 7}, {'x': 1, 'y': 7}, {'x': 1, 'y': 6}, {'x': 2, 'y': 6}, {'x': 2, 'y': 7}, {'x': 2, 'y': 8}, {'x': 2, 'y': 9}, {'x': 3, 'y': 9}, {'x': 4, 'y': 9}, {'x': 4, 'y': 10}, {'x': 5, 'y': 10}, {'x': 5, 'y': 9}, {'x': 6, 'y': 9}, {'x': 6, 'y': 8}, {'x': 5, 'y': 8}, {'x': 4, 'y': 8}], 'head': {'x': 6, 'y': 6}, 'length': 29, 'shout': '', 'squad': '', 'customizations': {'color': '#99cc00', 'head': 'trans-rights-scarf', 'tail': 'rbc-necktie'}}], 'food': [{'x': 3, 'y': 10}], 'hazards': []}, 'you': {'id': 'gs_9WJ7qRm37TPBVqtf6x3yYmkQ', 'name': 'vecna_2', 'latency': '402', 'health': 81, 'body': [{'x': 5, 'y': 3}, {'x': 5, 'y': 2}, {'x': 5, 'y': 1}, {'x': 6, 'y': 1}, {'x': 7, 'y': 1}, {'x': 7, 'y': 0}, {'x': 8, 'y': 0}, {'x': 9, 'y': 0}, {'x': 10, 'y': 0}, {'x': 10, 'y': 1}, {'x': 10, 'y': 2}, {'x': 10, 'y': 3}, {'x': 9, 'y': 3}, {'x': 9, 'y': 2}, {'x': 9, 'y': 1}, {'x': 8, 'y': 1}, {'x': 8, 'y': 2}, {'x': 8, 'y': 3}, {'x': 8, 'y': 4}, {'x': 9, 'y': 4}, {'x': 9, 'y': 5}, {'x': 9, 'y': 6}, {'x': 9, 'y': 7}, {'x': 9, 'y': 8}, {'x': 9, 'y': 9}, {'x': 9, 'y': 10}, {'x': 8, 'y': 10}, {'x': 8, 'y': 9}, {'x': 7, 'y': 9}], 'head': {'x': 5, 'y': 3}, 'length': 29, 'shout': '', 'squad': '', 'customizations': {'color': '#bbadff', 'head': 'safe', 'tail': 'nr-booster'}}}
+
+current_game_state_odd_behavior = {'game': {'id': '6a29dc3c-a252-43a2-90fb-c210e449635e', 'ruleset': {'name': 'standard', 'version': 'v1.2.3', 'settings': {'foodSpawnChance': 15, 'minimumFood': 1, 'hazardDamagePerTurn': 0, 'hazardMap': '', 'hazardMapAuthor': '', 'royale': {'shrinkEveryNTurns': 0}, 'squad': {'allowBodyCollisions': False, 'sharedElimination': False, 'sharedHealth': False, 'sharedLength': False}}}, 'map': 'standard', 'timeout': 500, 'source': 'custom'}, 'turn': 1, 'board': {'height': 11, 'width': 11, 'snakes': [{'id': 'gs_pT6hKmtcVPDpV8GKf8b4QpgX', 'name': 'vecna_2', 'latency': '346', 'health': 99, 'body': [{'x': 1, 'y': 2}, {'x': 1, 'y': 1}, {'x': 1, 'y': 1}], 'head': {'x': 1, 'y': 2}, 'length': 3, 'shout': '', 'squad': '', 'customizations': {'color': '#bbadff', 'head': 'safe', 'tail': 'nr-booster'}}, {'id': 'gs_gtM3VhWyx3R78j64hkDFKBJT', 'name': 'Devious Devin', 'latency': '465', 'health': 99, 'body': [{'x': 9, 'y': 2}, {'x': 9, 'y': 1}, {'x': 9, 'y': 1}], 'head': {'x': 9, 'y': 2}, 'length': 3, 'shout': '', 'squad': '', 'customizations': {'color': '#99cc00', 'head': 'trans-rights-scarf', 'tail': 'rbc-necktie'}}, {'id': 'gs_GT7fF8X8QpV8CtFvjFJ9KbKB', 'name': 'CoolSnake!', 'latency': '90', 'health': 99, 'body': [{'x': 10, 'y': 9}, {'x': 9, 'y': 9}, {'x': 9, 'y': 9}], 'head': {'x': 10, 'y': 9}, 'length': 3, 'shout': '', 'squad': '', 'customizations': {'color': '#4bc754', 'head': 'tongue', 'tail': 'sharp'}}, {'id': 'gs_k8XRpGhRXPhKtvh3XwwQ8mhc', 'name': 'Golden', 'latency': '78', 'health': 99, 'body': [{'x': 1, 'y': 10}, {'x': 1, 'y': 9}, {'x': 1, 'y': 9}], 'head': {'x': 1, 'y': 10}, 'length': 3, 'shout': '', 'squad': '', 'customizations': {'color': '#ffd700', 'head': 'all-seeing', 'tail': 'mlh-gene'}}], 'food': [{'x': 0, 'y': 2}, {'x': 10, 'y': 2}, {'x': 10, 'y': 8}, {'x': 2, 'y': 10}, {'x': 5, 'y': 5}], 'hazards': []}, 'you': {'id': 'gs_pT6hKmtcVPDpV8GKf8b4QpgX', 'name': 'vecna_2', 'latency': '346', 'health': 99, 'body': [{'x': 1, 'y': 2}, {'x': 1, 'y': 1}, {'x': 1, 'y': 1}], 'head': {'x': 1, 'y': 2}, 'length': 3, 'shout': '', 'squad': '', 'customizations': {'color': '#bbadff', 'head': 'safe', 'tail': 'nr-booster'}}}
+
+current_game_state = {'game': {'id': 'ac2971a3-9903-47ca-ad65-cecf344023c0', 'ruleset': {'name': 'standard', 'version': 'v1.2.3', 'settings': {'foodSpawnChance': 15, 'minimumFood': 1, 'hazardDamagePerTurn': 0, 'hazardMap': '', 'hazardMapAuthor': '', 'royale': {'shrinkEveryNTurns': 0}, 'squad': {'allowBodyCollisions': False, 'sharedElimination': False, 'sharedHealth': False, 'sharedLength': False}}}, 'map': 'standard', 'timeout': 500, 'source': 'custom'}, 'turn': 177, 'board': {'height': 11, 'width': 11, 'snakes': [{'id': 'gs_DxGvq6qThWRTtDQSyM69yTbQ', 'name': '2023_Test', 'latency': '138', 'health': 73, 'body': [{'x': 5, 'y': 4}, {'x': 5, 'y': 3}, {'x': 4, 'y': 3}, {'x': 4, 'y': 2}, {'x': 3, 'y': 2}, {'x': 3, 'y': 1}, {'x': 3, 'y': 0}, {'x': 2, 'y': 0}, {'x': 1, 'y': 0}, {'x': 0, 'y': 0}, {'x': 0, 'y': 1}, {'x': 0, 'y': 2}, {'x': 0, 'y': 3}, {'x': 0, 'y': 4}, {'x': 1, 'y': 4}], 'head': {'x': 5, 'y': 4}, 'length': 15, 'shout': '', 'squad': '', 'customizations': {'color': '#00ff00', 'head': 'default', 'tail': 'default'}}, {'id': 'gs_jCyPKgt98XDMwVFJ7MM96tmG', 'name': 'Devious Devin', 'latency': '413', 'health': 68, 'body': [{'x': 5, 'y': 8}, {'x': 5, 'y': 7}, {'x': 5, 'y': 6}, {'x': 4, 'y': 6}, {'x': 4, 'y': 7}, {'x': 3, 'y': 7}, {'x': 3, 'y': 6}, {'x': 3, 'y': 5}, {'x': 3, 'y': 4}, {'x': 2, 'y': 4}, {'x': 2, 'y': 5}, {'x': 2, 'y': 6}, {'x': 2, 'y': 7}, {'x': 2, 'y': 8}, {'x': 3, 'y': 8}, {'x': 4, 'y': 8}], 'head': {'x': 5, 'y': 8}, 'length': 16, 'shout': '', 'squad': '', 'customizations': {'color': '#99cc00', 'head': 'trans-rights-scarf', 'tail': 'rbc-necktie'}}], 'food': [{'x': 10, 'y': 8}, {'x': 0, 'y': 8}, {'x': 1, 'y': 6}], 'hazards': []}, 'you': {'id': 'gs_DxGvq6qThWRTtDQSyM69yTbQ', 'name': '2023_Test', 'latency': '138', 'health': 73, 'body': [{'x': 5, 'y': 4}, {'x': 5, 'y': 3}, {'x': 4, 'y': 3}, {'x': 4, 'y': 2}, {'x': 3, 'y': 2}, {'x': 3, 'y': 1}, {'x': 3, 'y': 0}, {'x': 2, 'y': 0}, {'x': 1, 'y': 0}, {'x': 0, 'y': 0}, {'x': 0, 'y': 1}, {'x': 0, 'y': 2}, {'x': 0, 'y': 3}, {'x': 0, 'y': 4}, {'x': 1, 'y': 4}], 'head': {'x': 5, 'y': 4}, 'length': 15, 'shout': '', 'squad': '', 'customizations': {'color': '#00ff00', 'head': 'default', 'tail': 'default'}}}
+
 
 current_game_state1 = {
     'game': {
@@ -699,7 +710,7 @@ def headCollisionInfo(game_state, head_x, head_y, curr_snake_size, curr_snake_id
                 smallest_snake_distance, curr_snake_distance)
 
         # If current snake size is smaller or equal
-        if ((abs(head_x - curr_head_x) + abs(head_y - curr_head_y) < 2)):
+        if ((abs(head_x - curr_head_x) + abs(head_y - curr_head_y) < 1)):
             
             # If current snake size is smaller
             if (len(snake["body"]) > curr_snake_size):
@@ -725,12 +736,15 @@ def evaluatePoint(game_state, depth, main_snake_id, curr_snake_id):
 
     opponent_death_weight = float("inf")
     available_space_weight = 0.5
-    outer_bound_weight = -15
-    center_control_weight = 10
+    outer_bound_weight = -10
+    center_control_weight = 5
     head_kill_weight = 50
-    food_weight = 20
+    food_weight = 25
     snake_size_weight = 15
 
+  
+    danger_health_penalty = -120
+    low_health_penalty = -60
 
     # If the game state given somehow does not exist
     if (game_state is None):
@@ -752,29 +766,28 @@ def evaluatePoint(game_state, depth, main_snake_id, curr_snake_id):
     board_height = len(board_state)
 
     # Find current snake as well as average snake size and snakes that are on the edge
-    curr_snake_head, curr_snake_body, curr_snake_tail, curr_snake_size, curr_snake_health, average_snake_size, other_edge_snakes = snakeInfoLoop(
+    curr_snake_head, curr_snake_body, curr_snake_tail, curr_snake_size, curr_snake_health, biggest_size, other_edge_snakes = snakeInfoLoop(
         game_state, curr_snake_id, board_width, board_height)
+
+  
+    # Lowers score if snake's health is getting too low
+    if (curr_snake_health < 20):
+        curr_weight += danger_health_penalty
+    elif (curr_snake_health < 35):
+        curr_weight += low_health_penalty
+
+    if (len(game_state["snakes"]) > 2):
+        center_control_weight = 0
     
-    if (len(game_state["snakes"]) == 4):
-        head_kill_weight = 30
-        food_weight = 25
-
-    if (len(game_state["snakes"]) == 2):
-        outer_bound_weight = -13
-
-    if (curr_snake_size >= 25):
-        snake_size_weight = 10
-
   
     # Add weight the bigger the snake is, currently + 15 for each growth
     curr_weight += curr_snake_size * snake_size_weight
-
 
     # FloodFill determines available space for current snake to move, add space weight
     available_space, is_tail_reachable = floodFill(game_state, curr_snake_head, curr_snake_body, curr_snake_tail)
     curr_weight += available_space * available_space_weight
 
-    if (available_space < curr_snake_size // 2 and not is_tail_reachable):
+    if (available_space < curr_snake_size // 1.5 and not is_tail_reachable):
       return float("-inf")
 
     # Current snake head coordinates
@@ -789,11 +802,11 @@ def evaluatePoint(game_state, depth, main_snake_id, curr_snake_id):
     # Prevent us from being edge killed
     curr_weight += edgeKillDanger(board_state, board_width, board_height, head_x, head_y, main_snake_id)
 
-    # Add the edge kill weight
+     # # Add the edge kill weight
     edge_kill_weight = edgeKillValue(board_state, board_width, board_height,
                                  head_x, head_y, other_edge_snakes, main_snake_id)
     if (edge_kill_weight > 0):
-        outer_bound_weight = 0
+      outer_bound_weight = 0
     curr_weight += edge_kill_weight
 
     # # # Add weight if snake is on edge of board
@@ -806,16 +819,21 @@ def evaluatePoint(game_state, depth, main_snake_id, curr_snake_id):
 
     smallest_snake_distance, head_collision_value = headCollisionInfo(
         game_state, head_x, head_y, curr_snake_size, curr_snake_id, main_snake_id)
-    
+
+    if (curr_snake_size - biggest_size > 0):
+      curr_size_diff = curr_snake_size - biggest_size
+    else:
+      curr_size_diff = 1
+  
     curr_weight += head_collision_value
-    curr_weight += head_kill_weight / (smallest_snake_distance + 1)
+    curr_weight += (head_kill_weight * curr_size_diff) / (smallest_snake_distance + 1)
 
     # curr_weight *= depth_discount_factor * depth
     if (curr_snake_id == main_snake_id):
         return curr_weight
     else:
         return curr_weight * -1
-
+    
 
 # The snake MiniMax algorithm
 def miniMax(game_state, depth, curr_snake_id, main_snake_id, previous_snake_id, return_move, alpha, beta):

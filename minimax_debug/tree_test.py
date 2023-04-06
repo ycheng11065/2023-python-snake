@@ -237,7 +237,7 @@ def draw_decision_tree(tree_root):
 
     plt.rcParams["font.size"] = 1
     plt.figure(figsize=(max_x, int(max_depth * max_depth *
-               sibling_spacing * (1.5 ** max_depth) / 30)))
+               sibling_spacing * (1.5 ** max_depth) / 50)))
     plt.rcParams['font.family'] = 'monospace'
     nx.draw(graph, pos, with_labels=False,
             node_size=5000, node_color='lightblue')

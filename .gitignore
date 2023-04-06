@@ -2,3 +2,4 @@ __pycache__/
 venv/
 .breakpoints/
 .replit/
+minimax_debug/__pycache__/
