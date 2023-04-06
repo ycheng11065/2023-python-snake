@@ -793,6 +793,8 @@ def edgeKillDanger(board_state, board_width, board_height, head_x, head_y, main_
     elif (head_y == board_height - 1):
         if (not isSafeCell(board_state, head_x, head_y - 1, safe_cells)):
             return edge_kill_danger_weight
+        
+    return 0
 
 
 # Return edge kill value of current snake

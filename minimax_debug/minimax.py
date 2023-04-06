@@ -586,6 +586,38 @@ def isOnEdgeBorder(head_x, head_y, board_height, board_width):
     return (head_x == 1 or head_y == 1 or head_x == board_width - 2 or head_y == board_height - 2)
 
 
+# Determines if the provided cell is a safe_cell
+def isSafeCell(board_state, x, y, safe_cells):
+    return board_state[y][x] in safe_cells
+
+
+# Prevents our snake from being in a position that i will get itself edge killed
+def edgeKillDanger(board_state, board_width, board_height, head_x, head_y, main_snake_id):
+    edge_kill_danger_weight = -400
+    safe_cells = [0,1, main_snake_id]
+
+    if (not isOnEdge(head_x, head_y, board_height, board_width)):
+        return 0
+    
+    if (head_x == 0):
+        if (not isSafeCell(board_state, head_x + 1, head_y, safe_cells)):
+            return edge_kill_danger_weight
+
+    elif (head_x == board_width - 1):
+        if (not isSafeCell(board_state, head_x - 1, head_y, safe_cells)):
+            return edge_kill_danger_weight
+
+    elif (head_y == 0):
+        if (not isSafeCell(board_state, head_x, head_y + 1, safe_cells)):
+            return edge_kill_danger_weight
+
+    elif (head_y == board_height - 1):
+        if (not isSafeCell(board_state, head_x, head_y - 1, safe_cells)):
+            return edge_kill_danger_weight
+        
+    return 0
+
+
 # Return edge kill value of current snake
 def edgeKillValue(board_state, board_width, board_height, head_x, head_y, other_edge_snakes, main_snake_id):
     main_snake_edge_kill_weight = -5000
@@ -754,10 +786,14 @@ def evaluatePoint(game_state, depth, main_snake_id, curr_snake_id):
         board_state, board_width, board_height, head_x, head_y)
     curr_weight += food_weight/(closest_food_distance + 1)
 
-     # # Add the edge kill weight
+    # Prevent us from being edge killed
+    curr_weight += edgeKillDanger(board_state, board_width, board_height, head_x, head_y, main_snake_id)
+
+    # Add the edge kill weight
     edge_kill_weight = edgeKillValue(board_state, board_width, board_height,
                                  head_x, head_y, other_edge_snakes, main_snake_id)
-    outer_bound_weight = 0
+    if (edge_kill_weight > 0):
+        outer_bound_weight = 0
     curr_weight += edge_kill_weight
 
     # # # Add weight if snake is on edge of board
