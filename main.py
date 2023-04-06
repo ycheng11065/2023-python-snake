@@ -795,7 +795,6 @@ def edgeKillDanger(board_state, board_width, board_height, head_x, head_y, main_
             return edge_kill_danger_weight
 
 
-
 # Return edge kill value of current snake
 def edgeKillValue(board_state, board_width, board_height, head_x, head_y, other_edge_snakes, main_snake_id):
     main_snake_edge_kill_weight = -5000
@@ -964,10 +963,14 @@ def evaluatePoint(game_state, depth, main_snake_id, curr_snake_id):
         board_state, board_width, board_height, head_x, head_y)
     curr_weight += food_weight/(closest_food_distance + 1)
 
-     # # Add the edge kill weight
+    # Prevent us from being edge killed
+    curr_weight += edgeKillDanger(board_state, board_width, board_height, head_x, head_y, main_snake_id)
+
+    # Add the edge kill weight
     edge_kill_weight = edgeKillValue(board_state, board_width, board_height,
                                  head_x, head_y, other_edge_snakes, main_snake_id)
-    outer_bound_weight = 0
+    if (edge_kill_weight > 0):
+        outer_bound_weight = 0
     curr_weight += edge_kill_weight
 
     # # # Add weight if snake is on edge of board
