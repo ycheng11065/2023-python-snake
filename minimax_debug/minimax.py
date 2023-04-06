@@ -737,7 +737,7 @@ def evaluatePoint(game_state, depth, main_snake_id, curr_snake_id):
     curr_weight += curr_snake_size * snake_size_weight
 
 
-    # # FloodFill determines available space for current snake to move, add space weight
+    # FloodFill determines available space for current snake to move, add space weight
     available_space, is_tail_reachable = floodFill(game_state, curr_snake_head, curr_snake_body, curr_snake_tail)
     curr_weight += available_space * available_space_weight
 
