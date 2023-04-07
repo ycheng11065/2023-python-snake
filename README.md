@@ -1,20 +1,35 @@
-# Battlesnake Python Starter Project
+# Minimax BattleSnake Ai built with Python
 
-### An official Battlesnake template written in Python. Get started at [play.battlesnake.com](https://play.battlesnake.com).
+- Snake built for the 2023 spring RBC BattleSnake competition, second place winner
+- Reached 20th in global standard ladder and 24th in duels
+- Snake uses paranoid Minimax algorithm with alpha-beta pruning for decision making, allowing the Ai to have up to 7 steps look ahead
+- Behavior is determined by heuristics, such as using flood fill to score each possible outcome
 
-![Battlesnake Logo](https://media.battlesnake.com/social/StarterSnakeGitHubRepos_Python.png)
 
-This project is a great starting point for anyone wanting to program their first Battlesnake in Python. It can be run locally or easily deployed to a cloud provider of your choosing. See the [Battlesnake API Docs](https://docs.battlesnake.com/api) for more detail. 
+# About Snake
+- The name of the snake is Orion's Fang, inspired by the Orion constellation
+- Orion's Fang is an aggressive but rational snake, quite experienced in area control and edge killing
+- Can often overthink and panic, killing itself in the process
 
-## Technologies Used
+![Project Image](image/orion_Fang.png)
 
-This project uses [Python 3](https://www.python.org/) and [Flask](https://flask.palletsprojects.com/).
+> Orion's Fang's area control capabilities
 
-## Run Your Battlesnake
+# Debugging Process
+- Debugging the Minimax decision tree using simple debuggers proved to be a nightmare, so it was decided that a visual representation of the tree was needed
+- The visual decision tree given a game state, render all possible game state of each snakes up to the max depth 
+- The game boards are displayed as board with 0 being empty cells, 1 being food, 2 being snake head and letters to represent snake body
+- Each possible game state is assigned a value and a chosen move which will be moved upwards for the root game state to choose
 
-1. Click the green 'Run' button to start your Battlesnake.
-2. Use your repl.co URL to register your Battlesnake and play games on [play.battlesnake.com](https://play.battlesnake.com).
+![Project Image](image/minimax_visual.png)
 
-## Next Steps
+> The visual tree at depth 2
 
-Continue with the [Battlesnake Quickstart Guide](https://docs.battlesnake.com/quickstart) to customize and improve your Battlesnake's behavior.
+# Technology used
+ - Coded with Python 3, libraries such as Matplotlib and Networkx were used for creating the visual decision tree
+ - Deployed using DigitalOcean
+
+
+
+
+

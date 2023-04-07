@@ -129,7 +129,7 @@ def createMinimaxTree(game_state, curr_snake_id):
     current_game_state = createGameState(game_state, curr_snake_id)
     current_turn = game_state["turn"]
 
-    depth = 3
+    depth = 2
 
     root, highest_value = miniMaxTree(
         current_game_state, depth, curr_snake_id, curr_snake_id, None, float("-inf"), float("inf"), current_turn)
