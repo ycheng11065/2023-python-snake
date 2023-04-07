@@ -11,7 +11,7 @@
 - Orion's Fang is an aggressive but rational snake, quite experienced in area control and edge killing
 - Can often overthink and panic, killing itself in the process
 
-![Project Image](image/orion_Fang.png)
+![Project Image](image/orion_fang.png)
 
 > Orion's Fang's area control capabilities
 
