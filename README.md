@@ -1,7 +1,7 @@
 # Minimax BattleSnake Ai built with Python
 
 - Snake built for the 2023 spring RBC BattleSnake competition, second place winner
-- Reached 20th in global standard ladder and 24th in duels
+- Reached 16th in global standard ladder and 20th in duels
 - Snake uses paranoid Minimax algorithm with alpha-beta pruning for decision making, allowing the Ai to have up to 7 steps look ahead
 - Behavior is determined by heuristics, such as using flood fill to score each possible outcome
 
