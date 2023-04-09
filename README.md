@@ -13,7 +13,7 @@
 
 ![Project Image](image/orion_fang.png)
 
-> Orion's Fang's area control capabilities
+> Orion's Fang showing his area control capabilities against CoolSnake!
 
 # Debugging Process
 - Debugging the Minimax decision tree using simple debuggers proved to be a nightmare, so it was decided that a visual representation of the tree was needed
