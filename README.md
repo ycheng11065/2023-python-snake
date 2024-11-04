@@ -1,4 +1,4 @@
-# Minimax BattleSnake Ai built with Python
+# Minimax BattleSnake AI built with Python
 
 ![battlesnake](https://github.com/user-attachments/assets/a295f814-f5bf-4487-9980-3dab184069b2)
 
