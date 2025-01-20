@@ -3,7 +3,7 @@
 ![battlesnake](https://github.com/user-attachments/assets/a295f814-f5bf-4487-9980-3dab184069b2)
 
 Orion's Fang was crafted for the 2023 RBC BattleSnake competition, where it secured second place. This competitive snake reached the 16th spot in the global standard ladder and 17th in duels. 
-Guided by a paranoid Minimax algorithm with alpha-beta pruning, it analyzes up to 7 steps ahead, making calculated moves based on heuristics such as flood fill and edge control scoring.
+Guided by a paranoid Minimax algorithm and optimized with alpha-beta pruning, it analyzes up to 7 steps ahead, making calculated moves based on heuristics such as flood fill and edge control scoring.
 
 ## About Orion's Fang
 
