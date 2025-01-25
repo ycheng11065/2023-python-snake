@@ -22,7 +22,7 @@ Debugging the Minimax decision tree with standard tools proved challenging, prom
 > The visual tree at depth 2
 
 # Technology used
- - Coded with Python 3, libraries such as Matplotlib and Networkx were used for creating the visual decision tree
+ - Coded with Python, libraries such as Matplotlib and Networkx were used for creating the visual decision tree
  - Deployed using DigitalOcean
 
 
